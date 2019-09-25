@@ -1,6 +1,5 @@
-Class {
-	#name : #SeaGraNode,
-	#superclass : #Object,
+Trait {
+	#name : #SeaGraTNode,
 	#instVars : [
 		'incoming',
 		'outgoing'
@@ -9,12 +8,12 @@ Class {
 }
 
 { #category : #enumerating }
-SeaGraNode >> allEdges [
+SeaGraTNode >> allEdges [
 	^ self allNodes flatCollect: #outgoing
 ]
 
 { #category : #enumerating }
-SeaGraNode >> allNodes [
+SeaGraTNode >> allNodes [
 	| whites blacks |
 	whites := Set with: self.
 	blacks := Set new.
@@ -29,41 +28,24 @@ SeaGraNode >> allNodes [
 	^ blacks
 ]
 
-{ #category : #converting }
-SeaGraNode >> asElement [
-	^ BlElement new
-		geometry: BlCircle new;
-		size: 25 @ 25;
-		background: Color black;
-		yourself
-]
-
-{ #category : #converting }
-SeaGraNode >> asGraph [
-	^ SeaGraGraph nodes: self allNodes edges: self allEdges
-]
-
 { #category : #accessing }
-SeaGraNode >> incoming [
+SeaGraTNode >> incoming [
 	^ incoming
-]
-
-{ #category : #initialization }
-SeaGraNode >> initialize [
-	super initialize.
-	incoming := CollectionValueHolder value: Set new.
-	outgoing := CollectionValueHolder value: Set new.
-	incoming whenAddedDo: [ :e | self assert: [ e target == self ] ].
-	outgoing whenAddedDo: [ :e | self assert: [ e source == self ] ]
+		ifNil: [ incoming := (CollectionValueHolder value: Set new)
+				whenAddedDo: [ :e | self assert: [ e target == self ] ];
+				yourself ]
 ]
 
 { #category : #accessing }
-SeaGraNode >> outgoing [
+SeaGraTNode >> outgoing [
 	^ outgoing
+		ifNil: [ outgoing := (CollectionValueHolder value: Set new)
+				whenAddedDo: [ :e | self assert: [ e source == self ] ];
+				yourself ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaGraNode >> seaGraGtGraphFor: aView [
+SeaGraTNode >> seaGraGtGraphFor: aView [
 	<gtView>
 	^ aView mondrian
 		title: 'Graph';
@@ -71,7 +53,7 @@ SeaGraNode >> seaGraGtGraphFor: aView [
 		painting: [ :m | 
 			| nodes edges |
 			nodes := self allNodes.
-			edges := nodes flatCollect: #outgoing.
+			edges := self allEdges.
 			m nodes
 				stencil: [ :e | 
 					BlElement new
