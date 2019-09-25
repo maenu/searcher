@@ -11,7 +11,7 @@ Class {
 SeaMatGraphMatcher >> cheapestDirtyAndCanMatchEntityOrNil [
 	^ (((graph nodes , graph edges
 		select: [ :e | e matcher isDirty and: [ e matcher canMatch ] ])
-		asArray collect: [ :e | e -> e matcher estimatedCost ])
+		asArray collect: [ :e | e -> e matcher estimatedMatchesSize ])
 		sorted: [ :a :b | a value < b value ])
 		ifEmpty: [ nil ]
 		ifNotEmpty: [ :e | e first key ]

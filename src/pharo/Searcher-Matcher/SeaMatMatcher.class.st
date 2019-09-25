@@ -14,7 +14,7 @@ SeaMatMatcher >> canMatch [
 ]
 
 { #category : #'as yet unclassified' }
-SeaMatMatcher >> estimatedCost [
+SeaMatMatcher >> estimatedMatchesSize [
 	^ self isDirty
 		ifTrue: [ Float infinity ]
 		ifFalse: [ 0 ]

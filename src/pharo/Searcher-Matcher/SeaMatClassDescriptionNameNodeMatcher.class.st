@@ -15,21 +15,22 @@ SeaMatClassDescriptionNameNodeMatcher class >> name: aString [
 ]
 
 { #category : #accessing }
-SeaMatClassDescriptionNameNodeMatcher >> estimatedCost [
-	^ ClassDescription withAllSubclasses
-		inject: 0
-		into: [ :r :e | r + e allInstances size ]
+SeaMatClassDescriptionNameNodeMatcher >> estimatedMatchesSize [
+	^ 1
 ]
 
 { #category : #accessing }
 SeaMatClassDescriptionNameNodeMatcher >> match [
 	self assert: [ self isDirty and: [ self canMatch ] ].
-	matches := ClassDescription withAllSubclasses
-		inject: IdentitySet new
-		into: [ :r :e | 
-			e name = name
-				ifTrue: [ r add: e ].
-			r ].
+	Smalltalk globals
+		at: (Character space split: name) first asSymbol
+		ifPresent: [ :e | 
+			matches := Set
+				with:
+					((name includes: Character space)
+						ifTrue: [ e classSide ]
+						ifFalse: [ e ]) ]
+		ifAbsent: [ matches := Set new ].
 	dirty := false
 ]
 

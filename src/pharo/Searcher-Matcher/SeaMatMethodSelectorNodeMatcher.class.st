@@ -15,16 +15,14 @@ SeaMatMethodSelectorNodeMatcher class >> selector: aSymbol [
 ]
 
 { #category : #accessing }
-SeaMatMethodSelectorNodeMatcher >> estimatedCost [
-	^ CompiledMethod withAllSubclasses
-		inject: 0
-		into: [ :r :e | r + e allInstances size ]
+SeaMatMethodSelectorNodeMatcher >> estimatedMatchesSize [
+	^ CompiledMethod allInstances size
 ]
 
 { #category : #accessing }
 SeaMatMethodSelectorNodeMatcher >> match [
 	self assert: [ self isDirty and: [ self canMatch ] ].
-	matches := CompiledMethod withAllSubclasses
+	matches := CompiledMethod allInstances
 		inject: IdentitySet new "cannot use set as compiledmethod hash is not considering class and selector"
 		into: [ :r :e | 
 			e selector = selector

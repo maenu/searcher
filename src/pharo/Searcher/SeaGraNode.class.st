@@ -90,7 +90,7 @@ SeaGraNode >> seaGraGtGraphFor: aView [
 					BlParabollaArcElement new
 						curvatureFraction: 0.2;
 						border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
-						fromHead:
+						toHead:
 							(BlArrowheadSimpleArrow new
 								arrowLengthFraction: 5;
 								arrowNoseAngle: 60;
