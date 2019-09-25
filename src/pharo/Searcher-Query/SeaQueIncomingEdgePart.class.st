@@ -7,7 +7,7 @@ Class {
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ~ anObject [
 	| otherNode |
-	otherNode := anObject seaMatAsNodeMatcher.
+	otherNode := anObject seaQueAsNode.
 	object seaQueAsEdgeSource: otherNode target: node.
 	^ otherNode
 ]

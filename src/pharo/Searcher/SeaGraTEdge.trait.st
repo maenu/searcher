@@ -7,6 +7,16 @@ Trait {
 	#category : #'Searcher-Graph'
 }
 
+{ #category : #enumerating }
+SeaGraTEdge >> allEdges [
+	^ source allEdges
+]
+
+{ #category : #enumerating }
+SeaGraTEdge >> allNodes [
+	^ source allNodes
+]
+
 { #category : #accessing }
 SeaGraTEdge >> source [
 	^ source
