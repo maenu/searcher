@@ -26,10 +26,11 @@ SeaMatImplementsEdgeMatcher >> match [
 	old := sources size.
 	sources removeAll: (sources copyWithoutAll: (matches collect: #key)).
 	sources size = old
-		ifFalse: [ edge source matcher makeDirty ].
+		ifFalse: [ edge source outgoing do: [ :e | e matcher makeDirty ] ].
 	old := targets size.
-	targets removeAll: (targets copyWithoutAll: (matches collect: #value)).
+	targets
+		removeAll: (targets copyWithoutAll: (matches collect: #value)).
 	targets size = old
-		ifFalse: [ edge target matcher makeDirty ].
+		ifFalse: [ edge target outgoing do: [ :e | e matcher makeDirty ] ].
 	dirty := false
 ]
