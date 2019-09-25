@@ -8,6 +8,13 @@ Class {
 }
 
 { #category : #accessing }
+SeaMatClassDescriptionNameNodeMatcher class >> name: aString [
+	^ self new
+		name: aString;
+		yourself
+]
+
+{ #category : #accessing }
 SeaMatClassDescriptionNameNodeMatcher >> estimatedCost [
 	^ ClassDescription withAllSubclasses
 		inject: 0

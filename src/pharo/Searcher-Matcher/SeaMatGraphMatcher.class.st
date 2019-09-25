@@ -9,11 +9,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 SeaMatGraphMatcher >> cheapestDirtyAndCanMatchEntityOrNil [
-	^ ((graph nodes , graph edges
-		select: [ :e | e isDirty and: [ e canMatch ] ])
-		sorted: [ :a :b | a estimatedCost < b estimatedCost ])
+	^ (((graph nodes , graph edges
+		select: [ :e | e matcher isDirty and: [ e matcher canMatch ] ])
+		asArray collect: [ :e | e -> e matcher estimatedCost ])
+		sorted: [ :a :b | a value < b value ])
 		ifEmpty: [ nil ]
-		ifNotEmpty: #first
+		ifNotEmpty: [ :e | e first key ]
 ]
 
 { #category : #accessing }
@@ -28,6 +29,6 @@ SeaMatGraphMatcher >> match [
 	| entity |
 	self assert: [ self isDirty ].
 	[ (entity := self cheapestDirtyAndCanMatchEntityOrNil) isNil ]
-		whileFalse: [ entity match ].
-	dirty := graph nodes , graph edges anySatisfy: #isDirty
+		whileFalse: [ entity matcher match ].
+	dirty := graph nodes , graph edges anySatisfy: [ :e | e matcher isDirty ]
 ]

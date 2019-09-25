@@ -1,8 +1,9 @@
 Class {
 	#name : #SeaMatGraNode,
 	#superclass : #SeaGraNode,
-	#traits : 'SeaMatGraTEntity',
-	#classTraits : 'SeaMatGraTEntity classTrait',
+	#instVars : [
+		'matcher'
+	],
 	#category : #'Searcher-Matcher-Graph'
 }
 
@@ -18,6 +19,17 @@ SeaMatGraNode >> <~ anObject [
 	^ SeaMatGraIncomingEdgePart
 		matcher: anObject seaMatAsMatcher
 		node: self
+]
+
+{ #category : #accessing }
+SeaMatGraNode >> matcher [
+	^ matcher
+]
+
+{ #category : #accessing }
+SeaMatGraNode >> matcher: anObject [
+	matcher := anObject.
+	anObject node: self
 ]
 
 { #category : #'as yet unclassified' }

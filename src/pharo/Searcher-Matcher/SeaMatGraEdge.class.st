@@ -1,8 +1,9 @@
 Class {
 	#name : #SeaMatGraEdge,
 	#superclass : #SeaGraEdge,
-	#traits : 'SeaMatGraTEntity',
-	#classTraits : 'SeaMatGraTEntity classTrait',
+	#instVars : [
+		'matcher'
+	],
 	#category : #'Searcher-Matcher-Graph'
 }
 
@@ -11,4 +12,15 @@ SeaMatGraEdge class >> matcher: aMatcher source: aNode target: anotherNode [
 	^ (self source: aNode target: anotherNode)
 		matcher: aMatcher;
 		yourself
+]
+
+{ #category : #accessing }
+SeaMatGraEdge >> matcher [
+	^ matcher
+]
+
+{ #category : #accessing }
+SeaMatGraEdge >> matcher: anObject [
+	matcher := anObject.
+	anObject edge: self
 ]

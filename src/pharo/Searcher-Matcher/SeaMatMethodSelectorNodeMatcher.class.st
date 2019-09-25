@@ -8,6 +8,13 @@ Class {
 }
 
 { #category : #accessing }
+SeaMatMethodSelectorNodeMatcher class >> selector: aSymbol [
+	^ self new
+		selector: aSymbol;
+		yourself
+]
+
+{ #category : #accessing }
 SeaMatMethodSelectorNodeMatcher >> estimatedCost [
 	^ CompiledMethod withAllSubclasses
 		inject: 0
