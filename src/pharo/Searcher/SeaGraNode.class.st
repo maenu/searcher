@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #enumerating }
+SeaGraNode >> allEdges [
+	^ self allNodes flatCollect: #outgoing
+]
+
+{ #category : #enumerating }
 SeaGraNode >> allNodes [
 	| whites blacks |
 	whites := Set with: self.
@@ -31,6 +36,11 @@ SeaGraNode >> asElement [
 		size: 25 @ 25;
 		background: Color black;
 		yourself
+]
+
+{ #category : #converting }
+SeaGraNode >> asGraph [
+	^ SeaGraGraph nodes: self allNodes edges: self allEdges
 ]
 
 { #category : #accessing }
@@ -90,6 +100,6 @@ SeaGraNode >> seaGraGtGraphFor: aView [
 										width: 1;
 										build)) ];
 				connect: edges from: #source to: #target.
-			m layout force ];
+			m layout tree ];
 		yourself
 ]
