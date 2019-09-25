@@ -15,41 +15,9 @@ SeaMatGraNode class >> matcher: aMatcher [
 
 { #category : #'as yet unclassified' }
 SeaMatGraNode >> <~ anObject [
-	^ SeaMatGraIncomingOrBothEdgePart
+	^ SeaMatGraIncomingEdgePart
 		matcher: anObject seaMatAsMatcher
 		node: self
-]
-
-{ #category : #'as yet unclassified' }
-SeaMatGraNode >> <~~ anObject [
-	| node edge |
-	node := SeaMatGraNode matcher: anObject seaMatAsMatcher.
-	edge := SeaMatGraEdge
-		matcher: SeaMatAnyMatcher new
-		source: node
-		target: self.
-	self incoming add: edge.
-	node outgoing add: edge.
-	^ node
-]
-
-{ #category : #'as yet unclassified' }
-SeaMatGraNode >> <~~> anObject [
-	| node edge |
-	node := SeaMatGraNode matcher: anObject seaMatAsMatcher.
-	edge := SeaMatGraEdge
-		matcher: SeaMatAnyMatcher new
-		source: node
-		target: self.
-	self incoming add: edge.
-	node outgoing add: edge.
-	edge := SeaMatGraEdge
-		matcher: SeaMatAnyMatcher new
-		source: self
-		target: node.
-	node incoming add: edge.
-	self outgoing add: edge.
-	^ node
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,17 +25,4 @@ SeaMatGraNode >> ~ anObject [
 	^ SeaMatGraOutgoingEdgePart
 		matcher: anObject seaMatAsMatcher
 		node: self
-]
-
-{ #category : #'as yet unclassified' }
-SeaMatGraNode >> ~~> anObject [
-	| node edge |
-	node := SeaMatGraNode matcher: anObject seaMatAsMatcher.
-	edge := SeaMatGraEdge
-		matcher: SeaMatAnyMatcher new
-		source: self
-		target: node.
-	node incoming add: edge.
-	self outgoing add: edge.
-	^ node
 ]
