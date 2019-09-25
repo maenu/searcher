@@ -21,7 +21,7 @@ SeaMatMethodSelectorNodeMatcher >> estimatedMatchesSize [
 
 { #category : #accessing }
 SeaMatMethodSelectorNodeMatcher >> match [
-	self assert: [ self isDirty and: [ self canMatch ] ].
+	self assert: [ self dirty and: [ self canMatch ] ].
 	matches := CompiledMethod allInstances
 		inject: IdentitySet new "cannot use set as compiledmethod hash is not considering class and selector"
 		into: [ :r :e | 

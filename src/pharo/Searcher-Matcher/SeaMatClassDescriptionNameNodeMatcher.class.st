@@ -21,7 +21,7 @@ SeaMatClassDescriptionNameNodeMatcher >> estimatedMatchesSize [
 
 { #category : #accessing }
 SeaMatClassDescriptionNameNodeMatcher >> match [
-	self assert: [ self isDirty and: [ self canMatch ] ].
+	self assert: [ self dirty and: [ self canMatch ] ].
 	Smalltalk globals
 		at: (Character space split: name) first asSymbol
 		ifPresent: [ :e | 

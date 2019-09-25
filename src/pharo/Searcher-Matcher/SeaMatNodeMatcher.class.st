@@ -8,9 +8,10 @@ Class {
 }
 
 { #category : #testing }
-SeaMatNodeMatcher >> makeDirty [
-	super makeDirty.
-	node outgoing do: [ :e | e matcher makeDirty ]
+SeaMatNodeMatcher >> dirty: aBoolean [
+	super dirty: aBoolean.
+	aBoolean
+		ifTrue: [ node outgoing do: [ :e | e matcher dirty: aBoolean ] ]
 ]
 
 { #category : #accessing }

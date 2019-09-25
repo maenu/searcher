@@ -13,27 +13,25 @@ SeaMatMatcher >> canMatch [
 	^ true
 ]
 
+{ #category : #testing }
+SeaMatMatcher >> dirty [
+	^ dirty
+]
+
+{ #category : #accessing }
+SeaMatMatcher >> dirty: aBoolean [
+	dirty := aBoolean
+]
+
 { #category : #'as yet unclassified' }
 SeaMatMatcher >> estimatedMatchesSize [
-	^ self isDirty
-		ifTrue: [ Float infinity ]
-		ifFalse: [ 0 ]
+	^ Float infinity
 ]
 
 { #category : #initialization }
 SeaMatMatcher >> initialize [
 	super initialize.
 	matches := Set new.
-	dirty := true
-]
-
-{ #category : #testing }
-SeaMatMatcher >> isDirty [
-	^ dirty
-]
-
-{ #category : #testing }
-SeaMatMatcher >> makeDirty [
 	dirty := true
 ]
 
