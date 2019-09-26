@@ -3,24 +3,21 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'object',
-		'node',
-		'context'
+		'node'
 	],
 	#category : #'Searcher-Query'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart class >> object: anObject node: aNode context: aContext [
+SeaQueEdgePart class >> object: anObject node: aNode [
 	^ self new
-		object: anObject node: aNode context: aContext;
+		object: anObject node: aNode;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart >> object: anObject node: aNode context: aContext [
-	self
-		assert: [ object isNil and: [ node isNil and: [ context isNil ] ] ].
+SeaQueEdgePart >> object: anObject node: aNode [
+	self assert: [ object isNil and: [ node isNil ] ].
 	object := anObject.
-	node := aNode.
-	context := aContext
+	node := aNode
 ]

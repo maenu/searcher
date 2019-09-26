@@ -4,7 +4,6 @@ Class {
 	#traits : 'SeaGraTNode',
 	#classTraits : 'SeaGraTNode classTrait',
 	#instVars : [
-		'context',
 		'identifier'
 	],
 	#category : #'Searcher-Query'
@@ -17,19 +16,23 @@ SeaQueNode class >> identifier: aString [
 		yourself
 ]
 
+{ #category : #copying }
+SeaQueNode >> , aNode [
+	^ SeaQueGraph
+		nodes:
+			{self.
+			aNode}
+]
+
 { #category : #'as yet unclassified' }
 SeaQueNode >> <~ anObject [
-	^ SeaQueIncomingEdgePart object: anObject node: self context: context
+	^ SeaQueIncomingEdgePart object: anObject node: self
 ]
 
 { #category : #accessing }
-SeaQueNode >> context [
-	^ context
-]
-
-{ #category : #accessing }
-SeaQueNode >> context: anObject [
-	context := anObject
+SeaQueNode >> graph: aGraph [
+	super graph: aGraph.
+	identifier ifNotNil: [ graph at: identifier put: self ]
 ]
 
 { #category : #accessing }
@@ -40,14 +43,14 @@ SeaQueNode >> identifier [
 { #category : #accessing }
 SeaQueNode >> identifier: anObject [
 	self assert: [ identifier isNil ].
-	identifier := anObject.
-	context at: identifier put: self
+	identifier := anObject
 ]
 
-{ #category : #initialization }
-SeaQueNode >> initialize [
-	super initialize.
-	context := SeaQueContext new
+{ #category : #'as yet unclassified' }
+SeaQueNode >> seaQueAsNodeIn: aGraph [
+	^ self
+		graph: aGraph;
+		yourself
 ]
 
 { #category : #testing }
@@ -59,5 +62,5 @@ SeaQueNode >> shouldExecute: aBoolean [
 
 { #category : #'as yet unclassified' }
 SeaQueNode >> ~ anObject [
-	^ SeaQueOutgoingEdgePart object: anObject node: self context: context
+	^ SeaQueOutgoingEdgePart object: anObject node: self
 ]

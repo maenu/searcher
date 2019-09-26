@@ -3,34 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'results',
-		'shouldExecute'
+		'shouldExecute',
+		'graph'
 	],
 	#category : #'Searcher-Query'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueQuery >> allEdges [
-	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueQuery >> allNodes [
-	self subclassResponsibility
-]
-
 { #category : #testing }
 SeaQueQuery >> canExecute [
 	^ true
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueQuery >> cheapestShouldAndCanExecuteQueryOrNil [
-	^ (((self allNodes , self allEdges
-		select: [ :e | e shouldExecute and: [ e canExecute ] ]) asArray
-		collect: [ :e | e -> e estimatedResultsSize ])
-		sorted: [ :a :b | a value < b value ])
-		ifEmpty: [ nil ]
-		ifNotEmpty: [ :e | e first key ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -43,11 +24,15 @@ SeaQueQuery >> execute [
 	self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueQuery >> executeAll [
-	| entity |
-	[ (entity := self cheapestShouldAndCanExecuteQueryOrNil) isNil ]
-		whileFalse: [ entity execute ]
+{ #category : #accessing }
+SeaQueQuery >> graph [
+	^ graph
+]
+
+{ #category : #accessing }
+SeaQueQuery >> graph: anObject [
+	self assert: [ graph isNil ].
+	graph := anObject
 ]
 
 { #category : #initialization }

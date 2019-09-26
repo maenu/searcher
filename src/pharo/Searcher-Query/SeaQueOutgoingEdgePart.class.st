@@ -7,7 +7,7 @@ Class {
 { #category : #associating }
 SeaQueOutgoingEdgePart >> ~> anObject [
 	| otherNode |
-	otherNode := anObject seaQueAsNodeIn: context.
+	otherNode := anObject seaQueAsNodeIn: node graph.
 	object seaQueAsEdgeSource: node target: otherNode.
 	^ otherNode
 ]
