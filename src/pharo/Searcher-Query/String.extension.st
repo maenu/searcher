@@ -23,7 +23,7 @@ String >> seaQueAsEdgeSourcePart: aNodePart targetPart: anotherNodePart [
 String >> seaQueAsMethodSelectorNodeIn: aGraph [
 	^ self seaQueIsVariableName
 		ifTrue: [ self seaQueAsVariableNameNodeIn: aGraph ]
-		ifFalse: [ (SeaQueMethodSelectorNode selector: self)
+		ifFalse: [ (SeaQueCompiledMethodSelectorNode selector: self)
 				graph: aGraph;
 				yourself ]
 ]

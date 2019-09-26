@@ -23,20 +23,18 @@ SeaQueClassDescriptionNameNode class >> name: aString [
 
 { #category : #accessing }
 SeaQueClassDescriptionNameNode >> estimatedResultsSize_ [
-	^ 1
+	^ SeaQueClassAndTraitIndex instance size
 ]
 
 { #category : #accessing }
 SeaQueClassDescriptionNameNode >> execute_ [
-	Smalltalk globals
-		at: (Character space split: name) first asSymbol
+	results := SeaQueClassAndTraitIndex instance
+		at: (Character space split: name) first
 		ifPresent: [ :e | 
-			results := Set
-				with:
-					((name includes: Character space)
-						ifTrue: [ e classSide ]
-						ifFalse: [ e ]) ]
-		ifAbsent: [ results := Set new ]
+			(name includes: Character space)
+				ifTrue: [ e collect: #classSide ]
+				ifFalse: [ e ] ]
+		ifAbsent: [ Set new ]
 ]
 
 { #category : #accessing }

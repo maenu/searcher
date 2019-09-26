@@ -2,9 +2,9 @@ Class {
 	#name : #SeaQueGraph,
 	#superclass : #SeaQueQuery,
 	#instVars : [
-		'variables',
 		'nodes',
 		'edges',
+		'variables',
 		'nodeParts'
 	],
 	#category : #'Searcher-Query'
@@ -43,9 +43,9 @@ SeaQueGraph >> execute_ [
 SeaQueGraph >> initialize [
 	super initialize.
 	graph := self.
-	variables := Dictionary new.
 	nodes := Set new.
 	edges := Set new.
+	variables := Dictionary new.
 	nodeParts := Set new
 ]
 
