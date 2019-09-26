@@ -6,8 +6,12 @@ Class {
 
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ~ anObject [
-	| otherNode |
-	otherNode := anObject seaQueAsNodeIn: node graph.
-	object seaQueAsEdgeSource: otherNode target: node.
-	^ otherNode
+	| edge |
+	edge := edgeObject
+		seaQueAsEdgeSource: anObject
+		target: nodeObject
+		graph: graph.
+	^ (SeaQueNodePart object: anObject graph: graph)
+		node: edge source;
+		yourself
 ]

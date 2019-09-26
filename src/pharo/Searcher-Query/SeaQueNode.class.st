@@ -16,23 +16,13 @@ SeaQueNode class >> identifier: aString [
 		yourself
 ]
 
-{ #category : #copying }
-SeaQueNode >> , aNode [
-	^ SeaQueGraph
-		nodes:
-			{self.
-			aNode}
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueNode >> <~ anObject [
-	^ SeaQueIncomingEdgePart object: anObject node: self
-]
-
 { #category : #accessing }
 SeaQueNode >> graph: aGraph [
 	super graph: aGraph.
-	identifier ifNotNil: [ graph at: identifier put: self ]
+	identifier
+		ifNotNil: [ self assert: [ (graph variables includesKey: identifier) not ].
+			graph variables at: identifier put: self ].
+	graph nodes add: self
 ]
 
 { #category : #accessing }
@@ -46,21 +36,9 @@ SeaQueNode >> identifier: anObject [
 	identifier := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueNode >> seaQueAsNodeIn: aGraph [
-	^ self
-		graph: aGraph;
-		yourself
-]
-
 { #category : #testing }
 SeaQueNode >> shouldExecute: aBoolean [
 	(aBoolean and: [ shouldExecute not ])
 		ifTrue: [ outgoing do: [ :e | e shouldExecute: aBoolean ] ].
 	super shouldExecute: aBoolean
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueNode >> ~ anObject [
-	^ SeaQueOutgoingEdgePart object: anObject node: self
 ]

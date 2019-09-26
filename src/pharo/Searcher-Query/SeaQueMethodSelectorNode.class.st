@@ -38,6 +38,13 @@ SeaQueMethodSelectorNode >> execute [
 	shouldExecute := false
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueMethodSelectorNode >> seaQueAsMethodSelectorNodeIn: aGraph [
+	^ self
+		graph: aGraph;
+		yourself
+]
+
 { #category : #accessing }
 SeaQueMethodSelectorNode >> selector: anObject [
 	self assert: [ selector isNil ].

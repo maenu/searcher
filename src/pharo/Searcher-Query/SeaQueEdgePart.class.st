@@ -2,22 +2,25 @@ Class {
 	#name : #SeaQueEdgePart,
 	#superclass : #Object,
 	#instVars : [
-		'object',
-		'node'
+		'edgeObject',
+		'nodeObject',
+		'graph'
 	],
 	#category : #'Searcher-Query'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart class >> object: anObject node: aNode [
+SeaQueEdgePart class >> edgeObject: anObject nodeObject: anotherObject graph: aGraph [
 	^ self new
-		object: anObject node: aNode;
+		edgeObject: anObject nodeObject: anotherObject graph: aGraph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart >> object: anObject node: aNode [
-	self assert: [ object isNil and: [ node isNil ] ].
-	object := anObject.
-	node := aNode
+SeaQueEdgePart >> edgeObject: anObject nodeObject: anotherObject graph: aGraph [
+	self
+		assert: [ edgeObject isNil and: [ nodeObject isNil and: [ graph isNil ] ] ].
+	edgeObject := anObject.
+	nodeObject := anotherObject.
+	graph := aGraph
 ]

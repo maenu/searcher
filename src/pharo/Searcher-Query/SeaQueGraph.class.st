@@ -3,44 +3,21 @@ Class {
 	#superclass : #SeaQueQuery,
 	#instVars : [
 		'variables',
-		'nodes'
+		'nodes',
+		'edges',
+		'nodeParts'
 	],
 	#category : #'Searcher-Query'
 }
 
 { #category : #adding }
-SeaQueGraph >> add: aNode [
-	^ nodes add: (aNode seaQueAsNodeIn: self)
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueGraph >> allEdges [
-	^ nodes flatCollect: #allEdges
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueGraph >> allNodes [
-	^ nodes flatCollect: #allNodes
-]
-
-{ #category : #accessing }
-SeaQueGraph >> at: aString [
-	^ variables at: aString
-]
-
-{ #category : #accessing }
-SeaQueGraph >> at: aString ifAbsentPut: aBlock [
-	^ variables at: aString ifAbsentPut: aBlock
-]
-
-{ #category : #accessing }
-SeaQueGraph >> at: aString put: aNode [
-	^ variables at: aString put: aNode
+SeaQueGraph >> , anObject [
+	^ nodeParts add: (SeaQueNodePart object: anObject graph: self)
 ]
 
 { #category : #'as yet unclassified' }
 SeaQueGraph >> cheapestShouldAndCanExecuteQueryOrNil [
-	^ (((self allNodes , self allEdges
+	^ (((nodes , edges
 		select: [ :e | e shouldExecute and: [ e canExecute ] ])
 		collect: [ :e | e -> e estimatedResultsSize ])
 		sorted: [ :a :b | a value < b value ])
@@ -49,8 +26,15 @@ SeaQueGraph >> cheapestShouldAndCanExecuteQueryOrNil [
 ]
 
 { #category : #accessing }
+SeaQueGraph >> edges [
+	^ edges
+]
+
+{ #category : #accessing }
 SeaQueGraph >> execute [
 	| entity |
+	nodeParts do: [ :e | nodes add: e node ].
+	nodeParts removeAll.
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
 	[ (entity := self cheapestShouldAndCanExecuteQueryOrNil) isNil ]
 		whileFalse: [ entity execute ]
@@ -61,5 +45,17 @@ SeaQueGraph >> initialize [
 	super initialize.
 	graph := self.
 	variables := Dictionary new.
-	nodes := Set new
+	nodes := Set new.
+	edges := Set new.
+	nodeParts := Set new
+]
+
+{ #category : #accessing }
+SeaQueGraph >> nodes [
+	^ nodes
+]
+
+{ #category : #accessing }
+SeaQueGraph >> variables [
+	^ variables
 ]

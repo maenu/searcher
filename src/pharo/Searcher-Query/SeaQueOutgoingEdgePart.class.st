@@ -6,8 +6,12 @@ Class {
 
 { #category : #associating }
 SeaQueOutgoingEdgePart >> ~> anObject [
-	| otherNode |
-	otherNode := anObject seaQueAsNodeIn: node graph.
-	object seaQueAsEdgeSource: node target: otherNode.
-	^ otherNode
+	| edge |
+	edge := edgeObject
+		seaQueAsEdgeSource: nodeObject
+		target: anObject
+		graph: graph.
+	^ (SeaQueNodePart object: anObject graph: graph)
+		node: edge target;
+		yourself
 ]

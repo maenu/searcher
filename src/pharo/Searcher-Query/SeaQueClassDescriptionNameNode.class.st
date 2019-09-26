@@ -46,3 +46,10 @@ SeaQueClassDescriptionNameNode >> name: anObject [
 	self assert: [ name isNil ].
 	name := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+SeaQueClassDescriptionNameNode >> seaQueAsClassDescriptionNodeIn: aGraph [
+	^ self
+		graph: aGraph;
+		yourself
+]
