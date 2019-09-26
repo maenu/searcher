@@ -22,20 +22,18 @@ SeaQueMethodSelectorNode class >> selector: aSymbol [
 ]
 
 { #category : #accessing }
-SeaQueMethodSelectorNode >> estimatedResultsSize [
+SeaQueMethodSelectorNode >> estimatedResultsSize_ [
 	^ CompiledMethod allInstances size
 ]
 
 { #category : #accessing }
-SeaQueMethodSelectorNode >> execute [
-	self assert: [ self shouldExecute and: [ self canExecute ] ].
+SeaQueMethodSelectorNode >> execute_ [
 	results := CompiledMethod allInstances
 		inject: IdentitySet new "cannot use set as compiledmethod hash is not considering class and selector"
 		into: [ :r :e | 
 			e selector = selector
 				ifTrue: [ r add: e ].
-			r ].
-	shouldExecute := false
+			r ]
 ]
 
 { #category : #'as yet unclassified' }

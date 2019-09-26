@@ -10,11 +10,16 @@ SeaQueImplementsEdge class >> identifier [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueImplementsEdge class >> source: anObject target: anotherObject graph: aGraph [
+SeaQueImplementsEdge class >> sourcePart: aNodePart targetPart: anotherNodePart [
+	| graph |
+	graph := aNodePart graph.
 	^ (self
-		source: (anObject seaQueAsClassDescriptionNodeIn: aGraph)
-		target: (anotherObject seaQueAsMethodSelectorNodeIn: aGraph))
-		graph: aGraph;
+		source:
+		(aNodePart nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeIn: graph ])
+		target:
+		(anotherNodePart
+		nodeOrPut: [ :e | e seaQueAsMethodSelectorNodeIn: graph ]))
+		graph: graph;
 		yourself
 ]
 

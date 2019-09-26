@@ -31,10 +31,9 @@ SeaQueGraph >> edges [
 ]
 
 { #category : #accessing }
-SeaQueGraph >> execute [
+SeaQueGraph >> execute_ [
 	| entity |
-	nodeParts do: [ :e | nodes add: e node ].
-	nodeParts removeAll.
+	self prepareExecute.
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
 	[ (entity := self cheapestShouldAndCanExecuteQueryOrNil) isNil ]
 		whileFalse: [ entity execute ]
@@ -53,6 +52,12 @@ SeaQueGraph >> initialize [
 { #category : #accessing }
 SeaQueGraph >> nodes [
 	^ nodes
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueGraph >> prepareExecute [
+	nodeParts do: [ :e | nodes add: e node ].
+	nodeParts removeAll
 ]
 
 { #category : #accessing }

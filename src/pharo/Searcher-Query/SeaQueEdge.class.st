@@ -12,7 +12,9 @@ SeaQueEdge class >> identifier [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueEdge class >> source: anObject target: anotherObject graph: aGraph [
+SeaQueEdge class >> sourcePart: aNodePart targetPart: anotherNodePart [
+	"Needs to ensure node on parts."
+
 	self subclassResponsibility
 ]
 
@@ -20,12 +22,4 @@ SeaQueEdge class >> source: anObject target: anotherObject graph: aGraph [
 SeaQueEdge >> graph: aGraph [
 	super graph: aGraph.
 	graph edges add: self
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueEdge >> seaQueAsEdgeSource: aNode target: otherNode [
-	^ self
-		source: aNode target: otherNode;
-		graph: aNode graph;
-		yourself
 ]

@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'results',
 		'shouldExecute',
+		'wasExecuted',
 		'graph'
 	],
 	#category : #'Searcher-Query'
@@ -16,11 +17,26 @@ SeaQueQuery >> canExecute [
 
 { #category : #'as yet unclassified' }
 SeaQueQuery >> estimatedResultsSize [
+	^ wasExecuted
+		ifTrue: [ results size ]
+		ifFalse: [ self estimatedResultsSize_ ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueQuery >> estimatedResultsSize_ [
 	^ Float infinity
 ]
 
 { #category : #accessing }
 SeaQueQuery >> execute [
+	self assert: [ self shouldExecute and: [ self canExecute ] ].
+	self execute_.
+	shouldExecute := false.
+	wasExecuted := true
+]
+
+{ #category : #accessing }
+SeaQueQuery >> execute_ [
 	self subclassResponsibility
 ]
 
@@ -39,7 +55,8 @@ SeaQueQuery >> graph: anObject [
 SeaQueQuery >> initialize [
 	super initialize.
 	results := Set new.
-	shouldExecute := true
+	shouldExecute := true.
+	wasExecuted := false
 ]
 
 { #category : #testing }
@@ -55,4 +72,9 @@ SeaQueQuery >> shouldExecute [
 { #category : #accessing }
 SeaQueQuery >> shouldExecute: aBoolean [
 	shouldExecute := aBoolean
+]
+
+{ #category : #accessing }
+SeaQueQuery >> wasExecuted [
+	^ wasExecuted
 ]

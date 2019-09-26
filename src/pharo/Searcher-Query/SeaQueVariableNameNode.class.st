@@ -10,8 +10,14 @@ SeaQueVariableNameNode >> canExecute [
 ]
 
 { #category : #accessing }
-SeaQueVariableNameNode >> execute [
+SeaQueVariableNameNode >> execute_ [
 	self shouldNotImplement
+]
+
+{ #category : #initialization }
+SeaQueVariableNameNode >> initialize [
+	super initialize.
+	shouldExecute := false
 ]
 
 { #category : #'as yet unclassified' }
@@ -19,4 +25,10 @@ SeaQueVariableNameNode >> seaQueAsVariableNameNodeIn: aGraph [
 	^ self
 		graph: aGraph;
 		yourself
+]
+
+{ #category : #testing }
+SeaQueVariableNameNode >> shouldExecute: aBoolean [
+	super shouldExecute: aBoolean.
+	shouldExecute := false
 ]

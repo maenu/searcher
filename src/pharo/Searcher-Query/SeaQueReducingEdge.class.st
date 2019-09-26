@@ -15,33 +15,20 @@ SeaQueReducingEdge >> canExecuteSource: anObject target: anotherObject [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueReducingEdge >> estimatedResultsSize [
+SeaQueReducingEdge >> estimatedResultsSize_ [
 	^ source estimatedResultsSize * target estimatedResultsSize
 ]
 
 { #category : #accessing }
-SeaQueReducingEdge >> execute [
-	| sources targets old |
-	self assert: [ self shouldExecute and: [ self canExecute ] ].
-	sources := source results.
-	targets := target results.
-	results := sources
+SeaQueReducingEdge >> execute_ [
+	results := source results
 		inject: IdentitySet new
 		into: [ :r :e | 
-			targets
+			target results
 				do: [ :f | 
 					(self canExecuteSource: e target: f)
 						ifTrue: [ r add: e -> f ] ].
 			r ].
-	"assume sources and targets do not change until here"
-	old := sources size.
-	sources removeAll: (sources copyWithoutAll: (results collect: #key)).
-	sources size = old
-		ifFalse: [ source outgoing do: [ :e | e shouldExecute: true ] ].
-	old := targets size.
-	targets
-		removeAll: (targets copyWithoutAll: (results collect: #value)).
-	targets size = old
-		ifFalse: [ target outgoing do: [ :e | e shouldExecute: true ] ].
-	shouldExecute := false
+	source retainResultsIn: (results collect: #key).
+	target retainResultsIn: (results collect: #value)
 ]

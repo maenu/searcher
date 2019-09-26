@@ -10,19 +10,13 @@ String >> seaQueAsClassDescriptionNodeIn: aGraph [
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsEdgeSource: anObject target: anotherObject graph: aGraph [
+String >> seaQueAsEdgeSourcePart: aNodePart targetPart: anotherNodePart [
 	| edgeClasses |
 	edgeClasses := SeaQueEdge allSubclasses
 		select:
 			[ :e | (e class includesSelector: #identifier) and: [ e identifier = self ] ].
-	edgeClasses
-		ifEmpty: [ Error signal: 'no edge class with identifier found' ].
-	edgeClasses size > 1
-		ifTrue: [ Error signal: 'more than one edge class with identifier found' ].
-	^ edgeClasses first
-		source: anObject
-		target: anotherObject
-		graph: aGraph
+	self assert: [ edgeClasses size = 1 ].
+	^ edgeClasses first sourcePart: aNodePart targetPart: anotherNodePart
 ]
 
 { #category : #'*Searcher-Query' }

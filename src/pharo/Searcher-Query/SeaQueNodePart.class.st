@@ -23,10 +23,7 @@ SeaQueNodePart >> , anObject [
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> <~ anObject [
-	^ SeaQueIncomingEdgePart
-		edgeObject: anObject
-		nodeObject: object
-		graph: graph
+	^ SeaQueIncomingEdgePart nodePart: self edgeObject: anObject
 ]
 
 { #category : #accessing }
@@ -43,12 +40,13 @@ SeaQueNodePart >> node [
 
 { #category : #accessing }
 SeaQueNodePart >> node: anObject [
+	self assert: [ node isNil ].
 	node := anObject
 ]
 
 { #category : #accessing }
-SeaQueNodePart >> object [
-	^ object
+SeaQueNodePart >> nodeOrPut: aBlock [
+	^ node ifNil: [ node := aBlock value: object ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -61,8 +59,5 @@ SeaQueNodePart >> object: anObject graph: aGraph [
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> ~ anObject [
-	^ SeaQueOutgoingEdgePart
-		edgeObject: anObject
-		nodeObject: object
-		graph: graph
+	^ SeaQueOutgoingEdgePart nodePart: self edgeObject: anObject
 ]
