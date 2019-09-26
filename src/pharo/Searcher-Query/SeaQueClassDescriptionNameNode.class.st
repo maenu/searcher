@@ -8,6 +8,13 @@ Class {
 }
 
 { #category : #accessing }
+SeaQueClassDescriptionNameNode class >> identifier: aString name: anotherString [
+	^ (self identifier: aString)
+		name: aString;
+		yourself
+]
+
+{ #category : #accessing }
 SeaQueClassDescriptionNameNode class >> name: aString [
 	^ self new
 		name: aString;

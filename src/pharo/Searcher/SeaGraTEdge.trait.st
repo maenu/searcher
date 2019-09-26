@@ -7,6 +7,13 @@ Trait {
 	#category : #'Searcher-Graph'
 }
 
+{ #category : #accessing }
+SeaGraTEdge classSide >> source: aNode target: anotherNode [
+	^ self new
+		source: aNode target: anotherNode;
+		yourself
+]
+
 { #category : #enumerating }
 SeaGraTEdge >> allEdges [
 	^ source allEdges

@@ -7,6 +7,13 @@ Class {
 	#category : #'Searcher-Query'
 }
 
+{ #category : #'as yet unclassified' }
+SeaQueMethodSelectorNode class >> identifier: aString selector: aSymbol [
+	^ (self identifier: aString)
+		selector: aSymbol;
+		yourself
+]
+
 { #category : #accessing }
 SeaQueMethodSelectorNode class >> selector: aSymbol [
 	^ self new

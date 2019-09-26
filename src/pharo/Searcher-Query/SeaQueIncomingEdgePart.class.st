@@ -7,7 +7,7 @@ Class {
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ~ anObject [
 	| otherNode |
-	otherNode := anObject seaQueAsNode.
+	otherNode := anObject seaQueAsNodeIn: context.
 	object seaQueAsEdgeSource: otherNode target: node.
 	^ otherNode
 ]

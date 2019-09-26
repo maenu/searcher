@@ -24,7 +24,7 @@ SeaQueQuery >> canExecute [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueQuery >> cheapestShouldAndCanExecuteEntityOrNil [
+SeaQueQuery >> cheapestShouldAndCanExecuteQueryOrNil [
 	^ (((self allNodes , self allEdges
 		select: [ :e | e shouldExecute and: [ e canExecute ] ]) asArray
 		collect: [ :e | e -> e estimatedResultsSize ])
@@ -46,7 +46,7 @@ SeaQueQuery >> execute [
 { #category : #'as yet unclassified' }
 SeaQueQuery >> executeAll [
 	| entity |
-	[ (entity := self cheapestShouldAndCanExecuteEntityOrNil) isNil ]
+	[ (entity := self cheapestShouldAndCanExecuteQueryOrNil) isNil ]
 		whileFalse: [ entity execute ]
 ]
 

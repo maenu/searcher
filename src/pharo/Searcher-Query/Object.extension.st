@@ -8,6 +8,8 @@ Object >> seaQueAsEdgeSource: aNode target: otherNode [
 ]
 
 { #category : #'*Searcher-Query' }
-Object >> seaQueAsNode [
+Object >> seaQueAsNodeIn: aContext [
 	^ self
+		context: aContext;
+		yourself
 ]
