@@ -34,7 +34,7 @@ SeaQueCompiledMethodSelectorNode >> execute_ [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueCompiledMethodSelectorNode >> seaQueAsMethodSelectorNodeIn: aGraph [
+SeaQueCompiledMethodSelectorNode >> seaQueAsCompiledMethodSelectorNodeFromPart: aGraph [
 	^ self
 		graph: aGraph;
 		yourself

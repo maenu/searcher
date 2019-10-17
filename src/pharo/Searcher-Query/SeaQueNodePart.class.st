@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'object',
 		'graph',
-		'node'
+		'node',
+		'identifier'
 	],
 	#category : #'Searcher-Query'
 }
@@ -14,6 +15,13 @@ SeaQueNodePart class >> object: anObject graph: aGraph [
 	^ self new
 		object: anObject graph: aGraph;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNodePart >> ! anObject [
+	self assert: [ object isNotNil ].
+	identifier := anObject.
+	^ self
 ]
 
 { #category : #copying }
@@ -33,26 +41,20 @@ SeaQueNodePart >> graph [
 
 { #category : #accessing }
 SeaQueNodePart >> node [
-	^ node
-		ifNil:
-			[ "fallback to non-contextual node" node := object seaQueAsNodeIn: graph ]
-]
-
-{ #category : #accessing }
-SeaQueNodePart >> node: anObject [
-	self assert: [ node isNil ].
-	node := anObject
+	^ self
+		nodeOrPut: [ :e | "fallback to non-contextual node" object seaQueAsNodeFromPart: e ]
 ]
 
 { #category : #accessing }
 SeaQueNodePart >> nodeOrPut: aBlock [
-	^ node ifNil: [ node := aBlock value: object ]
+	^ node ifNil: [ node := aBlock value: self ]
 ]
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> object: anObject graph: aGraph [
 	self
-		assert: [ object isNil and: [ graph isNil and: [ node isNil ] ] ].
+		assert: [ object isNil
+				and: [ graph isNil and: [ node isNil and: [ identifier isNil ] ] ] ].
 	object := anObject.
 	graph := aGraph
 ]

@@ -44,7 +44,7 @@ SeaQueClassDescriptionNameNode >> name: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueClassDescriptionNameNode >> seaQueAsClassDescriptionNodeIn: aGraph [
+SeaQueClassDescriptionNameNode >> seaQueAsClassDescriptionNodeFromPart: aGraph [
 	^ self
 		graph: aGraph;
 		yourself

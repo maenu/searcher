@@ -1,34 +1,34 @@
 Class {
-	#name : #SeaQueVariableNameNode,
+	#name : #SeaQueVariableNode,
 	#superclass : #SeaQueNode,
 	#category : #'Searcher-Query'
 }
 
 { #category : #testing }
-SeaQueVariableNameNode >> canExecute [
+SeaQueVariableNode >> canExecute [
 	^ false
 ]
 
 { #category : #accessing }
-SeaQueVariableNameNode >> execute_ [
+SeaQueVariableNode >> execute_ [
 	self shouldNotImplement
 ]
 
 { #category : #initialization }
-SeaQueVariableNameNode >> initialize [
+SeaQueVariableNode >> initialize [
 	super initialize.
 	shouldExecute := false
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueVariableNameNode >> seaQueAsVariableNameNodeIn: aGraph [
+SeaQueVariableNode >> seaQueAsVariableNodeFromPart: aGraph [
 	^ self
 		graph: aGraph;
 		yourself
 ]
 
 { #category : #testing }
-SeaQueVariableNameNode >> shouldExecute: aBoolean [
+SeaQueVariableNode >> shouldExecute: aBoolean [
 	super shouldExecute: aBoolean.
 	shouldExecute := false
 ]

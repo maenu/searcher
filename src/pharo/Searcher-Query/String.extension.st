@@ -1,10 +1,19 @@
 Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsClassDescriptionNodeIn: aGraph [
-	^ self seaQueIsVariableName
-		ifTrue: [ self seaQueAsVariableNameNodeIn: aGraph ]
+String >> seaQueAsClassDescriptionNodeFromPart: aGraph [
+	^ self seaQueIsIdentifier
+		ifTrue: [ self seaQueAsVariableNodeFromPart: aGraph ]
 		ifFalse: [ (SeaQueClassDescriptionNameNode name: self)
+				graph: aGraph;
+				yourself ]
+]
+
+{ #category : #'*Searcher-Query' }
+String >> seaQueAsCompiledMethodSelectorNodeFromPart: aGraph [
+	^ self seaQueIsIdentifier
+		ifTrue: [ self seaQueAsVariableNodeFromPart: aGraph ]
+		ifFalse: [ (SeaQueCompiledMethodSelectorNode selector: self)
 				graph: aGraph;
 				yourself ]
 ]
@@ -20,30 +29,28 @@ String >> seaQueAsEdgeSourcePart: aNodePart targetPart: anotherNodePart [
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsMethodSelectorNodeIn: aGraph [
-	^ self seaQueIsVariableName
-		ifTrue: [ self seaQueAsVariableNameNodeIn: aGraph ]
-		ifFalse: [ (SeaQueCompiledMethodSelectorNode selector: self)
-				graph: aGraph;
-				yourself ]
+String >> seaQueAsIdentifier [
+	self assert: [ self seaQueIsIdentifier ].
+	^ self
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsNodeIn: aGraph [
-	^ self seaQueAsVariableNameNodeIn: aGraph
+String >> seaQueAsNodeFromPart: aGraph [
+	^ self seaQueAsVariableNodeFromPart: aGraph
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsVariableNameNodeIn: aGraph [
-	self assert: [ self seaQueIsVariableName ].
+String >> seaQueAsVariableNodeFromPart: aGraph [
+	| identifier |
+	identifier := self seaQueAsIdentifier.
 	^ aGraph variables
-		at: self
-		ifAbsentPut: [ (SeaQueVariableNameNode identifier: self)
+		at: identifier
+		ifAbsentPut: [ (SeaQueVariableNode identifier: identifier)
 				graph: aGraph;
 				yourself ]
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueIsVariableName [
+String >> seaQueIsIdentifier [
 	^ self size >= 2 and: [ self first = $@ ]
 ]

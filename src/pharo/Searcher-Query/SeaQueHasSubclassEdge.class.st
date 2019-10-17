@@ -10,23 +10,14 @@ SeaQueHasSubclassEdge class >> identifier [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueHasSubclassEdge class >> source: anObject target: anotherObject graph: aGraph [
-	^ (self
-		source: (anObject seaQueAsClassDescriptionNodeIn: aGraph)
-		target: (anotherObject seaQueAsClassDescriptionNodeIn: aGraph))
-		graph: aGraph;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
 SeaQueHasSubclassEdge class >> sourcePart: aNodePart targetPart: anotherNodePart [
 	| graph |
 	graph := aNodePart graph.
 	^ (self
-		source: (aNodePart nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeIn: graph ])
+		source: (aNodePart nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeFromPart: e ])
 		target:
 		(anotherNodePart
-		nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeIn: graph ]))
+		nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeFromPart: e ]))
 		graph: graph;
 		yourself
 ]
