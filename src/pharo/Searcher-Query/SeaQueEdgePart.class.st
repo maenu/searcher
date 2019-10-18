@@ -1,23 +1,28 @@
 Class {
 	#name : #SeaQueEdgePart,
-	#superclass : #Object,
+	#superclass : #SeaQuePart,
 	#instVars : [
 		'nodePart',
-		'edgeObject'
+		'otherNodePart'
 	],
-	#category : #'Searcher-Query'
+	#category : #'Searcher-Query-Parts'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart class >> nodePart: aNodePart edgeObject: anObject [
+SeaQueEdgePart class >> object: anObject graphPart: aGraphPart nodePart: aNodePart [
 	^ self new
-		nodePart: aNodePart edgeObject: anObject;
+		initializeObject: anObject graphPart: aGraphPart;
+		initializeNodePart: aNodePart;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueEdgePart >> nodePart: aNodePart edgeObject: anObject [
-	self assert: [ nodePart isNil and: [ edgeObject isNil ] ].
-	nodePart := aNodePart.
-	edgeObject := anObject
+{ #category : #compiling }
+SeaQueEdgePart >> compileIn: aContext [
+	self subclassResponsibility
+]
+
+{ #category : #initialization }
+SeaQueEdgePart >> initializeNodePart: aNodePart [
+	self assert: [ nodePart isNil ].
+	nodePart := aNodePart
 ]

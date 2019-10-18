@@ -7,17 +7,10 @@ Class {
 	#category : #'Searcher-Query'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueCompiledMethodSelectorNode class >> identifier: aString selector: aSymbol [
-	^ (self identifier: aString)
-		selector: aSymbol;
-		yourself
-]
-
 { #category : #accessing }
 SeaQueCompiledMethodSelectorNode class >> selector: aSymbol [
 	^ self new
-		selector: aSymbol;
+		initializeWithSelector: aSymbol;
 		yourself
 ]
 
@@ -33,15 +26,19 @@ SeaQueCompiledMethodSelectorNode >> execute_ [
 		ifAbsent: [ Set new ]
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueCompiledMethodSelectorNode >> seaQueAsCompiledMethodSelectorNodeFromPart: aGraph [
-	^ self
-		graph: aGraph;
-		yourself
-]
-
 { #category : #accessing }
-SeaQueCompiledMethodSelectorNode >> selector: anObject [
+SeaQueCompiledMethodSelectorNode >> initializeWithSelector: anObject [
 	self assert: [ selector isNil ].
 	selector := anObject
+]
+
+{ #category : #printing }
+SeaQueCompiledMethodSelectorNode >> printOn: aStream [
+	aStream
+		nextPutAll: 'compiledMethodSelector "';
+		nextPutAll: selector;
+		nextPutAll: '" ';
+		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
 ]

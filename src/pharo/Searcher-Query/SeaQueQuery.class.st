@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'results',
 		'shouldExecute',
-		'wasExecuted',
-		'graph'
+		'wasExecuted'
 	],
 	#category : #'Searcher-Query'
 }
@@ -38,17 +37,6 @@ SeaQueQuery >> execute [
 { #category : #accessing }
 SeaQueQuery >> execute_ [
 	self subclassResponsibility
-]
-
-{ #category : #accessing }
-SeaQueQuery >> graph [
-	^ graph
-]
-
-{ #category : #accessing }
-SeaQueQuery >> graph: anObject [
-	self assert: [ graph isNil ].
-	graph := anObject
 ]
 
 { #category : #initialization }

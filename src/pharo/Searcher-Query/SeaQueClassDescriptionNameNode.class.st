@@ -8,16 +8,9 @@ Class {
 }
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode class >> identifier: aString name: anotherString [
-	^ (self identifier: aString)
-		name: aString;
-		yourself
-]
-
-{ #category : #accessing }
 SeaQueClassDescriptionNameNode class >> name: aString [
 	^ self new
-		name: aString;
+		initializeWithName: aString;
 		yourself
 ]
 
@@ -38,14 +31,18 @@ SeaQueClassDescriptionNameNode >> execute_ [
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> name: anObject [
+SeaQueClassDescriptionNameNode >> initializeWithName: anObject [
 	self assert: [ name isNil ].
 	name := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueClassDescriptionNameNode >> seaQueAsClassDescriptionNodeFromPart: aGraph [
-	^ self
-		graph: aGraph;
-		yourself
+{ #category : #printing }
+SeaQueClassDescriptionNameNode >> printOn: aStream [
+	aStream
+		nextPutAll: 'classDescriptionName "';
+		nextPutAll: name;
+		nextPutAll: '" ';
+		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
 ]

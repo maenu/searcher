@@ -20,11 +20,13 @@ SeaQueVariableNode >> initialize [
 	shouldExecute := false
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueVariableNode >> seaQueAsVariableNodeFromPart: aGraph [
-	^ self
-		graph: aGraph;
-		yourself
+{ #category : #printing }
+SeaQueVariableNode >> printOn: aStream [
+	aStream
+		nextPutAll: 'variable ';
+		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
 ]
 
 { #category : #testing }

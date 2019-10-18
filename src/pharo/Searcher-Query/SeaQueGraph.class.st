@@ -4,19 +4,20 @@ Class {
 	#instVars : [
 		'nodes',
 		'edges',
-		'variables',
-		'nodeParts'
+		'variables'
 	],
 	#category : #'Searcher-Query'
 }
 
-{ #category : #adding }
-SeaQueGraph >> , anObject [
-	^ nodeParts add: (SeaQueNodePart object: anObject graph: self)
+{ #category : #'as yet unclassified' }
+SeaQueGraph class >> nodes: aSet edges: anotherSet variables: aDictionary [
+	^ self new
+		initializeNodes: aSet edges: anotherSet variables: aDictionary;
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueGraph >> cheapestShouldAndCanExecuteQueryOrNil [
+SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 	^ (((nodes , edges
 		select: [ :e | e shouldExecute and: [ e canExecute ] ])
 		collect: [ :e | e -> e estimatedResultsSize ])
@@ -26,41 +27,19 @@ SeaQueGraph >> cheapestShouldAndCanExecuteQueryOrNil [
 ]
 
 { #category : #accessing }
-SeaQueGraph >> edges [
-	^ edges
-]
-
-{ #category : #accessing }
 SeaQueGraph >> execute_ [
 	| entity |
-	self prepareExecute.
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
-	[ (entity := self cheapestShouldAndCanExecuteQueryOrNil) isNil ]
-		whileFalse: [ entity execute ]
+	[ (entity := self cheapestShouldAndCanExecuteOrNil) isNil ]
+		whileFalse: [ entity logCr.
+			entity execute.
+			entity logCr ]
 ]
 
 { #category : #initialization }
-SeaQueGraph >> initialize [
-	super initialize.
-	graph := self.
-	nodes := Set new.
-	edges := Set new.
-	variables := Dictionary new.
-	nodeParts := Set new
-]
-
-{ #category : #accessing }
-SeaQueGraph >> nodes [
-	^ nodes
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueGraph >> prepareExecute [
-	nodeParts do: [ :e | nodes add: e node ].
-	nodeParts removeAll
-]
-
-{ #category : #accessing }
-SeaQueGraph >> variables [
-	^ variables
+SeaQueGraph >> initializeNodes: aSet edges: anotherSet variables: aDictionary [
+	self assert: [ nodes isNil and: [ edges isNil ] ].
+	nodes := aSet.
+	edges := anotherSet.
+	variables := aDictionary
 ]

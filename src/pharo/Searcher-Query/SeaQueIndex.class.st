@@ -24,17 +24,17 @@ SeaQueIndex class >> resetAll [
 
 { #category : #accessing }
 SeaQueIndex >> at: anObject [
-	^ self index at: anObject
+	^ (self index at: anObject) copy
 ]
 
 { #category : #accessing }
 SeaQueIndex >> at: anObject ifAbsent: aBlock [
-	^ self index at: anObject ifAbsent: aBlock
+	^ (self index at: anObject ifAbsent: aBlock) copy
 ]
 
 { #category : #accessing }
 SeaQueIndex >> at: anObject ifPresent: aBlock ifAbsent: anotherBlock [
-	^ self index at: anObject ifPresent: aBlock ifAbsent: anotherBlock
+	^ (self index at: anObject ifPresent: aBlock ifAbsent: anotherBlock) copy
 ]
 
 { #category : #accessing }

@@ -6,20 +6,23 @@ Class {
 	#category : #'Searcher-Query'
 }
 
+{ #category : #'as yet unclassified' }
+SeaQueEdge class >> classForIdentifier: aString [
+	| edgeClasses |
+	edgeClasses := SeaQueEdge allSubclasses
+		select: [ :e | 
+			(e class includesSelector: #identifier)
+				and: [ e identifier = aString ] ].
+	self assert: [ edgeClasses size = 1 ].
+	^ edgeClasses anyOne
+]
+
+{ #category : #compiling }
+SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 SeaQueEdge class >> identifier [
 	self subclassResponsibility
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueEdge class >> sourcePart: aNodePart targetPart: anotherNodePart [
-	"Needs to ensure node on parts."
-
-	self subclassResponsibility
-]
-
-{ #category : #accessing }
-SeaQueEdge >> graph: aGraph [
-	super graph: aGraph.
-	graph edges add: self
 ]

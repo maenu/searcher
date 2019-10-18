@@ -1,65 +1,49 @@
 Class {
 	#name : #SeaQueNodePart,
-	#superclass : #Object,
-	#instVars : [
-		'object',
-		'graph',
-		'node',
-		'identifier'
-	],
-	#category : #'Searcher-Query'
+	#superclass : #SeaQuePart,
+	#category : #'Searcher-Query-Parts'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueNodePart class >> object: anObject graph: aGraph [
+SeaQueNodePart class >> object: anObject graphPart: aGraphPart [
 	^ self new
-		object: anObject graph: aGraph;
+		initializeObject: anObject graphPart: aGraphPart;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueNodePart >> ! anObject [
-	self assert: [ object isNotNil ].
-	identifier := anObject.
-	^ self
+SeaQueNodePart >> ! aString [
+	^ graphPart at: aString put: self
 ]
 
 { #category : #copying }
 SeaQueNodePart >> , anObject [
-	^ graph , anObject
+	^ graphPart , anObject
 ]
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> <~ anObject [
-	^ SeaQueIncomingEdgePart nodePart: self edgeObject: anObject
+	^ graphPart incomingEdgePartFor: anObject nodePart: self
 ]
 
-{ #category : #accessing }
-SeaQueNodePart >> graph [
-	^ graph
+{ #category : #converting }
+SeaQueNodePart >> asClassDescriptionNameNode [
+	^ object seaQueIsIdentifier
+		ifTrue: [ object seaQueAsVariableNode ]
+		ifFalse: [ object seaQueAsClassDescriptionNameNode ]
 ]
 
-{ #category : #accessing }
-SeaQueNodePart >> node [
-	^ self
-		nodeOrPut: [ :e | "fallback to non-contextual node" object seaQueAsNodeFromPart: e ]
+{ #category : #converting }
+SeaQueNodePart >> asCompiledMethodSelectorNode [
+	^ object seaQueAsCompiledMethodSelectorNode
 ]
 
-{ #category : #accessing }
-SeaQueNodePart >> nodeOrPut: aBlock [
-	^ node ifNil: [ node := aBlock value: self ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueNodePart >> object: anObject graph: aGraph [
-	self
-		assert: [ object isNil
-				and: [ graph isNil and: [ node isNil and: [ identifier isNil ] ] ] ].
-	object := anObject.
-	graph := aGraph
+{ #category : #compiling }
+SeaQueNodePart >> compile [
+	^ graphPart compile
 ]
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> ~ anObject [
-	^ SeaQueOutgoingEdgePart nodePart: self edgeObject: anObject
+	^ graphPart outgoingEdgePartFor: anObject nodePart: self
 ]

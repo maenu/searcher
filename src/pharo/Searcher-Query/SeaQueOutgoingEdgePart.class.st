@@ -1,15 +1,18 @@
 Class {
 	#name : #SeaQueOutgoingEdgePart,
 	#superclass : #SeaQueEdgePart,
-	#category : #'Searcher-Query'
+	#category : #'Searcher-Query-Parts'
 }
+
+{ #category : #compiling }
+SeaQueOutgoingEdgePart >> compileIn: aContext [
+	^ object seaQueAsEdgeFactory
+		compileSourcePart: nodePart
+		targetPart: otherNodePart
+		in: aContext
+]
 
 { #category : #associating }
 SeaQueOutgoingEdgePart >> ~> anObject [
-	| otherNodePart |
-	otherNodePart := SeaQueNodePart
-		object: anObject
-		graph: nodePart graph.
-	edgeObject seaQueAsEdgeSourcePart: nodePart targetPart: otherNodePart.
-	^ otherNodePart
+	^ otherNodePart := graphPart nodePartFor: anObject
 ]

@@ -4,25 +4,28 @@ Class {
 	#category : #'Searcher-Query'
 }
 
+{ #category : #'as yet unclassified' }
+SeaQueHasSubclassEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
+	^ self
+		source: (aContext at: aNodePart ifAbsentPut: #asClassDescriptionNameNode)
+		target: (aContext at: anotherNodePart ifAbsentPut: #asClassDescriptionNameNode)
+]
+
 { #category : #accessing }
 SeaQueHasSubclassEdge class >> identifier [
 	^ #hasSubclass
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueHasSubclassEdge class >> sourcePart: aNodePart targetPart: anotherNodePart [
-	| graph |
-	graph := aNodePart graph.
-	^ (self
-		source: (aNodePart nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeFromPart: e ])
-		target:
-		(anotherNodePart
-		nodeOrPut: [ :e | e seaQueAsClassDescriptionNodeFromPart: e ]))
-		graph: graph;
-		yourself
-]
-
 { #category : #accessing }
 SeaQueHasSubclassEdge >> executeSource: anObject [
 	^ anObject subclasses
+]
+
+{ #category : #printing }
+SeaQueHasSubclassEdge >> printOn: aStream [
+	aStream
+		nextPutAll: 'hasSubclass ';
+		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
 ]
