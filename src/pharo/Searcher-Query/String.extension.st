@@ -21,6 +21,13 @@ String >> seaQueAsVariableNode [
 ]
 
 { #category : #'*Searcher-Query' }
+String >> seaQueAsVariableNodeWithResults: aSet [
+	^ self seaQueAsVariableNode
+		results: aSet;
+		yourself
+]
+
+{ #category : #'*Searcher-Query' }
 String >> seaQueIsIdentifier [
 	^ self size >= 2 and: [ self first = $@ ]
 ]

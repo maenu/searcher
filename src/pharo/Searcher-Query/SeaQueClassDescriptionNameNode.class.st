@@ -16,17 +16,14 @@ SeaQueClassDescriptionNameNode class >> name: aString [
 
 { #category : #accessing }
 SeaQueClassDescriptionNameNode >> estimatedResultsSize_ [
-	^ SeaQueClassAndTraitIndex instance size
+	^ SeaQueClassDescriptionIndex instance size
 ]
 
 { #category : #accessing }
 SeaQueClassDescriptionNameNode >> execute_ [
-	results := SeaQueClassAndTraitIndex instance
-		at: (Character space split: name) first
-		ifPresent: [ :e | 
-			(name includes: Character space)
-				ifTrue: [ e collect: #classSide ]
-				ifFalse: [ e ] ]
+	results := SeaQueClassDescriptionIndex instance
+		at: name
+		ifPresent: #yourself
 		ifAbsent: [ Set new ]
 ]
 

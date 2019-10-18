@@ -18,7 +18,9 @@ SeaQueHasSubclassEdge class >> identifier [
 
 { #category : #accessing }
 SeaQueHasSubclassEdge >> executeSource: anObject [
-	^ anObject subclasses
+	^ anObject isInstanceSide
+		ifTrue: [ anObject subclasses ]
+		ifFalse: [ anObject instanceSide subclasses collect: #classSide ]
 ]
 
 { #category : #printing }

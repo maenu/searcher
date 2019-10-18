@@ -29,13 +29,17 @@ SeaQueNodePart >> <~ anObject [
 { #category : #converting }
 SeaQueNodePart >> asClassDescriptionNameNode [
 	^ object seaQueIsIdentifier
-		ifTrue: [ object seaQueAsVariableNode ]
+		ifTrue: [ object
+				seaQueAsVariableNodeWithResults: SeaQueClassDescriptionIndex instance all ]
 		ifFalse: [ object seaQueAsClassDescriptionNameNode ]
 ]
 
 { #category : #converting }
 SeaQueNodePart >> asCompiledMethodSelectorNode [
-	^ object seaQueAsCompiledMethodSelectorNode
+	^ object seaQueIsIdentifier
+		ifTrue: [ object
+				seaQueAsVariableNodeWithResults: SeaQueCompiledMethodIndex instance all ]
+		ifFalse: [ object seaQueAsCompiledMethodSelectorNode ]
 ]
 
 { #category : #compiling }

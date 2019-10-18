@@ -19,7 +19,13 @@ SeaQueIndex class >> reset [
 
 { #category : #initialization }
 SeaQueIndex class >> resetAll [
+	<script>
 	self subclassesDo: #reset
+]
+
+{ #category : #accessing }
+SeaQueIndex >> all [
+	^ self index values flatCollect: #yourself
 ]
 
 { #category : #accessing }
