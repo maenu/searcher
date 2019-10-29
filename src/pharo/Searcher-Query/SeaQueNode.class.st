@@ -6,13 +6,6 @@ Class {
 	#category : #'Searcher-Query'
 }
 
-{ #category : #generated }
-SeaQueNode class >> identifier: aString [
-	^ self new
-		identifier: aString;
-		yourself
-]
-
 { #category : #accessing }
 SeaQueNode >> results: aCollection [
 	self assert: [ wasExecuted not and: [ results isEmpty ] ].

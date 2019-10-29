@@ -26,3 +26,13 @@ SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in:
 SeaQueEdge class >> identifier [
 	self subclassResponsibility
 ]
+
+{ #category : #printing }
+SeaQueEdge >> printOn: aStream [
+	aStream
+		nextPutAll: self class identifier;
+		nextPutAll: ' ';
+		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
+]

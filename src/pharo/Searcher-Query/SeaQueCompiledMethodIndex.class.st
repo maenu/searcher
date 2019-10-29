@@ -10,6 +10,9 @@ Class {
 { #category : #accessing }
 SeaQueCompiledMethodIndex >> index [
 	^ index
-		ifNil: [ index := (CompiledMethod allInstances groupedBy: #selector)
+		ifNil: [ index := (((Smalltalk globals allClassesAndTraits
+				flatCollect: [ :e | 
+					{e instanceSide.
+					e classSide} ]) flatCollect: #methods) groupedBy: #selector)
 				collect: #asIdentitySet ]
 ]

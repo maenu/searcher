@@ -16,6 +16,11 @@ String >> seaQueAsEdgeFactory [
 ]
 
 { #category : #'*Searcher-Query' }
+String >> seaQueAsPackageNameNode [
+	^ SeaQuePackageNameNode name: self
+]
+
+{ #category : #'*Searcher-Query' }
 String >> seaQueAsVariableNode [
 	^ SeaQueVariableNode new
 ]

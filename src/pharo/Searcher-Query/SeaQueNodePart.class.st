@@ -42,6 +42,14 @@ SeaQueNodePart >> asCompiledMethodSelectorNode [
 		ifFalse: [ object seaQueAsCompiledMethodSelectorNode ]
 ]
 
+{ #category : #converting }
+SeaQueNodePart >> asPackageNameNode [
+	^ object seaQueIsIdentifier
+		ifTrue: [ object
+				seaQueAsVariableNodeWithResults: SeaQuePackageIndex instance all ]
+		ifFalse: [ object seaQueAsPackageNameNode ]
+]
+
 { #category : #compiling }
 SeaQueNodePart >> compile [
 	^ graphPart compile
