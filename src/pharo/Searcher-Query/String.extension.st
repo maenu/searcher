@@ -16,8 +16,13 @@ String >> seaQueAsEdgeFactory [
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsPackageNameNode [
-	^ SeaQuePackageNameNode name: self
+String >> seaQueAsMetacelloProjectSpecNameNode [
+	^ SeaQueMetacelloProjectSpecNameNode name: self
+]
+
+{ #category : #'*Searcher-Query' }
+String >> seaQueAsRPackageNameNode [
+	^ SeaQueRPackageNameNode name: self
 ]
 
 { #category : #'*Searcher-Query' }

@@ -6,37 +6,18 @@ Class {
 	#category : #'Searcher-Query'
 }
 
+{ #category : #testing }
+SeaQueNode >> includes: anObject [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 SeaQueNode >> results: aCollection [
-	self assert: [ wasExecuted not and: [ results isEmpty ] ].
-	results addAll: aCollection.
-	self shouldExecute: true.
-	shouldExecute := false.
-	"setting results acts as execution"
-	wasExecuted := true
-]
-
-{ #category : #accessing }
-SeaQueNode >> retainResultsIn: aCollection [
-	| changed |
-	self
-		assert:
-			[ shouldExecute not and: [ (aCollection difference: results) isEmpty ] ].
-	changed := false.
-	results copy
-		do: [ :e | 
-			(aCollection includes: e)
-				ifFalse: [ changed := true.
-					results remove: e ] ].
-	changed
-		ifTrue: [ self shouldExecute: true.
-			shouldExecute := false ]
-]
-
-{ #category : #testing }
-SeaQueNode >> shouldExecute: aBoolean [
-	(aBoolean and: [ shouldExecute not ])
-		ifTrue:
-			[ self incoming , self outgoing do: [ :e | e shouldExecute: aBoolean ] ].
-	super shouldExecute: aBoolean
+	results = aCollection
+		ifTrue: [ ^ self ].
+	self assert: [ aCollection allSatisfy: [ :e | self includes: e ] ].
+	results := aCollection.
+	wasExecuted := true.
+	self incoming , self outgoing do: [ :e | e shouldExecute: true ].
+	shouldExecute := false
 ]

@@ -15,15 +15,22 @@ SeaQueCompiledMethodSelectorNode class >> selector: aSymbol [
 ]
 
 { #category : #accessing }
-SeaQueCompiledMethodSelectorNode >> estimatedResultsSize_ [
-	^ SeaQueCompiledMethodIndex instance size
+SeaQueCompiledMethodSelectorNode >> cost_ [
+	^ 1
 ]
 
 { #category : #accessing }
 SeaQueCompiledMethodSelectorNode >> execute_ [
-	results := SeaQueCompiledMethodIndex instance
-		at: selector
-		ifAbsent: [ Set new ]
+	self
+		results:
+			((SeaQueCompiledMethodCollection instance indexedBy: #selector)
+				at: selector
+				ifAbsent: [ IdentitySet new ])
+]
+
+{ #category : #testing }
+SeaQueCompiledMethodSelectorNode >> includes: anObject [
+	^ anObject selector = selector
 ]
 
 { #category : #accessing }
@@ -38,7 +45,7 @@ SeaQueCompiledMethodSelectorNode >> printOn: aStream [
 		nextPutAll: 'compiledMethodSelector "';
 		nextPutAll: selector;
 		nextPutAll: '" ';
-		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: self cost asString;
 		nextPutAll: ' ';
 		nextPutAll: results size asString
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #SeaQueClassDescriptionNameNode,
+	#name : #SeaQueRPackageNameNode,
 	#superclass : #SeaQueNode,
 	#instVars : [
 		'name'
@@ -8,41 +8,41 @@ Class {
 }
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode class >> name: aString [
+SeaQueRPackageNameNode class >> name: aString [
 	^ self new
 		initializeWithName: aString;
 		yourself
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> cost_ [
+SeaQueRPackageNameNode >> cost_ [
 	^ 1
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> execute_ [
+SeaQueRPackageNameNode >> execute_ [
 	self
 		results:
-			((SeaQueClassDescriptionCollection instance indexedBy: #name)
+			((SeaQueRPackageCollection instance indexedBy: #name)
 				at: name
 				ifAbsent: [ IdentitySet new ])
 ]
 
-{ #category : #asserting }
-SeaQueClassDescriptionNameNode >> includes: anObject [
+{ #category : #testing }
+SeaQueRPackageNameNode >> includes: anObject [
 	^ anObject name = name
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> initializeWithName: anObject [
+SeaQueRPackageNameNode >> initializeWithName: anObject [
 	self assert: [ name isNil ].
 	name := anObject
 ]
 
 { #category : #printing }
-SeaQueClassDescriptionNameNode >> printOn: aStream [
+SeaQueRPackageNameNode >> printOn: aStream [
 	aStream
-		nextPutAll: 'classDescriptionName "';
+		nextPutAll: 'rPackageName "';
 		nextPutAll: name;
 		nextPutAll: '" ';
 		nextPutAll: self cost asString;

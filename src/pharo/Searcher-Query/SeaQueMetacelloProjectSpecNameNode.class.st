@@ -1,5 +1,5 @@
 Class {
-	#name : #SeaQueClassDescriptionNameNode,
+	#name : #SeaQueMetacelloProjectSpecNameNode,
 	#superclass : #SeaQueNode,
 	#instVars : [
 		'name'
@@ -8,41 +8,41 @@ Class {
 }
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode class >> name: aString [
+SeaQueMetacelloProjectSpecNameNode class >> name: aString [
 	^ self new
 		initializeWithName: aString;
 		yourself
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> cost_ [
+SeaQueMetacelloProjectSpecNameNode >> cost_ [
 	^ 1
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> execute_ [
+SeaQueMetacelloProjectSpecNameNode >> execute_ [
 	self
 		results:
-			((SeaQueClassDescriptionCollection instance indexedBy: #name)
+			((SeaQueMetacelloProjectSpecCollection instance indexedBy: #name)
 				at: name
 				ifAbsent: [ IdentitySet new ])
 ]
 
-{ #category : #asserting }
-SeaQueClassDescriptionNameNode >> includes: anObject [
+{ #category : #testing }
+SeaQueMetacelloProjectSpecNameNode >> includes: anObject [
 	^ anObject name = name
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionNameNode >> initializeWithName: anObject [
+SeaQueMetacelloProjectSpecNameNode >> initializeWithName: anObject [
 	self assert: [ name isNil ].
 	name := anObject
 ]
 
 { #category : #printing }
-SeaQueClassDescriptionNameNode >> printOn: aStream [
+SeaQueMetacelloProjectSpecNameNode >> printOn: aStream [
 	aStream
-		nextPutAll: 'classDescriptionName "';
+		nextPutAll: 'metacelloProjectSpecName "';
 		nextPutAll: name;
 		nextPutAll: '" ';
 		nextPutAll: self cost asString;

@@ -14,6 +14,11 @@ SeaQueVariableNode >> execute_ [
 	self shouldNotImplement
 ]
 
+{ #category : #testing }
+SeaQueVariableNode >> includes: anObject [
+	^ true
+]
+
 { #category : #initialization }
 SeaQueVariableNode >> initialize [
 	super initialize.
@@ -24,13 +29,7 @@ SeaQueVariableNode >> initialize [
 SeaQueVariableNode >> printOn: aStream [
 	aStream
 		nextPutAll: 'variable ';
-		nextPutAll: self estimatedResultsSize asString;
+		nextPutAll: self cost asString;
 		nextPutAll: ' ';
 		nextPutAll: results size asString
-]
-
-{ #category : #testing }
-SeaQueVariableNode >> shouldExecute: aBoolean [
-	super shouldExecute: aBoolean.
-	shouldExecute := false
 ]

@@ -15,14 +15,14 @@ SeaQueQuery >> canExecute [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueQuery >> estimatedResultsSize [
+SeaQueQuery >> cost [
 	^ wasExecuted
 		ifTrue: [ results size ]
-		ifFalse: [ self estimatedResultsSize_ ]
+		ifFalse: [ self cost_ ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueQuery >> estimatedResultsSize_ [
+SeaQueQuery >> cost_ [
 	^ Float infinity
 ]
 
@@ -42,7 +42,7 @@ SeaQueQuery >> execute_ [
 { #category : #initialization }
 SeaQueQuery >> initialize [
 	super initialize.
-	results := Set new.
+	results := IdentitySet new.
 	shouldExecute := true.
 	wasExecuted := false
 ]

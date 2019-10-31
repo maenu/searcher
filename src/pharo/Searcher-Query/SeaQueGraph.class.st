@@ -20,7 +20,7 @@ SeaQueGraph class >> nodes: aSet edges: anotherSet variables: aDictionary [
 SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 	^ (((nodes , edges
 		select: [ :e | e shouldExecute and: [ e canExecute ] ])
-		collect: [ :e | e -> e estimatedResultsSize ])
+		collect: [ :e | e -> e cost ])
 		sorted: [ :a :b | a value < b value ])
 		ifEmpty: [ nil ]
 		ifNotEmpty: [ :e | e first key ]
