@@ -8,7 +8,7 @@ Class {
 SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
 	^ self
 		source: (aContext at: aNodePart ifAbsentPut: #asMetacelloProjectSpecNameNode)
-		target: (aContext at: anotherNodePart ifAbsentPut: #asClassDescriptionNameNode)
+		target: (aContext at: anotherNodePart ifAbsentPut: #asRPackageNameNode)
 ]
 
 { #category : #accessing }

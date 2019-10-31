@@ -16,7 +16,7 @@ SeaQueVariableNode >> execute_ [
 
 { #category : #testing }
 SeaQueVariableNode >> includes: anObject [
-	^ true
+	^ wasExecuted not or: [ results includes: anObject ]
 ]
 
 { #category : #initialization }

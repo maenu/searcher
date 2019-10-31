@@ -14,10 +14,9 @@ SeaQueNode >> includes: anObject [
 { #category : #accessing }
 SeaQueNode >> results: aCollection [
 	results = aCollection
-		ifTrue: [ ^ self ].
-	self assert: [ aCollection allSatisfy: [ :e | self includes: e ] ].
-	results := aCollection.
+		ifFalse: [ self assert: [ aCollection allSatisfy: [ :e | self includes: e ] ].
+			results := aCollection.
+			self incoming , self outgoing do: [ :e | e shouldExecute: true ] ].
 	wasExecuted := true.
-	self incoming , self outgoing do: [ :e | e shouldExecute: true ].
 	shouldExecute := false
 ]

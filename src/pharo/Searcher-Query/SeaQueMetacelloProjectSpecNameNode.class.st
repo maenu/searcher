@@ -31,6 +31,7 @@ SeaQueMetacelloProjectSpecNameNode >> execute_ [
 { #category : #testing }
 SeaQueMetacelloProjectSpecNameNode >> includes: anObject [
 	^ anObject name = name
+		and: [ wasExecuted not or: [ results includes: anObject ] ]
 ]
 
 { #category : #accessing }

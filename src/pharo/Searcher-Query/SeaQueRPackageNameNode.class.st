@@ -31,6 +31,7 @@ SeaQueRPackageNameNode >> execute_ [
 { #category : #testing }
 SeaQueRPackageNameNode >> includes: anObject [
 	^ anObject name = name
+		and: [ wasExecuted not or: [ results includes: anObject ] ]
 ]
 
 { #category : #accessing }

@@ -31,6 +31,7 @@ SeaQueClassDescriptionNameNode >> execute_ [
 { #category : #asserting }
 SeaQueClassDescriptionNameNode >> includes: anObject [
 	^ anObject name = name
+		and: [ wasExecuted not or: [ results includes: anObject ] ]
 ]
 
 { #category : #accessing }

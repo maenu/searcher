@@ -31,6 +31,7 @@ SeaQueCompiledMethodSelectorNode >> execute_ [
 { #category : #testing }
 SeaQueCompiledMethodSelectorNode >> includes: anObject [
 	^ anObject selector = selector
+		and: [ wasExecuted not or: [ results includes: anObject ] ]
 ]
 
 { #category : #accessing }
