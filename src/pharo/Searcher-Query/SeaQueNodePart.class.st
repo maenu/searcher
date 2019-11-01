@@ -26,37 +26,6 @@ SeaQueNodePart >> <~ anObject [
 	^ graphPart incomingEdgePartFor: anObject nodePart: self
 ]
 
-{ #category : #converting }
-SeaQueNodePart >> asClassDescriptionNameNode [
-	^ object seaQueIsIdentifier
-		ifTrue: [ object
-				seaQueAsVariableNode: SeaQueClassDescriptionCollection instance ]
-		ifFalse: [ object seaQueAsClassDescriptionNameNode ]
-]
-
-{ #category : #converting }
-SeaQueNodePart >> asCompiledMethodSelectorNode [
-	^ object seaQueIsIdentifier
-		ifTrue:
-			[ object seaQueAsVariableNode: SeaQueCompiledMethodCollection instance ]
-		ifFalse: [ object seaQueAsCompiledMethodSelectorNode ]
-]
-
-{ #category : #converting }
-SeaQueNodePart >> asMetacelloProjectSpecNameNode [
-	^ object seaQueIsIdentifier
-		ifTrue: [ object
-				seaQueAsVariableNode: SeaQueMetacelloProjectSpecCollection instance ]
-		ifFalse: [ object seaQueAsMetacelloProjectSpecNameNode ]
-]
-
-{ #category : #converting }
-SeaQueNodePart >> asRPackageNameNode [
-	^ object seaQueIsIdentifier
-		ifTrue: [ object seaQueAsVariableNode: SeaQueRPackageCollection instance ]
-		ifFalse: [ object seaQueAsRPackageNameNode ]
-]
-
 { #category : #compiling }
 SeaQueNodePart >> compile [
 	^ graphPart compile

@@ -20,9 +20,15 @@ SeaQueCompilationContext class >> nodes: aDictionary edges: anotherDictionary va
 
 { #category : #accessing }
 SeaQueCompilationContext >> at: aNodePart ifAbsentPut: aBlock [
+	^ self at: aNodePart ifPresent: #yourself ifAbsentPut: aBlock
+]
+
+{ #category : #accessing }
+SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: anotherBlock [
 	self assert: [ nodes includesKey: aNodePart ].
 	^ (nodes at: aNodePart)
-		ifNil: [ nodes at: aNodePart put: (aBlock value: aNodePart) ]
+		ifNil: [ nodes at: aNodePart put: (anotherBlock value: aNodePart) ]
+		ifNotNil: aBlock
 ]
 
 { #category : #compiling }

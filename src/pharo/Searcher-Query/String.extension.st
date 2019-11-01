@@ -1,19 +1,24 @@
 Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsClassDescriptionNameNode [
-	^ SeaQueMatchByPropertyNode
-		collection: SeaQueClassDescriptionCollection instance
-		key: #name
-		value: self
+String >> seaQueAsClassDescriptionNode [
+	^ self seaQueIsIdentifier
+		ifTrue:
+			[ self seaQueAsVariableNode: SeaQueClassDescriptionCollection instance ]
+		ifFalse: [ SeaQueMatchByPropertyNode
+				collection: SeaQueClassDescriptionCollection instance
+				key: #name
+				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsCompiledMethodSelectorNode [
-	^ SeaQueMatchByPropertyNode
-		collection: SeaQueCompiledMethodCollection instance
-		key: #selector
-		value: self
+String >> seaQueAsCompiledMethodNode [
+	^ self seaQueIsIdentifier
+		ifTrue: [ self seaQueAsVariableNode: SeaQueCompiledMethodCollection instance ]
+		ifFalse: [ SeaQueMatchByPropertyNode
+				collection: SeaQueCompiledMethodCollection instance
+				key: #selector
+				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }
@@ -22,19 +27,24 @@ String >> seaQueAsEdgeFactory [
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsMetacelloProjectSpecNameNode [
-	^ SeaQueMatchByPropertyNode
-		collection: SeaQueMetacelloProjectSpecCollection instance
-		key: #name
-		value: self
+String >> seaQueAsMetacelloProjectSpecNode [
+	^ self seaQueIsIdentifier
+		ifTrue: [ self
+				seaQueAsVariableNode: SeaQueMetacelloProjectSpecCollection instance ]
+		ifFalse: [ SeaQueMatchByPropertyNode
+				collection: SeaQueMetacelloProjectSpecCollection instance
+				key: #name
+				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsRPackageNameNode [
-	^ SeaQueMatchByPropertyNode
-		collection: SeaQueRPackageCollection instance
-		key: #name
-		value: self
+String >> seaQueAsRPackageNode [
+	^ self seaQueIsIdentifier
+		ifTrue: [ self seaQueAsVariableNode: SeaQueRPackageCollection instance ]
+		ifFalse: [ SeaQueMatchByPropertyNode
+				collection: SeaQueRPackageCollection instance
+				key: #name
+				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }

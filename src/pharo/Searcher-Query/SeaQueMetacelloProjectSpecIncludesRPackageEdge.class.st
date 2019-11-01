@@ -7,8 +7,21 @@ Class {
 { #category : #'as yet unclassified' }
 SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
 	^ self
-		source: (aContext at: aNodePart ifAbsentPut: #asMetacelloProjectSpecNameNode)
-		target: (aContext at: anotherNodePart ifAbsentPut: #asRPackageNameNode)
+		source:
+			(aContext
+				at: aNodePart
+				ifPresent: [ :e | 
+					self
+						assert: [ e collection class = SeaQueMetacelloProjectSpecCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsMetacelloProjectSpecNode ])
+		target:
+			(aContext
+				at: anotherNodePart
+				ifPresent: [ :e | 
+					self assert: [ e collection class = SeaQueRPackageCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
 ]
 
 { #category : #accessing }

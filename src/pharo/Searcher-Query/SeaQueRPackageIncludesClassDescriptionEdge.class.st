@@ -7,8 +7,20 @@ Class {
 { #category : #'as yet unclassified' }
 SeaQueRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
 	^ self
-		source: (aContext at: aNodePart ifAbsentPut: #asRPackageNameNode)
-		target: (aContext at: anotherNodePart ifAbsentPut: #asClassDescriptionNameNode)
+		source:
+			(aContext
+				at: aNodePart
+				ifPresent: [ :e | 
+					self assert: [ e collection class = SeaQueRPackageCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
+		target:
+			(aContext
+				at: anotherNodePart
+				ifPresent: [ :e | 
+					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
 ]
 
 { #category : #accessing }

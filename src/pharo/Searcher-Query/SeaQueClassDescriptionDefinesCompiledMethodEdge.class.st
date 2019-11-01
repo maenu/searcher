@@ -7,8 +7,20 @@ Class {
 { #category : #'as yet unclassified' }
 SeaQueClassDescriptionDefinesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
 	^ self
-		source: (aContext at: aNodePart ifAbsentPut: #asClassDescriptionNameNode)
-		target: (aContext at: anotherNodePart ifAbsentPut: #asCompiledMethodSelectorNode)
+		source:
+			(aContext
+				at: aNodePart
+				ifPresent: [ :e | 
+					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
+		target:
+			(aContext
+				at: anotherNodePart
+				ifPresent: [ :e | 
+					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
+					e ]
+				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ])
 ]
 
 { #category : #accessing }

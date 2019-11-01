@@ -14,3 +14,8 @@ SeaQuePart >> initializeObject: anObject graphPart: aGraphPart [
 	object := anObject.
 	graphPart := aGraphPart
 ]
+
+{ #category : #accessing }
+SeaQuePart >> object [
+	^ object
+]
