@@ -16,6 +16,11 @@ SeaQueNode class >> collection: aCollection [
 		yourself
 ]
 
+{ #category : #accessing }
+SeaQueNode >> collection [
+	^ collection
+]
+
 { #category : #'as yet unclassified' }
 SeaQueNode >> cost_ [
 	^ collection size
