@@ -23,14 +23,13 @@ SeaQueMatchByPropertyNode >> cost_ [
 
 { #category : #accessing }
 SeaQueMatchByPropertyNode >> execute_ [
-	self
-		results:
-			((collection indexedBy: key) at: value ifAbsent: [ IdentitySet new ])
+	self results: self matchingNodes
 ]
 
 { #category : #testing }
 SeaQueMatchByPropertyNode >> includes: anObject [
-	^ (anObject perform: key) = value and: [ super includes: anObject ]
+	^ (self matchingNodes includes: anObject)
+		and: [ super includes: anObject ]
 ]
 
 { #category : #initialization }
@@ -41,11 +40,17 @@ SeaQueMatchByPropertyNode >> initializeKey: aString value: anObject [
 	value := anObject
 ]
 
+{ #category : #accessing }
+SeaQueMatchByPropertyNode >> matchingNodes [
+	^ (collection indexedBy: key) at: value ifAbsent: [ IdentitySet new ]
+]
+
 { #category : #printing }
 SeaQueMatchByPropertyNode >> printOn: aStream [
 	super printOn: aStream.
 	aStream
-		nextPutAll: key;
 		nextPutAll: ' ';
-		nextPutAll: value asString
+		nextPutAll: key;
+		nextPutAll: ' = '.
+	value printOn: aStream
 ]
