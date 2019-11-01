@@ -30,15 +30,15 @@ SeaQueNodePart >> <~ anObject [
 SeaQueNodePart >> asClassDescriptionNameNode [
 	^ object seaQueIsIdentifier
 		ifTrue: [ object
-				seaQueAsVariableNodeWithResults: SeaQueClassDescriptionCollection instance objects ]
+				seaQueAsVariableNode: SeaQueClassDescriptionCollection instance ]
 		ifFalse: [ object seaQueAsClassDescriptionNameNode ]
 ]
 
 { #category : #converting }
 SeaQueNodePart >> asCompiledMethodSelectorNode [
 	^ object seaQueIsIdentifier
-		ifTrue: [ object
-				seaQueAsVariableNodeWithResults: SeaQueCompiledMethodCollection instance objects ]
+		ifTrue:
+			[ object seaQueAsVariableNode: SeaQueCompiledMethodCollection instance ]
 		ifFalse: [ object seaQueAsCompiledMethodSelectorNode ]
 ]
 
@@ -46,15 +46,14 @@ SeaQueNodePart >> asCompiledMethodSelectorNode [
 SeaQueNodePart >> asMetacelloProjectSpecNameNode [
 	^ object seaQueIsIdentifier
 		ifTrue: [ object
-				seaQueAsVariableNodeWithResults: SeaQueMetacelloProjectSpecCollection instance objects ]
+				seaQueAsVariableNode: SeaQueMetacelloProjectSpecCollection instance ]
 		ifFalse: [ object seaQueAsMetacelloProjectSpecNameNode ]
 ]
 
 { #category : #converting }
 SeaQueNodePart >> asRPackageNameNode [
 	^ object seaQueIsIdentifier
-		ifTrue: [ object
-				seaQueAsVariableNodeWithResults: SeaQueRPackageCollection instance objects ]
+		ifTrue: [ object seaQueAsVariableNode: SeaQueRPackageCollection instance ]
 		ifFalse: [ object seaQueAsRPackageNameNode ]
 ]
 

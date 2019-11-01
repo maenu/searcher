@@ -2,12 +2,18 @@ Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
 String >> seaQueAsClassDescriptionNameNode [
-	^ SeaQueClassDescriptionNameNode name: self
+	^ SeaQueMatchByPropertyNode
+		collection: SeaQueClassDescriptionCollection instance
+		key: #name
+		value: self
 ]
 
 { #category : #'*Searcher-Query' }
 String >> seaQueAsCompiledMethodSelectorNode [
-	^ SeaQueCompiledMethodSelectorNode selector: self
+	^ SeaQueMatchByPropertyNode
+		collection: SeaQueCompiledMethodCollection instance
+		key: #selector
+		value: self
 ]
 
 { #category : #'*Searcher-Query' }
@@ -17,24 +23,23 @@ String >> seaQueAsEdgeFactory [
 
 { #category : #'*Searcher-Query' }
 String >> seaQueAsMetacelloProjectSpecNameNode [
-	^ SeaQueMetacelloProjectSpecNameNode name: self
+	^ SeaQueMatchByPropertyNode
+		collection: SeaQueMetacelloProjectSpecCollection instance
+		key: #name
+		value: self
 ]
 
 { #category : #'*Searcher-Query' }
 String >> seaQueAsRPackageNameNode [
-	^ SeaQueRPackageNameNode name: self
+	^ SeaQueMatchByPropertyNode
+		collection: SeaQueRPackageCollection instance
+		key: #name
+		value: self
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsVariableNode [
-	^ SeaQueVariableNode new
-]
-
-{ #category : #'*Searcher-Query' }
-String >> seaQueAsVariableNodeWithResults: aSet [
-	^ self seaQueAsVariableNode
-		results: aSet;
-		yourself
+String >> seaQueAsVariableNode: aCollection [
+	^ SeaQueVariableNode collection: aCollection
 ]
 
 { #category : #'*Searcher-Query' }
