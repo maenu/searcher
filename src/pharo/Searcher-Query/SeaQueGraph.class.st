@@ -36,6 +36,20 @@ SeaQueGraph >> execute_ [
 			entity logCr ]
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueGraph >> explode [
+	| map |
+	map := IdentityDictionary new.
+	nodes
+		do:
+			[ :e | e results do: [ :f | map at: f ifAbsentPut: [ e explode: f ] ] ].
+	edges
+		do: [ :e | 
+			e results
+				do: [ :f | e explodeSource: (map at: f key) target: (map at: f value) ] ].
+	^ SeaGraGraph nodes: map values
+]
+
 { #category : #initialization }
 SeaQueGraph >> initializeNodes: aSet edges: anotherSet variables: aDictionary [
 	self assert: [ nodes isNil and: [ edges isNil ] ].

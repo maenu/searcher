@@ -51,6 +51,14 @@ SeaQueEdge >> execute_ [
 	self cheapestCanExecuteStrategy execute
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueEdge >> explodeSource: aNode target: anotherNode [
+	^ SeaQueResultEdge
+		source: aNode
+		target: anotherNode
+		identifier: self class identifier
+]
+
 { #category : #initialization }
 SeaQueEdge >> initialize [
 	super initialize.

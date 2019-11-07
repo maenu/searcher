@@ -31,6 +31,11 @@ SeaQueNode >> execute_ [
 	self results: (self results select: [ :e | self includes: e ])
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueNode >> explode: anObject [
+	^ SeaQueResultNode object: anObject
+]
+
 { #category : #testing }
 SeaQueNode >> includes: anObject [
 	^ wasExecuted not or: [ results includes: anObject ]
