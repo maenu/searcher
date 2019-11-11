@@ -12,7 +12,5 @@ SeaGraDataNode >> seaGraEdiRemoveCost [
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiReplaceCost: aNode [
-	^ self = aNode
-		ifTrue: [ 0 ]
-		ifFalse: [ 1 ]
+	^ data seaGraEdiReplaceCost: aNode data
 ]
