@@ -53,10 +53,10 @@ SeaQueEdge >> execute_ [
 
 { #category : #'as yet unclassified' }
 SeaQueEdge >> explodeSource: aNode target: anotherNode [
-	^ SeaQueResultEdge
+	^ SeaGraDataEdge
 		source: aNode
 		target: anotherNode
-		identifier: self class identifier
+		data: self class identifier
 ]
 
 { #category : #initialization }

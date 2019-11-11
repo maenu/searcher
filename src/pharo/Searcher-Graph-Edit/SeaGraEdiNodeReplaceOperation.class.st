@@ -21,6 +21,15 @@ SeaGraEdiNodeReplaceOperation >> initializeReplacement: anotherNode [
 	replacement := anotherNode
 ]
 
+{ #category : #printing }
+SeaGraEdiNodeReplaceOperation >> printOn: aStream [
+	node printOn: aStream.
+	aStream nextPutAll: '->'.
+	replacement printOn: aStream.
+	aStream nextPutAll: ' '.
+	cost printOn: aStream
+]
+
 { #category : #'as yet unclassified' }
 SeaGraEdiNodeReplaceOperation >> sourceOrNil [
 	^ node

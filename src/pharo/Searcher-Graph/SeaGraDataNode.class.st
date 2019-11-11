@@ -36,3 +36,8 @@ SeaGraDataNode >> data: anObject [
 SeaGraDataNode >> hash [
 	^ data hash
 ]
+
+{ #category : #printing }
+SeaGraDataNode >> printOn: aStream [
+	data printOn: aStream
+]

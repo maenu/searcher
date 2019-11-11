@@ -36,6 +36,12 @@ SeaGraEdiPath >> cost [
 	^ operations sum: #cost
 ]
 
+{ #category : #ui }
+SeaGraEdiPath >> gtItemsFor: aView [
+	<gtView>
+	^ (operations gtItemsFor: aView) title: 'Operations'
+]
+
 { #category : #initialization }
 SeaGraEdiPath >> initialize [
 	super initialize.

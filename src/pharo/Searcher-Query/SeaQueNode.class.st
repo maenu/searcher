@@ -33,7 +33,7 @@ SeaQueNode >> execute_ [
 
 { #category : #'as yet unclassified' }
 SeaQueNode >> explode: anObject [
-	^ SeaQueResultNode object: anObject
+	^ SeaGraDataNode data: anObject
 ]
 
 { #category : #testing }

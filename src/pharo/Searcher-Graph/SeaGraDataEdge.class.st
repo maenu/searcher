@@ -38,3 +38,12 @@ SeaGraDataEdge >> data: anObject [
 SeaGraDataEdge >> hash [
 	^ (data hash bitXor: source hash) bitXor: target hash
 ]
+
+{ #category : #printing }
+SeaGraDataEdge >> printOn: aStream [
+	source printOn: aStream.
+	aStream nextPutAll: '-'.
+	data printOn: aStream.
+	aStream nextPutAll: '->'.
+	target printOn: aStream
+]
