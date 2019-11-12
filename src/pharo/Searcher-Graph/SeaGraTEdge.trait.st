@@ -33,6 +33,22 @@ SeaGraTEdge >> initializeWithSource: aNode target: anotherNode [
 	anotherNode incoming add: self
 ]
 
+{ #category : #'as yet unclassified' }
+SeaGraTEdge >> seaGraGtElement [
+	^ BlParabollaArcElement new
+		curvatureFraction: 0.2;
+		border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
+		toHead:
+			(BlArrowheadSimpleArrow new
+				arrowLengthFraction: 5;
+				arrowNoseAngle: 60;
+				border:
+					(BlBorder builder
+						paint: (Color gray alpha: 0.2);
+						width: 1;
+						build))
+]
+
 { #category : #accessing }
 SeaGraTEdge >> source [
 	^ source

@@ -43,3 +43,12 @@ SeaGraTNode >> outgoing [
 				whenAddedDo: [ :e | self assert: [ e source == self ] ];
 				yourself ]
 ]
+
+{ #category : #'as yet unclassified' }
+SeaGraTNode >> seaGraGtElement [
+	^ BlElement new
+		geometry: BlCircle new;
+		size: 5 @ 5;
+		background: Color black;
+		yourself
+]

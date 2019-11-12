@@ -41,3 +41,8 @@ SeaGraDataNode >> hash [
 SeaGraDataNode >> printOn: aStream [
 	data printOn: aStream
 ]
+
+{ #category : #'as yet unclassified' }
+SeaGraDataNode >> seaGraGtElement [
+	^ data seaGraGtElement
+]
