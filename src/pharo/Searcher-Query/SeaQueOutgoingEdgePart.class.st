@@ -10,6 +10,7 @@ SeaQueOutgoingEdgePart >> compileIn: aContext [
 		compileSourcePart: nodePart
 		targetPart: otherNodePart
 		in: aContext
+		optional: optional
 ]
 
 { #category : #associating }

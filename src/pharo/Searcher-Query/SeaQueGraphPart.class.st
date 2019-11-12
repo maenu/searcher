@@ -33,13 +33,14 @@ SeaQueGraphPart >> compile [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueGraphPart >> incomingEdgePartFor: anObject nodePart: aNodePart [
+SeaQueGraphPart >> incomingEdgePartFor: anObject nodePart: aNodePart optional: aBoolean [
 	^ edgeParts
 		add:
 			(SeaQueIncomingEdgePart
 				object: anObject
 				graphPart: self
-				nodePart: aNodePart)
+				nodePart: aNodePart
+				optional: aBoolean)
 ]
 
 { #category : #initialization }
@@ -64,11 +65,12 @@ SeaQueGraphPart >> nodePartFor: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueGraphPart >> outgoingEdgePartFor: anObject nodePart: aNodePart [
+SeaQueGraphPart >> outgoingEdgePartFor: anObject nodePart: aNodePart optional: aBoolean [
 	^ edgeParts
 		add:
 			(SeaQueOutgoingEdgePart
 				object: anObject
 				graphPart: self
-				nodePart: aNodePart)
+				nodePart: aNodePart
+				optional: aBoolean)
 ]

@@ -5,22 +5,24 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
-	^ self
+SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+	^ (self
 		source:
-			(aContext
-				at: aNodePart
-				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
-					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
+		(aContext
+		at: aNodePart
+		ifPresent: [ :e | 
+			self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+			e ]
+		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
 		target:
-			(aContext
+		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
 					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
+				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ]))
+		initializeOptional: aBoolean;
+		yourself
 ]
 
 { #category : #accessing }

@@ -11,11 +11,6 @@ SeaQueNodePart class >> object: anObject graphPart: aGraphPart [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueNodePart >> ! aString [
-	^ graphPart at: aString put: self
-]
-
 { #category : #copying }
 SeaQueNodePart >> , anObject [
 	^ graphPart , anObject
@@ -23,7 +18,15 @@ SeaQueNodePart >> , anObject [
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> <~ anObject [
-	^ graphPart incomingEdgePartFor: anObject nodePart: self
+	^ graphPart
+		incomingEdgePartFor: anObject
+		nodePart: self
+		optional: false
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNodePart >> @ aString [
+	^ graphPart at: aString put: self
 ]
 
 { #category : #compiling }
@@ -33,5 +36,16 @@ SeaQueNodePart >> compile [
 
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> ~ anObject [
-	^ graphPart outgoingEdgePartFor: anObject nodePart: self
+	^ graphPart
+		outgoingEdgePartFor: anObject
+		nodePart: self
+		optional: false
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNodePart >> ~? anObject [
+	^ graphPart
+		outgoingEdgePartFor: anObject
+		nodePart: self
+		optional: true
 ]

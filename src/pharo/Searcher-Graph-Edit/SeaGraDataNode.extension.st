@@ -2,12 +2,12 @@ Extension { #name : #SeaGraDataNode }
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiAddCost [
-	^ 1
+	^ data seaGraEdiAddCost
 ]
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiRemoveCost [
-	^ 1
+	^ data seaGraEdiRemoveCost
 ]
 
 { #category : #'*Searcher-Graph-Edit' }

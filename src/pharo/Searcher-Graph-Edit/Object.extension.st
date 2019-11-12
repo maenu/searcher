@@ -1,6 +1,16 @@
 Extension { #name : #Object }
 
 { #category : #'*Searcher-Graph-Edit' }
+Object >> seaGraEdiAddCost [
+	^ 1
+]
+
+{ #category : #'*Searcher-Graph-Edit' }
+Object >> seaGraEdiRemoveCost [
+	^ 1
+]
+
+{ #category : #'*Searcher-Graph-Edit' }
 Object >> seaGraEdiReplaceCost: anObject [
 	self = anObject
 		ifTrue: [ ^ 0 ].

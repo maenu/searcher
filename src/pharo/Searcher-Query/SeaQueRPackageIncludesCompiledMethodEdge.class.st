@@ -5,22 +5,24 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
-	^ self
+SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+	^ (self
 		source:
-			(aContext
-				at: aNodePart
-				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueRPackageCollection ].
-					e ]
-				ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
+		(aContext
+		at: aNodePart
+		ifPresent: [ :e | 
+			self assert: [ e collection class = SeaQueRPackageCollection ].
+			e ]
+		ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
 		target:
-			(aContext
+		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
 					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ])
+				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ]))
+		initializeOptional: aBoolean;
+		yourself
 ]
 
 { #category : #accessing }

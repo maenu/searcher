@@ -3,16 +3,17 @@ Class {
 	#superclass : #SeaQuePart,
 	#instVars : [
 		'nodePart',
-		'otherNodePart'
+		'otherNodePart',
+		'optional'
 	],
 	#category : #'Searcher-Query-Parts'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueEdgePart class >> object: anObject graphPart: aGraphPart nodePart: aNodePart [
+SeaQueEdgePart class >> object: anObject graphPart: aGraphPart nodePart: aNodePart optional: aBoolean [
 	^ self new
 		initializeObject: anObject graphPart: aGraphPart;
-		initializeNodePart: aNodePart;
+		initializeNodePart: aNodePart optional: aBoolean;
 		yourself
 ]
 
@@ -22,7 +23,9 @@ SeaQueEdgePart >> compileIn: aContext [
 ]
 
 { #category : #initialization }
-SeaQueEdgePart >> initializeNodePart: aNodePart [
+SeaQueEdgePart >> initializeNodePart: aNodePart optional: aBoolean [
 	self assert: [ nodePart isNil ].
-	nodePart := aNodePart
+	self assert: [ optional isNil ].
+	nodePart := aNodePart.
+	optional := aBoolean
 ]

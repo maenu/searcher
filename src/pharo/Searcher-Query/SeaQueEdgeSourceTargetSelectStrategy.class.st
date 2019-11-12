@@ -17,7 +17,6 @@ SeaQueEdgeSourceTargetSelectStrategy >> cost [
 { #category : #'as yet unclassified' }
 SeaQueEdgeSourceTargetSelectStrategy >> results [
 	| source target |
-	'sourceTarget' logCr.
 	source := edge source.
 	target := edge target.
 	^ source results

@@ -4,7 +4,8 @@ Class {
 	#traits : 'SeaGraTEdge',
 	#classTraits : 'SeaGraTEdge classTrait',
 	#instVars : [
-		'strategies'
+		'strategies',
+		'optional'
 	],
 	#category : #'Searcher-Query'
 }
@@ -21,7 +22,7 @@ SeaQueEdge class >> classForIdentifier: aString [
 ]
 
 { #category : #compiling }
-SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext [
+SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
 	self subclassResponsibility
 ]
 
@@ -48,7 +49,7 @@ SeaQueEdge >> cost_ [
 
 { #category : #accessing }
 SeaQueEdge >> execute_ [
-	self cheapestCanExecuteStrategy execute
+	self cheapestCanExecuteStrategy execute: optional
 ]
 
 { #category : #'as yet unclassified' }
@@ -63,6 +64,12 @@ SeaQueEdge >> explodeSource: aNode target: anotherNode [
 SeaQueEdge >> initialize [
 	super initialize.
 	strategies := OrderedCollection new
+]
+
+{ #category : #accessing }
+SeaQueEdge >> initializeOptional: aBoolean [
+	self assert: [ optional isNil ].
+	optional := aBoolean
 ]
 
 { #category : #printing }
