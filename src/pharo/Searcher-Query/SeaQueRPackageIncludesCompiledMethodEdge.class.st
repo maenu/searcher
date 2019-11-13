@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -21,7 +21,7 @@ SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart t
 					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ]))
-		initializeOptional: aBoolean;
+		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 

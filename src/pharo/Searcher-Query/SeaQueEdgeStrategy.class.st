@@ -26,12 +26,13 @@ SeaQueEdgeStrategy >> cost [
 ]
 
 { #category : #testing }
-SeaQueEdgeStrategy >> execute: aBoolean [
+SeaQueEdgeStrategy >> executeSourceOptional: aBoolean targetOptional: anotherBoolean [
 	| results |
 	edge results: (results := self results).
 	aBoolean
 		ifFalse: [ edge source results: (results collect: #key) ].
-	edge target results: (results collect: #value)
+	anotherBoolean
+		ifFalse: [ edge target results: (results collect: #value) ]
 ]
 
 { #category : #initialization }

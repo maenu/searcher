@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -21,7 +21,7 @@ SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart:
 					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ]))
-		initializeOptional: aBoolean;
+		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 

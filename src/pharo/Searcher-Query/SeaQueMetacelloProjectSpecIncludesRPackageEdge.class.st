@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -22,7 +22,7 @@ SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNode
 					self assert: [ e collection class = SeaQueRPackageCollection ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueAsRPackageNode ]))
-		initializeOptional: aBoolean;
+		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 

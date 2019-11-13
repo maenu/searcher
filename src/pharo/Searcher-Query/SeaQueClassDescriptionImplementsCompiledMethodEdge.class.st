@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueClassDescriptionImplementsCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext optional: aBoolean [
+SeaQueClassDescriptionImplementsCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -21,7 +21,7 @@ SeaQueClassDescriptionImplementsCompiledMethodEdge class >> compileSourcePart: a
 					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ]))
-		initializeOptional: aBoolean;
+		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 

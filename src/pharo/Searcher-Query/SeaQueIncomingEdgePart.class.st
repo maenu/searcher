@@ -4,9 +4,17 @@ Class {
 	#category : #'Searcher-Query-Parts'
 }
 
+{ #category : #'as yet unclassified' }
+SeaQueIncomingEdgePart class >> object: anObject graphPart: aGraphPart nodePart: aNodePart targetOptional: aBoolean [
+	^ self new
+		initializeObject: anObject graphPart: aGraphPart;
+		initializeNodePart: aNodePart targetOptional: aBoolean;
+		yourself
+]
+
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ?~ anObject [
-	optional := false.
+	sourceOptional := false.
 	^ otherNodePart := graphPart nodePartFor: anObject
 ]
 
@@ -16,11 +24,20 @@ SeaQueIncomingEdgePart >> compileIn: aContext [
 		compileSourcePart: otherNodePart
 		targetPart: nodePart
 		in: aContext
-		optional: optional
+		sourceOptional: sourceOptional
+		targetOptional: targetOptional
+]
+
+{ #category : #initialization }
+SeaQueIncomingEdgePart >> initializeNodePart: aNodePart targetOptional: aBoolean [
+	self assert: [ nodePart isNil ].
+	self assert: [ targetOptional isNil ].
+	nodePart := aNodePart.
+	targetOptional := aBoolean
 ]
 
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ~ anObject [
-	optional := true.
+	sourceOptional := true.
 	^ otherNodePart := graphPart nodePartFor: anObject
 ]

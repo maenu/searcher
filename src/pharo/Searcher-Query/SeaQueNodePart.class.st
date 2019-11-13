@@ -21,7 +21,15 @@ SeaQueNodePart >> <~ anObject [
 	^ graphPart
 		incomingEdgePartFor: anObject
 		nodePart: self
-		optional: false
+		targetOptional: false
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNodePart >> <~? anObject [
+	^ graphPart
+		incomingEdgePartFor: anObject
+		nodePart: self
+		targetOptional: true
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,7 +47,7 @@ SeaQueNodePart >> ~ anObject [
 	^ graphPart
 		outgoingEdgePartFor: anObject
 		nodePart: self
-		optional: false
+		sourceOptional: false
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,5 +55,5 @@ SeaQueNodePart >> ~? anObject [
 	^ graphPart
 		outgoingEdgePartFor: anObject
 		nodePart: self
-		optional: true
+		sourceOptional: true
 ]
