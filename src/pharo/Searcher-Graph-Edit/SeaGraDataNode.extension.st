@@ -2,15 +2,18 @@ Extension { #name : #SeaGraDataNode }
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiAddCost [
-	^ data seaGraEdiAddCost
+	^ data seaGraEdiAddCostInNode: self
 ]
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiRemoveCost [
-	^ data seaGraEdiRemoveCost
+	^ data seaGraEdiRemoveCostInNode: self
 ]
 
 { #category : #'*Searcher-Graph-Edit' }
 SeaGraDataNode >> seaGraEdiReplaceCost: aNode [
-	^ data seaGraEdiReplaceCost: aNode data
+	^ data
+		seaGraEdiReplaceCost: aNode data
+		inNode: self
+		replacement: aNode
 ]

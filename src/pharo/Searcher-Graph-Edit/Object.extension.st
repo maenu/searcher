@@ -1,17 +1,17 @@
 Extension { #name : #Object }
 
 { #category : #'*Searcher-Graph-Edit' }
-Object >> seaGraEdiAddCost [
+Object >> seaGraEdiAddCostInNode: aNode [
 	^ 1
 ]
 
 { #category : #'*Searcher-Graph-Edit' }
-Object >> seaGraEdiRemoveCost [
+Object >> seaGraEdiRemoveCostInNode: aNode [
 	^ 1
 ]
 
 { #category : #'*Searcher-Graph-Edit' }
-Object >> seaGraEdiReplaceCost: anObject [
+Object >> seaGraEdiReplaceCost: anObject inNode: aNode replacement: anotherNode [
 	self = anObject
 		ifTrue: [ ^ 0 ].
 	self class = anObject class
