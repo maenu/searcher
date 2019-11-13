@@ -14,7 +14,7 @@ SeaQueIncomingEdgePart class >> object: anObject graphPart: aGraphPart nodePart:
 
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ?~ anObject [
-	sourceOptional := false.
+	sourceOptional := true.
 	^ otherNodePart := graphPart nodePartFor: anObject
 ]
 
@@ -38,6 +38,6 @@ SeaQueIncomingEdgePart >> initializeNodePart: aNodePart targetOptional: aBoolean
 
 { #category : #arithmetic }
 SeaQueIncomingEdgePart >> ~ anObject [
-	sourceOptional := true.
+	sourceOptional := false.
 	^ otherNodePart := graphPart nodePartFor: anObject
 ]
