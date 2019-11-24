@@ -11,17 +11,16 @@ SeaQueMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aNode
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self
-				assert: [ e collection class = SeaQueMetacelloProjectSpecCollection ].
+			self assert: [ e collection name = #metacelloProjectSpec ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsMetacelloProjectSpecNode ])
+		ifAbsentPut: [ :e | e object seaQueAsMetacelloProjectSpecNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueRPackageCollection ].
+					self assert: [ e collection name = #rPackage ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsRPackageNode ]))
+				ifAbsentPut: [ :e | e object seaQueAsRPackageNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]

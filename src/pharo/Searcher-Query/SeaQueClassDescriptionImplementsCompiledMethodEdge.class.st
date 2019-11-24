@@ -11,16 +11,16 @@ SeaQueClassDescriptionImplementsCompiledMethodEdge class >> compileSourcePart: a
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+			self assert: [ e collection name = #classDescription ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
+		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
+					self assert: [ e collection name = #compiledMethod ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ]))
+				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]

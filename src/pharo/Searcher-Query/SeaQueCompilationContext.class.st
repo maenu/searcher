@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'nodes',
 		'edges',
-		'variables'
+		'variables',
+		'collections'
 	],
 	#category : #'Searcher-Query-Parts'
 }
@@ -31,6 +32,23 @@ SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: another
 		ifNotNil: aBlock
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> classDescriptionCollection [
+	^ collections
+		at: #classDescription
+		ifAbsentPut: [ SeaQueCollection
+				name: #classDescription
+				initializer: self classDescriptionCollectionInitializer ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> classDescriptionCollectionInitializer [
+	^ [ (Smalltalk globals allClassesAndTraits
+		flatCollect: [ :e | 
+			{e.
+			e classSide} ]) asIdentitySet ]
+]
+
 { #category : #compiling }
 SeaQueCompilationContext >> compile [
 	self
@@ -48,6 +66,23 @@ SeaQueCompilationContext >> compile [
 		variables: variables
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> compiledMethodCollection [
+	^ collections
+		at: #compiledMethod
+		ifAbsentPut: [ SeaQueCollection
+				name: #compiledMethod
+				initializer: self compiledMethodCollectionInitializer ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> compiledMethodCollectionInitializer [
+	^ [ ((Smalltalk globals allClassesAndTraits
+		flatCollect: [ :e | 
+			{e instanceSide.
+			e classSide} ]) flatCollect: #methods) asIdentitySet ]
+]
+
 { #category : #initialization }
 SeaQueCompilationContext >> initializeNodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary [
 	self
@@ -55,4 +90,52 @@ SeaQueCompilationContext >> initializeNodes: aDictionary edges: anotherDictionar
 	nodes := aDictionary.
 	edges := anotherDictionary.
 	variables := yetAnotherDictionary
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> metacelloProjectSpecCollection [
+	^ collections
+		at: #metacelloProjectSpec
+		ifAbsentPut: [ SeaQueCollection
+				name: #metacelloProjectSpec
+				initializer: self metacelloProjectSpecCollectionInitializer ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> metacelloProjectSpecCollectionInitializer [
+	^ [ (Metacello image
+		baseline: [ :spec | true ];
+		list) asIdentitySet ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> rBProgramNodeCollection [
+	^ collections
+		at: #rBProgramNode
+		ifAbsentPut: [ SeaQueCollection
+				name: #rBProgramNode
+				initializer: self rBProgramNodeCollectionInitializer ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> rBProgramNodeCollectionInitializer [
+	^ [ (((Smalltalk globals allClassesAndTraits
+		flatCollect: [ :e | 
+			{e instanceSide.
+			e classSide} ]) flatCollect: #methods)
+		flatCollect: [ :e | {e ast} , e ast allChildren ]) asIdentitySet ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> rPackageCollection [
+	^ collections
+		at: #rPackage
+		ifAbsentPut: [ SeaQueCollection
+				name: #rPackage
+				initializer: self rPackageCollectionInitializer ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> rPackageCollectionInitializer [
+	^ [ RPackage organizer packages asIdentitySet ]
 ]

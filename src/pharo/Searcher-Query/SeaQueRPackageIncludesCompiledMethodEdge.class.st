@@ -11,16 +11,16 @@ SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart t
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection class = SeaQueRPackageCollection ].
+			self assert: [ e collection name = #rPackage ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
+		ifAbsentPut: [ :e | e object seaQueAsRPackageNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueCompiledMethodCollection ].
+					self assert: [ e collection name = #compiledMethod ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNode ]))
+				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]

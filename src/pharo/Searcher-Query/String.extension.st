@@ -1,22 +1,21 @@
 Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsClassDescriptionNode [
+String >> seaQueAsClassDescriptionNodeIn: aContext [
 	^ self seaQueIsIdentifier
-		ifTrue:
-			[ self seaQueAsVariableNode: SeaQueClassDescriptionCollection instance ]
+		ifTrue: [ self seaQueAsVariableNode: aContext classDescriptionCollection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: SeaQueClassDescriptionCollection instance
+				collection: aContext classDescriptionCollection
 				key: #name
 				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsCompiledMethodNode [
+String >> seaQueAsCompiledMethodNodeIn: aContext [
 	^ self seaQueIsIdentifier
-		ifTrue: [ self seaQueAsVariableNode: SeaQueCompiledMethodCollection instance ]
+		ifTrue: [ self seaQueAsVariableNode: aContext compiledMethodCollection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: SeaQueCompiledMethodCollection instance
+				collection: aContext compiledMethodCollection
 				key: #selector
 				value: self ]
 ]
@@ -27,22 +26,22 @@ String >> seaQueAsEdgeFactory [
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsMetacelloProjectSpecNode [
+String >> seaQueAsMetacelloProjectSpecNodeIn: aContext [
 	^ self seaQueIsIdentifier
-		ifTrue: [ self
-				seaQueAsVariableNode: SeaQueMetacelloProjectSpecCollection instance ]
+		ifTrue:
+			[ self seaQueAsVariableNode: aContext metacelloProjectSpecCollection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: SeaQueMetacelloProjectSpecCollection instance
+				collection: aContext metacelloProjectSpecCollection
 				key: #name
 				value: self ]
 ]
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsRPackageNode [
+String >> seaQueAsRPackageNodeIn: aContext [
 	^ self seaQueIsIdentifier
-		ifTrue: [ self seaQueAsVariableNode: SeaQueRPackageCollection instance ]
+		ifTrue: [ self seaQueAsVariableNode: aContext rPackageCollection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: SeaQueRPackageCollection instance
+				collection: aContext rPackageCollection
 				key: #name
 				value: self ]
 ]

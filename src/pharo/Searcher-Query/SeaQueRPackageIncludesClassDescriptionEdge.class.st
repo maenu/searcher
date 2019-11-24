@@ -11,16 +11,16 @@ SeaQueRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection class = SeaQueRPackageCollection ].
+			self assert: [ e collection name = #rPackage ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsRPackageNode ])
+		ifAbsentPut: [ :e | e object seaQueAsRPackageNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+					self assert: [ e collection name = #classDescription ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ]))
+				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]

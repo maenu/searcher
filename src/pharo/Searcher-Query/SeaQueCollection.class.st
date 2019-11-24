@@ -3,28 +3,18 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'objects',
-		'indexes'
-	],
-	#classInstVars : [
-		'instance'
+		'indexes',
+		'initializer',
+		'name'
 	],
 	#category : #'Searcher-Query'
 }
 
-{ #category : #accessing }
-SeaQueCollection class >> instance [
-	^ instance ifNil: [ instance := self new ]
-]
-
-{ #category : #initialization }
-SeaQueCollection class >> reset [
-	instance := nil
-]
-
-{ #category : #initialization }
-SeaQueCollection class >> resetAll [
-	<script>
-	self subclassesDo: #reset
+{ #category : #generated }
+SeaQueCollection class >> name: aSymbol initializer: aBlock [
+	^ self new
+		initializeName: aSymbol initializer: aBlock;
+		yourself
 ]
 
 { #category : #accessing }
@@ -40,14 +30,22 @@ SeaQueCollection >> initialize [
 	indexes := Dictionary new
 ]
 
-{ #category : #accessing }
-SeaQueCollection >> objects [
-	^ (objects ifNil: [ objects := self objects_ ]) copy
+{ #category : #initialization }
+SeaQueCollection >> initializeName: aSymbol initializer: aBlock [
+	self assert: [ name isNil ].
+	self assert: [ initializer isNil ].
+	name := aSymbol.
+	initializer := aBlock
 ]
 
 { #category : #accessing }
-SeaQueCollection >> objects_ [
-	self subclassResponsibility
+SeaQueCollection >> name [
+	^ name
+]
+
+{ #category : #accessing }
+SeaQueCollection >> objects [
+	^ (objects ifNil: [ objects := initializer value ]) copy
 ]
 
 { #category : #accessing }

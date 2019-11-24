@@ -11,16 +11,16 @@ SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart:
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+			self assert: [ e collection name = #classDescription ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ])
+		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection class = SeaQueClassDescriptionCollection ].
+					self assert: [ e collection name = #classDescription ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNode ]))
+				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
