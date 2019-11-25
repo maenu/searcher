@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueClassDescriptionSubclassesClassDescriptionEdge,
+	#name : #SeaQueImaClassDescriptionSubclassesClassDescriptionEdge,
 	#superclass : #SeaQueEdge,
-	#category : #'Searcher-Query'
+	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueImaClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -13,25 +13,25 @@ SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePart:
 		ifPresent: [ :e | 
 			self assert: [ e collection name = #classDescription ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ])
+		ifAbsentPut: [ :e | e object seaQueImaAsClassDescriptionNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
 					self assert: [ e collection name = #classDescription ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ]))
+				ifAbsentPut: [ :e | e object seaQueImaAsClassDescriptionNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 
 { #category : #accessing }
-SeaQueClassDescriptionSubclassesClassDescriptionEdge class >> identifier [
+SeaQueImaClassDescriptionSubclassesClassDescriptionEdge class >> identifier [
 	^ #classDescriptionSubclassesClassDescription
 ]
 
 { #category : #initialization }
-SeaQueClassDescriptionSubclassesClassDescriptionEdge >> initialize [
+SeaQueImaClassDescriptionSubclassesClassDescriptionEdge >> initialize [
 	super initialize.
 	strategies
 		add:
@@ -41,7 +41,7 @@ SeaQueClassDescriptionSubclassesClassDescriptionEdge >> initialize [
 		add:
 			(SeaQueEdgeSourceCollectStrategy
 				edge: self
-				block: [ :s | {s superclass} ]);
+				block: [ :s | s superclass ifNil: [ {} ] ifNotNil: [ {s superclass} ] ]);
 		add:
 			(SeaQueEdgeSourceTargetSelectStrategy
 				edge: self

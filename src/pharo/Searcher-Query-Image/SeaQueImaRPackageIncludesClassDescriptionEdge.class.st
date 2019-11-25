@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueRPackageIncludesClassDescriptionEdge,
+	#name : #SeaQueImaRPackageIncludesClassDescriptionEdge,
 	#superclass : #SeaQueEdge,
-	#category : #'Searcher-Query'
+	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueImaRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -13,25 +13,25 @@ SeaQueRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart
 		ifPresent: [ :e | 
 			self assert: [ e collection name = #rPackage ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsRPackageNodeIn: aContext ])
+		ifAbsentPut: [ :e | e object seaQueImaAsRPackageNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
 					self assert: [ e collection name = #classDescription ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsClassDescriptionNodeIn: aContext ]))
+				ifAbsentPut: [ :e | e object seaQueImaAsClassDescriptionNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 
 { #category : #accessing }
-SeaQueRPackageIncludesClassDescriptionEdge class >> identifier [
+SeaQueImaRPackageIncludesClassDescriptionEdge class >> identifier [
 	^ #rPackageIncludesClassDescription
 ]
 
 { #category : #initialization }
-SeaQueRPackageIncludesClassDescriptionEdge >> initialize [
+SeaQueImaRPackageIncludesClassDescriptionEdge >> initialize [
 	super initialize.
 	strategies
 		add:

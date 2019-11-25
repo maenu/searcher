@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueRPackageIncludesCompiledMethodEdge,
+	#name : #SeaQueImaRPackageIncludesCompiledMethodEdge,
 	#superclass : #SeaQueEdge,
-	#category : #'Searcher-Query'
+	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueImaRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -13,25 +13,25 @@ SeaQueRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart t
 		ifPresent: [ :e | 
 			self assert: [ e collection name = #rPackage ].
 			e ]
-		ifAbsentPut: [ :e | e object seaQueAsRPackageNodeIn: aContext ])
+		ifAbsentPut: [ :e | e object seaQueImaAsRPackageNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
 					self assert: [ e collection name = #compiledMethod ].
 					e ]
-				ifAbsentPut: [ :e | e object seaQueAsCompiledMethodNodeIn: aContext ]))
+				ifAbsentPut: [ :e | e object seaQueImaAsCompiledMethodNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		yourself
 ]
 
 { #category : #accessing }
-SeaQueRPackageIncludesCompiledMethodEdge class >> identifier [
+SeaQueImaRPackageIncludesCompiledMethodEdge class >> identifier [
 	^ #rPackageIncludesCompiledMethod
 ]
 
 { #category : #initialization }
-SeaQueRPackageIncludesCompiledMethodEdge >> initialize [
+SeaQueImaRPackageIncludesCompiledMethodEdge >> initialize [
 	super initialize.
 	strategies
 		add:

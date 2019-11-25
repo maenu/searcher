@@ -1,7 +1,7 @@
 Extension { #name : #MetacelloMCVersionSpec }
 
-{ #category : #'*Searcher-Query' }
-MetacelloMCVersionSpec >> seaQueCurrentlyLoadedPackages [
+{ #category : #'*Searcher-Query-Image' }
+MetacelloMCVersionSpec >> seaQueImaCurrentlyLoadedPackages [
 	| packages_ |
 	packages_ := Set new.
 	self

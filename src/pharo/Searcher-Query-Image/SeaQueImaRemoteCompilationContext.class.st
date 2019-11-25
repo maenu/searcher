@@ -1,14 +1,14 @@
 Class {
-	#name : #SeaQueRemotePeerCompilationContext,
-	#superclass : #SeaQueCompilationContext,
+	#name : #SeaQueImaRemoteCompilationContext,
+	#superclass : #SeaQueImaCompilationContext,
 	#instVars : [
 		'remotePeer'
 	],
-	#category : #'Searcher-Query-Parts'
+	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary remotePeer: aRemotePeer [
+SeaQueImaRemoteCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary remotePeer: aRemotePeer [
 	^ (self
 		nodes: aDictionary
 		edges: anotherDictionary
@@ -18,37 +18,37 @@ SeaQueRemotePeerCompilationContext class >> nodes: aDictionary edges: anotherDic
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext >> classDescriptionCollectionInitializer [
+SeaQueImaRemoteCompilationContext >> classDescriptionCollectionInitializer [
 	^ [ IdentitySet
 		withAll: (remotePeer evaluate: super classDescriptionCollectionInitializer) ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext >> compiledMethodCollectionInitializer [
+SeaQueImaRemoteCompilationContext >> compiledMethodCollectionInitializer [
 	^ [ IdentitySet
 		withAll: (remotePeer evaluate: super compiledMethodCollectionInitializer) ]
 ]
 
 { #category : #initialization }
-SeaQueRemotePeerCompilationContext >> initializeRemotePeer: aRemotePeer [
+SeaQueImaRemoteCompilationContext >> initializeRemotePeer: aRemotePeer [
 	self assert: [ remotePeer isNil ].
 	remotePeer := aRemotePeer
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext >> metacelloProjectSpecCollectionInitializer [
+SeaQueImaRemoteCompilationContext >> metacelloProjectSpecCollectionInitializer [
 	^ [ IdentitySet
 		withAll: (remotePeer evaluate: super metacelloProjectSpecCollectionInitializer) ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext >> rBProgramNodeCollectionInitializer [
+SeaQueImaRemoteCompilationContext >> rBProgramNodeCollectionInitializer [
 	^ [ IdentitySet
 		withAll: (remotePeer evaluate: super rBProgramNodeCollectionInitializer) ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueRemotePeerCompilationContext >> rPackageCollectionInitializer [
+SeaQueImaRemoteCompilationContext >> rPackageCollectionInitializer [
 	^ [ IdentitySet
 		withAll: (remotePeer evaluate: super rPackageCollectionInitializer) ]
 ]

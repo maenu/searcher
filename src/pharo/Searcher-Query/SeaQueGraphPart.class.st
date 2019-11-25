@@ -22,27 +22,6 @@ SeaQueGraphPart >> at: aString put: aNodePart [
 	^ variables at: aString put: aNodePart
 ]
 
-{ #category : #compiling }
-SeaQueGraphPart >> compile [
-	| context |
-	context := SeaQueCompilationContext
-		nodes: (nodeParts collect: [ :e | e -> nil ]) asDictionary
-		edges: (edgeParts collect: [ :e | e -> nil ]) asDictionary
-		variables: variables copy.
-	^ context compile
-]
-
-{ #category : #compiling }
-SeaQueGraphPart >> compileForRemotePeer: aRemotePeer [
-	| context |
-	context := SeaQueRemotePeerCompilationContext
-		nodes: (nodeParts collect: [ :e | e -> nil ]) asDictionary
-		edges: (edgeParts collect: [ :e | e -> nil ]) asDictionary
-		variables: variables copy
-		remotePeer: aRemotePeer.
-	^ context compile
-]
-
 { #category : #'as yet unclassified' }
 SeaQueGraphPart >> incomingEdgePartFor: anObject nodePart: aNodePart targetOptional: aBoolean [
 	^ edgeParts
