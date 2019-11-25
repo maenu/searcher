@@ -42,6 +42,11 @@ SeaQueNodePart >> compile [
 	^ graphPart compile
 ]
 
+{ #category : #compiling }
+SeaQueNodePart >> compileForRemotePeer: aRemotePeer [
+	^ graphPart compileForRemotePeer: aRemotePeer
+]
+
 { #category : #'as yet unclassified' }
 SeaQueNodePart >> ~ anObject [
 	^ graphPart

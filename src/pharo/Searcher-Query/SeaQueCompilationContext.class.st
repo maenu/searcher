@@ -84,6 +84,12 @@ SeaQueCompilationContext >> compiledMethodCollectionInitializer [
 ]
 
 { #category : #initialization }
+SeaQueCompilationContext >> initialize [
+	super initialize.
+	collections := Dictionary new
+]
+
+{ #category : #initialization }
 SeaQueCompilationContext >> initializeNodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary [
 	self
 		assert: [ nodes isNil and: [ edges isNil and: [ variables isNil ] ] ].

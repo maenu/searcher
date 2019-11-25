@@ -31,9 +31,9 @@ SeaQueGraph >> execute_ [
 	| entity |
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
 	[ (entity := self cheapestShouldAndCanExecuteOrNil) isNil ]
-		whileFalse: [ entity logCr.
+		whileFalse: [ entity traceCr.
 			entity execute.
-			entity logCr ]
+			entity traceCr ]
 ]
 
 { #category : #'as yet unclassified' }
