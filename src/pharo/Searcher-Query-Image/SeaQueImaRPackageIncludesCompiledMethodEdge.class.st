@@ -25,11 +25,6 @@ SeaQueImaRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePar
 		yourself
 ]
 
-{ #category : #accessing }
-SeaQueImaRPackageIncludesCompiledMethodEdge class >> identifier [
-	^ #rPackageIncludesCompiledMethod
-]
-
 { #category : #initialization }
 SeaQueImaRPackageIncludesCompiledMethodEdge >> initialize [
 	super initialize.

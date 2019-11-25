@@ -11,24 +11,8 @@ Class {
 	#category : #'Searcher-Query'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueEdge class >> classForIdentifier: aString [
-	| edgeClasses |
-	edgeClasses := SeaQueEdge allSubclasses
-		select: [ :e | 
-			(e class includesSelector: #identifier)
-				and: [ e identifier = aString ] ].
-	self assert: [ edgeClasses size = 1 ].
-	^ edgeClasses anyOne
-]
-
 { #category : #compiling }
 SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
-	self subclassResponsibility
-]
-
-{ #category : #accessing }
-SeaQueEdge class >> identifier [
 	self subclassResponsibility
 ]
 
@@ -60,7 +44,7 @@ SeaQueEdge >> explodeSource: aNode target: anotherNode [
 	^ SeaGraDataEdge
 		source: aNode
 		target: anotherNode
-		data: self class identifier
+		data: self class name
 ]
 
 { #category : #initialization }
@@ -80,7 +64,7 @@ SeaQueEdge >> initializeSourceOptional: aBoolean targetOptional: anotherBoolean 
 { #category : #printing }
 SeaQueEdge >> printOn: aStream [
 	aStream
-		nextPutAll: self class identifier;
+		nextPutAll: self class name;
 		nextPutAll: ' ';
 		nextPutAll: self cost asString;
 		nextPutAll: ' ';

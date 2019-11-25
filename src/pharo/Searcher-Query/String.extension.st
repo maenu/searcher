@@ -1,13 +1,8 @@
 Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsEdgeFactory [
-	^ SeaQueEdge classForIdentifier: self
-]
-
-{ #category : #'*Searcher-Query' }
-String >> seaQueAsVariableNode: aCollection [
-	^ SeaQueVariableNode collection: aCollection
+String >> seaQueAsEdgeFactoryIn: aContext [
+	^ aContext edgeFactoryAt: self
 ]
 
 { #category : #'*Searcher-Query' }

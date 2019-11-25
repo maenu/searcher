@@ -2,41 +2,48 @@ Extension { #name : #String }
 
 { #category : #'*Searcher-Query-Image' }
 String >> seaQueImaAsClassDescriptionNodeIn: aContext [
+	| collection |
+	collection := aContext collectionAt: #classDescription.
 	^ self seaQueIsIdentifier
-		ifTrue: [ self seaQueAsVariableNode: aContext classDescriptionCollection ]
+		ifTrue: [ SeaQueVariableNode collection: collection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: aContext classDescriptionCollection
+				collection: collection
 				key: #name
 				value: self ]
 ]
 
 { #category : #'*Searcher-Query-Image' }
 String >> seaQueImaAsCompiledMethodNodeIn: aContext [
+	| collection |
+	collection := aContext collectionAt: #compiledMethod.
 	^ self seaQueIsIdentifier
-		ifTrue: [ self seaQueAsVariableNode: aContext compiledMethodCollection ]
+		ifTrue: [ SeaQueVariableNode collection: collection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: aContext compiledMethodCollection
+				collection: collection
 				key: #selector
 				value: self ]
 ]
 
 { #category : #'*Searcher-Query-Image' }
 String >> seaQueImaAsMetacelloProjectSpecNodeIn: aContext [
+	| collection |
+	collection := aContext collectionAt: #metacelloProjectSpec.
 	^ self seaQueIsIdentifier
-		ifTrue:
-			[ self seaQueAsVariableNode: aContext metacelloProjectSpecCollection ]
+		ifTrue: [ SeaQueVariableNode collection: collection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: aContext metacelloProjectSpecCollection
+				collection: collection
 				key: #name
 				value: self ]
 ]
 
 { #category : #'*Searcher-Query-Image' }
 String >> seaQueImaAsRPackageNodeIn: aContext [
+	| collection |
+	collection := aContext collectionAt: #rPackage.
 	^ self seaQueIsIdentifier
-		ifTrue: [ self seaQueAsVariableNode: aContext rPackageCollection ]
+		ifTrue: [ SeaQueVariableNode collection: collection ]
 		ifFalse: [ SeaQueMatchByPropertyNode
-				collection: aContext rPackageCollection
+				collection: collection
 				key: #name
 				value: self ]
 ]

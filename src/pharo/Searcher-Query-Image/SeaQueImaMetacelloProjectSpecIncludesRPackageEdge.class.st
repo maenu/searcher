@@ -25,11 +25,6 @@ SeaQueImaMetacelloProjectSpecIncludesRPackageEdge class >> compileSourcePart: aN
 		yourself
 ]
 
-{ #category : #accessing }
-SeaQueImaMetacelloProjectSpecIncludesRPackageEdge class >> identifier [
-	^ #metacelloProjectSpecIncludesRPackage
-]
-
 { #category : #initialization }
 SeaQueImaMetacelloProjectSpecIncludesRPackageEdge >> initialize [
 	super initialize.

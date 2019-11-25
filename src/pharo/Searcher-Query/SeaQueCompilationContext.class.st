@@ -5,7 +5,8 @@ Class {
 		'nodes',
 		'edges',
 		'variables',
-		'collections'
+		'collections',
+		'edgeFactories'
 	],
 	#category : #'Searcher-Query-Parts'
 }
@@ -32,11 +33,18 @@ SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: another
 		ifNotNil: aBlock
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> collectionAt: aString [
+	^ collections at: aString
+]
+
 { #category : #compiling }
 SeaQueCompilationContext >> compile [
 	self
 		assert: [ (nodes values allSatisfy: #isNil)
 				and: [ edges values allSatisfy: #isNil ] ].
+	self initializeCollections.
+	self initializeEdgeFactories.
 	edges := (edges associations
 		collect: [ :e | e key -> (e key compileIn: self) ]) asDictionary.
 	self
@@ -49,10 +57,26 @@ SeaQueCompilationContext >> compile [
 		variables: variables
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> edgeFactoryAt: aString [
+	^ edgeFactories at: aString
+]
+
 { #category : #initialization }
 SeaQueCompilationContext >> initialize [
 	super initialize.
-	collections := Dictionary new
+	collections := Dictionary new.
+	edgeFactories := Dictionary new
+]
+
+{ #category : #initialization }
+SeaQueCompilationContext >> initializeCollections [
+	self subclassResponsibility
+]
+
+{ #category : #initialization }
+SeaQueCompilationContext >> initializeEdgeFactories [
+	self subclassResponsibility
 ]
 
 { #category : #initialization }

@@ -20,7 +20,7 @@ SeaQueIncomingEdgePart >> ?~ anObject [
 
 { #category : #compiling }
 SeaQueIncomingEdgePart >> compileIn: aContext [
-	^ object seaQueAsEdgeFactory
+	^ (object seaQueAsEdgeFactoryIn: aContext)
 		compileSourcePart: otherNodePart
 		targetPart: nodePart
 		in: aContext

@@ -25,11 +25,6 @@ SeaQueImaClassDescriptionImplementsCompiledMethodEdge class >> compileSourcePart
 		yourself
 ]
 
-{ #category : #accessing }
-SeaQueImaClassDescriptionImplementsCompiledMethodEdge class >> identifier [
-	^ #classDescriptionImplementsCompiledMethod
-]
-
 { #category : #initialization }
 SeaQueImaClassDescriptionImplementsCompiledMethodEdge >> initialize [
 	super initialize.

@@ -25,11 +25,6 @@ SeaQueImaClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePa
 		yourself
 ]
 
-{ #category : #accessing }
-SeaQueImaClassDescriptionSubclassesClassDescriptionEdge class >> identifier [
-	^ #classDescriptionSubclassesClassDescription
-]
-
 { #category : #initialization }
 SeaQueImaClassDescriptionSubclassesClassDescriptionEdge >> initialize [
 	super initialize.

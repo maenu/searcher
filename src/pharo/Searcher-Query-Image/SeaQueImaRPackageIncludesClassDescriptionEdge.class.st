@@ -25,11 +25,6 @@ SeaQueImaRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodeP
 		yourself
 ]
 
-{ #category : #accessing }
-SeaQueImaRPackageIncludesClassDescriptionEdge class >> identifier [
-	^ #rPackageIncludesClassDescription
-]
-
 { #category : #initialization }
 SeaQueImaRPackageIncludesClassDescriptionEdge >> initialize [
 	super initialize.

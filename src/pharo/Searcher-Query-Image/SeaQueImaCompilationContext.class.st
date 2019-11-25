@@ -1,33 +1,3 @@
-"
-I am a copy of class SeaQueCompilationContext. This comment is copied from there, and might not be entirely accurate
-
-Please comment me using the following template inspired by Class Responsibility Collaborator (CRC) design:
-
-For the Class part:  State a one line summary. For example, ""I represent a paragraph of text"".
-
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
-
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
-
-    Instance Variables
-	collections:		<Object>
-	edges:		<Object>
-	nodes:		<Object>
-	variables:		<Object>
-
-
-    Implementation Points
-"
 Class {
 	#name : #SeaQueImaCompilationContext,
 	#superclass : #SeaQueCompilationContext,
@@ -43,84 +13,61 @@ SeaQueImaCompilationContext class >> nodes: aDictionary edges: anotherDictionary
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> classDescriptionCollection [
-	^ collections
+{ #category : #initialization }
+SeaQueImaCompilationContext >> initializeCollections [
+	collections
 		at: #classDescription
-		ifAbsentPut: [ SeaQueCollection
+			put:
+			(SeaQueCollection
 				name: #classDescription
-				initializer: self classDescriptionCollectionInitializer ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> classDescriptionCollectionInitializer [
-	^ [ (Smalltalk globals allClassesAndTraits
-		flatCollect: [ :e | 
-			{e.
-			e classSide} ]) asIdentitySet ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> compiledMethodCollection [
-	^ collections
+				initializer: [ (Smalltalk globals allClassesAndTraits
+						flatCollect: [ :e | 
+							{e.
+							e classSide} ]) asIdentitySet ]);
 		at: #compiledMethod
-		ifAbsentPut: [ SeaQueCollection
+			put:
+			(SeaQueCollection
 				name: #compiledMethod
-				initializer: self compiledMethodCollectionInitializer ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> compiledMethodCollectionInitializer [
-	^ [ ((Smalltalk globals allClassesAndTraits
-		flatCollect: [ :e | 
-			{e instanceSide.
-			e classSide} ]) flatCollect: #methods) asIdentitySet ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> metacelloProjectSpecCollection [
-	^ collections
+				initializer: [ ((Smalltalk globals allClassesAndTraits
+						flatCollect: [ :e | 
+							{e instanceSide.
+							e classSide} ]) flatCollect: #methods) asIdentitySet ]);
 		at: #metacelloProjectSpec
-		ifAbsentPut: [ SeaQueCollection
+			put:
+			(SeaQueCollection
 				name: #metacelloProjectSpec
-				initializer: self metacelloProjectSpecCollectionInitializer ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> metacelloProjectSpecCollectionInitializer [
-	^ [ (Metacello image
-		baseline: [ :spec | true ];
-		list) asIdentitySet ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> rBProgramNodeCollection [
-	^ collections
+				initializer: [ (Metacello image
+						baseline: [ :spec | true ];
+						list) asIdentitySet ]);
 		at: #rBProgramNode
-		ifAbsentPut: [ SeaQueCollection
+			put:
+			(SeaQueCollection
 				name: #rBProgramNode
-				initializer: self rBProgramNodeCollectionInitializer ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> rBProgramNodeCollectionInitializer [
-	^ [ (((Smalltalk globals allClassesAndTraits
-		flatCollect: [ :e | 
-			{e instanceSide.
-			e classSide} ]) flatCollect: #methods)
-		flatCollect: [ :e | {e ast} , e ast allChildren ]) asIdentitySet ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> rPackageCollection [
-	^ collections
+				initializer: [ (((Smalltalk globals allClassesAndTraits
+						flatCollect: [ :e | 
+							{e instanceSide.
+							e classSide} ]) flatCollect: #methods)
+						flatCollect: [ :e | {e ast} , e ast allChildren ]) asIdentitySet ]);
 		at: #rPackage
-		ifAbsentPut: [ SeaQueCollection
+			put:
+			(SeaQueCollection
 				name: #rPackage
-				initializer: self rPackageCollectionInitializer ]
+				initializer: [ RPackage organizer packages asIdentitySet ])
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> rPackageCollectionInitializer [
-	^ [ RPackage organizer packages asIdentitySet ]
+{ #category : #initialization }
+SeaQueImaCompilationContext >> initializeEdgeFactories [
+	edgeFactories
+		at: #classDescriptionDefinesCompiledMethod
+			put: SeaQueImaClassDescriptionDefinesCompiledMethodEdge;
+		at: #classDescriptionImplementsCompiledMethod
+			put: SeaQueImaClassDescriptionImplementsCompiledMethodEdge;
+		at: #classDescriptionSubclassesClassDescription
+			put: SeaQueImaClassDescriptionSubclassesClassDescriptionEdge;
+		at: #metacelloProjectSpecIncludesRPackage
+			put: SeaQueImaMetacelloProjectSpecIncludesRPackageEdge;
+		at: #rPackageIncludesClassDescription
+			put: SeaQueImaRPackageIncludesClassDescriptionEdge;
+		at: #rPackageIncludesCompiledMethod
+			put: SeaQueImaRPackageIncludesCompiledMethodEdge
 ]
