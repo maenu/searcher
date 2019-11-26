@@ -43,6 +43,11 @@ SeaGraDataNode >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
+SeaGraDataNode >> seaGraColor [
+	^ data seaGraColor
+]
+
+{ #category : #'as yet unclassified' }
 SeaGraDataNode >> seaGraGtElement [
 	^ data seaGraGtElement
 ]

@@ -20,6 +20,25 @@ SeaGraGraph >> edges [
 	^ edges
 ]
 
+{ #category : #'as yet unclassified' }
+SeaGraGraph >> gtInspectorGraphFor: aComposite [
+	<gtInspectorPresentationOrder: 1>
+	^ aComposite roassal2
+		title: [ 'Graph' ];
+		initializeView: [ | b |
+			b := RTMondrian new.
+			b shape circle
+				size: 30;
+				color: #seaGraColor.
+			b nodes: nodes.
+			b shape arrowedBezier
+				color: (Color gray alpha: 0.5);
+				withShorterDistanceAttachPoint.
+			b edges connectToAll: [ :e | e outgoing collect: #target ].
+			b layout forceWithCharge: -400.
+			b ]
+]
+
 { #category : #accessing }
 SeaGraGraph >> initializeNodes: aSet [
 	self assert: [ nodes isNil ].
