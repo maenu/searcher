@@ -7,7 +7,15 @@ FM3Property >> seaQueMooEntitiesFor: anEntity [
 		ifFalse: [ ^ #() ].
 	result := anEntity perform: self implementingSelector.
 	result ifNil: [ ^ #() ].
-	^ result isCollection
-		ifTrue: [ result ]
-		ifFalse: [ {result} ]
+	result isCollection
+		ifFalse: [ ^ {result} ].
+	self isMultivalued
+		ifFalse: [ ^ result ].
+	^ result
+		collect: [ :e | 
+			e isAssociation
+				ifTrue: [ e from == anEntity
+						ifTrue: [ e to ]
+						ifFalse: [ e from ] ]
+				ifFalse: [ e ] ]
 ]
