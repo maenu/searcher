@@ -34,6 +34,6 @@ SeaQueMooExamples >> model [
 	| model |
 	model := MooseModel root first.
 	^ ((SeaQueGraphPart new
-	, '@x' ~ #subclass ~> '@y'
+	, '@x' <~ #subclass ~ '@y' ~ #superclass ~> '@z'
 	) compileForModel: model) execute explode
 ]

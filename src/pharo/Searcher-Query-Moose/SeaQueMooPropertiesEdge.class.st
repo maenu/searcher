@@ -52,3 +52,13 @@ SeaQueMooPropertiesEdge >> initializeProperties: aSet [
 						block:
 							[ :t | properties flatCollect: [ :p | p opposite seaQueMooEntitiesFor: t ] ]) ]
 ]
+
+{ #category : #printing }
+SeaQueMooPropertiesEdge >> printOn: aStream [
+	aStream
+		nextPutAll: (properties collect: #name) asString;
+		nextPutAll: ' ';
+		nextPutAll: self cost asString;
+		nextPutAll: ' ';
+		nextPutAll: results size asString
+]
