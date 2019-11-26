@@ -51,3 +51,16 @@ SeaQueMooExamples >> smallModel [
 	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
 	) compileForModel: model) execute explode
 ]
+
+{ #category : #'as yet unclassified' }
+SeaQueMooExamples >> smallModelWithVariableAccesses [
+	<gtExample>
+	| model |
+	model := MooseModel root first.
+	^ ((SeaQueGraphPart new
+	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
+	, '@class' ~ #parentPackage ~> 'Collections-Unordered' @ '@classPackage'
+	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
+	, '@method' <~? #accessors ~ '@z' <~ #attributes ?~ '@class'
+	) compileForModel: model) execute explode
+]
