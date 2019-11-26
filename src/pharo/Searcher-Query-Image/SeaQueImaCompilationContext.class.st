@@ -4,15 +4,6 @@ Class {
 	#category : #'Searcher-Query-Image'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary [
-	^ self new
-		initializeNodes: aDictionary
-			edges: anotherDictionary
-			variables: yetAnotherDictionary;
-		yourself
-]
-
 { #category : #initialization }
 SeaQueImaCompilationContext >> initializeCollections [
 	collections
