@@ -29,11 +29,25 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueMooExamples >> model [
+SeaQueMooExamples >> bigModel [
 	<gtExample>
 	| model |
 	model := MooseModel root first.
 	^ ((SeaQueGraphPart new
-	, '@y' ~ #superclass ~> '@z'
+	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
+	, '@class' ~ #parentPackage ~> '@classPackage'
+	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
+	) compileForModel: model) execute explode
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueMooExamples >> smallModel [
+	<gtExample>
+	| model |
+	model := MooseModel root first.
+	^ ((SeaQueGraphPart new
+	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
+	, '@class' ~ #parentPackage ~> 'Collections-Unordered' @ '@classPackage'
+	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
 	) compileForModel: model) execute explode
 ]
