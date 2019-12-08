@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueImaRPackageIncludesClassDescriptionEdge,
+	#name : #SeaQueImaRPackageDefinesClassDescriptionEdge,
 	#superclass : #SeaQueEdge,
 	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueImaRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueImaRPackageDefinesClassDescriptionEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -26,7 +26,7 @@ SeaQueImaRPackageIncludesClassDescriptionEdge class >> compileSourcePart: aNodeP
 ]
 
 { #category : #initialization }
-SeaQueImaRPackageIncludesClassDescriptionEdge >> initialize [
+SeaQueImaRPackageDefinesClassDescriptionEdge >> initialize [
 	super initialize.
 	strategies
 		add:
@@ -40,5 +40,5 @@ SeaQueImaRPackageIncludesClassDescriptionEdge >> initialize [
 		add:
 			(SeaQueEdgeSourceTargetSelectStrategy
 				edge: self
-				block: [ :s :t | s includesClass: t ])
+				block: [ :s :t | s definesClass: t ])
 ]

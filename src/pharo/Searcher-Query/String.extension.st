@@ -1,8 +1,8 @@
 Extension { #name : #String }
 
 { #category : #'*Searcher-Query' }
-String >> seaQueAsEdgeFactoryIn: aContext [
-	^ aContext edgeFactoryAt: self
+String >> seaQueAsEdgeFactoriesIn: aContext [
+	^ aContext edgeFactoriesAt: self
 ]
 
 { #category : #'*Searcher-Query' }

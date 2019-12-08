@@ -40,11 +40,11 @@ SeaQueEdge >> execute_ [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueEdge >> explodeSource: aNode target: anotherNode [
+SeaQueEdge >> explode: anObject with: aDictionary [
 	^ SeaGraDataEdge
-		source: aNode
-		target: anotherNode
-		data: self class name
+		source: (aDictionary at: anObject key)
+		target: (aDictionary at: anObject value)
+		data: anObject
 ]
 
 { #category : #initialization }

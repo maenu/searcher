@@ -32,9 +32,5 @@ SeaQueImaMetacelloProjectSpecIncludesRPackageEdge >> initialize [
 		add:
 			(SeaQueEdgeSourceCollectStrategy
 				edge: self
-				block: [ :s | s version spec seaQueImaCurrentlyLoadedPackages ]);
-		add:
-			(SeaQueEdgeSourceTargetSelectStrategy
-				edge: self
-				block: [ :s :t | s version spec seaQueImaCurrentlyLoadedPackages includes: t ])
+				block: [ :s | s version spec seaQueImaCurrentlyLoadedPackages ])
 ]

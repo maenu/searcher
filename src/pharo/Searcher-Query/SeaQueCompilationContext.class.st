@@ -21,11 +21,6 @@ SeaQueCompilationContext class >> nodes: aDictionary edges: anotherDictionary va
 ]
 
 { #category : #accessing }
-SeaQueCompilationContext >> at: aNodePart ifAbsentPut: aBlock [
-	^ self at: aNodePart ifPresent: #yourself ifAbsentPut: aBlock
-]
-
-{ #category : #accessing }
 SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: anotherBlock [
 	self assert: [ nodes includesKey: aNodePart ].
 	^ (nodes at: aNodePart)
@@ -58,7 +53,7 @@ SeaQueCompilationContext >> compile [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueCompilationContext >> edgeFactoryAt: aString [
+SeaQueCompilationContext >> edgeFactoriesAt: aString [
 	^ edgeFactories at: aString
 ]
 

@@ -46,7 +46,7 @@ SeaQueGraph >> explode [
 	edges
 		do: [ :e | 
 			e results
-				do: [ :f | e explodeSource: (map at: f key) target: (map at: f value) ] ].
+				do: [ :f | e explode: f with: map ] ].
 	^ SeaGraGraph nodes: map values
 ]
 
