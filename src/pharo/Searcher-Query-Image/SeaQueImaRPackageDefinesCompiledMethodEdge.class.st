@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueImaRPackageIncludesCompiledMethodEdge,
+	#name : #SeaQueImaRPackageDefinesCompiledMethodEdge,
 	#superclass : #SeaQueEdge,
 	#category : #'Searcher-Query-Image'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueImaRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueImaRPackageDefinesCompiledMethodEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
 	^ (self
 		source:
 		(aContext
@@ -26,17 +26,14 @@ SeaQueImaRPackageIncludesCompiledMethodEdge class >> compileSourcePart: aNodePar
 ]
 
 { #category : #initialization }
-SeaQueImaRPackageIncludesCompiledMethodEdge >> initialize [
+SeaQueImaRPackageDefinesCompiledMethodEdge >> initialize [
 	super initialize.
 	strategies
 		add:
 			(SeaQueEdgeTargetCollectStrategy
 				edge: self
 				block: [ :t | {t package} ]);
-		add:
-			(SeaQueEdgeSourceCollectStrategy
-				edge: self
-				block: [ :s | s extensionMethods ]);
+		add: (SeaQueEdgeSourceCollectStrategy edge: self block: [ :s | s methods ]);
 		add:
 			(SeaQueEdgeSourceTargetSelectStrategy
 				edge: self

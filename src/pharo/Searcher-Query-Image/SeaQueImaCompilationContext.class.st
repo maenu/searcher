@@ -59,6 +59,6 @@ SeaQueImaCompilationContext >> initializeEdgeFactories [
 			put: SeaQueImaMetacelloProjectSpecIncludesRPackageEdge;
 		at: #rPackageDefinesClassDescription
 			put: SeaQueImaRPackageDefinesClassDescriptionEdge;
-		at: #rPackageIncludesCompiledMethod
-			put: SeaQueImaRPackageIncludesCompiledMethodEdge
+		at: #rPackageDefinesCompiledMethod
+			put: SeaQueImaRPackageDefinesCompiledMethodEdge
 ]
