@@ -4,3 +4,8 @@ Extension { #name : #BlockClosure }
 BlockClosure >> seaQueAsEdgeFactoriesIn: aContext [
 	^ SeaQueMatchEdgeFactory block: self
 ]
+
+{ #category : #'*Searcher-Query' }
+BlockClosure >> seaQueIsIdentifier [
+	^ false
+]
