@@ -15,8 +15,16 @@ SeaQueMatchEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePar
 { #category : #compiling }
 SeaQueMatchEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean block: aBlock [
 	^ (self
-		source: (aContext at: aNodePart)
-		target: (aContext at: anotherNodePart))
+		source:
+		(aContext
+		at: aNodePart
+		ifPresent: #yourself
+		ifAbsentPut: [ :e | e object seaQueNodeIn: aContext ])
+		target:
+		(aContext
+				at: anotherNodePart
+				ifPresent: #yourself
+				ifAbsentPut: [ :e | e object seaQueNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		initializeBlock: aBlock;
 		yourself

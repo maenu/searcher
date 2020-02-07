@@ -15,8 +15,16 @@ SeaQueMessageOrInstanceVariableEdge class >> compileSourcePart: aNodePart target
 { #category : #compiling }
 SeaQueMessageOrInstanceVariableEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean selector: aSymbol [
 	^ (self
-		source: (aContext at: aNodePart)
-		target: (aContext at: anotherNodePart))
+		source:
+		(aContext
+		at: aNodePart
+		ifPresent: #yourself
+		ifAbsentPut: [ :e | e object seaQueNodeIn: aContext ])
+		target:
+		(aContext
+				at: anotherNodePart
+				ifPresent: #yourself
+				ifAbsentPut: [ :e | e object seaQueNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;
 		initializeSelector: aSymbol;
 		yourself
@@ -25,17 +33,24 @@ SeaQueMessageOrInstanceVariableEdge class >> compileSourcePart: aNodePart target
 { #category : #initialization }
 SeaQueMessageOrInstanceVariableEdge >> initializeSelector: aSymbol [
 	self assert: [ selector isNil ].
+	self assert: [ aSymbol numArgs <= 1 ].
 	selector := aSymbol.
-	strategies
-		add:
-			(SeaQueEdgeSourceCollectStrategy
-				edge: self
-				block: [ :s | 
-					(s canUnderstand: selector)
-						ifTrue: [ (s perform: selector) asCollection ]
-						ifFalse: [ (s hasInstVarNamed: selector)
-								ifTrue: [ (s instVarNamed: selector) asCollection ]
-								ifFalse: [ #() ] ] ])
+	aSymbol numArgs = 0
+		ifTrue: [ strategies
+				add:
+					(SeaQueEdgeSourceCollectStrategy
+						edge: self
+						block: [ :s | 
+							(s canUnderstand: selector)
+								ifTrue: [ (s perform: selector) asCollection ]
+								ifFalse: [ (s hasInstVarNamed: selector)
+										ifTrue: [ (s instVarNamed: selector) asCollection ]
+										ifFalse: [ #() ] ] ]) ]
+		ifFalse: [ strategies
+				add:
+					(SeaQueEdgeSourceTargetSelectStrategy
+						edge: self
+						block: [ :s :t | s perform: selector with: t ]) ]
 ]
 
 { #category : #printing }

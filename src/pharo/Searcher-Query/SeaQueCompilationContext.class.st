@@ -56,8 +56,7 @@ SeaQueCompilationContext >> compile [
 SeaQueCompilationContext >> edgeFactoriesAt: aString [
 	^ edgeFactories
 		at: aString
-		ifAbsent:
-			[ {(SeaQueMessageOrInstanceVariableEdgeFactory selector: aString)} ]
+		ifAbsent: [ SeaQueMessageOrInstanceVariableEdgeFactory selector: aString ]
 ]
 
 { #category : #initialization }
