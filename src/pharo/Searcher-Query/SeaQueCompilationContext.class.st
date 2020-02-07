@@ -54,7 +54,10 @@ SeaQueCompilationContext >> compile [
 
 { #category : #'as yet unclassified' }
 SeaQueCompilationContext >> edgeFactoriesAt: aString [
-	^ edgeFactories at: aString
+	^ edgeFactories
+		at: aString
+		ifAbsent:
+			[ {(SeaQueMessageOrInstanceVariableEdgeFactory selector: aString)} ]
 ]
 
 { #category : #initialization }
