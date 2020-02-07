@@ -4,14 +4,14 @@ Class {
 	#category : #'Searcher-Query-Image-Examples'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueImaExamples >> neoCSV [
+{ #category : #accessing }
+SeaQueImaExamples >> neoJSON [
 	<gtExample>
 	^ (SeaQueGraphPart new
-	, 'NeoCSV' @ '@project' ~ #metacelloProjectSpecIncludesRPackage ~> '@package'
-	, '@package' ~ #rPackageIncludesClassDescription ~> '@classDescription'
-	, '@package' ~? #rPackageIncludesCompiledMethod ~> '@extensionMethod'
-	, '@classDescription' ~? #classDescriptionSubclassesClassDescription ~> '@x' <~ #rPackageIncludesClassDescription ~ '@package2'
-	, '@classDescription' ~? #classDescriptionDefinesCompiledMethod ~> '@method'
+	, 'NeoJSON' @ '@project' ~ #metacelloProjectSpecIncludesRPackage ~> '@package'
+	, '@package' ~ #rPackageDefinesClassDescription ~> '@classDescription'
+	", '@package' ~? #rPackageDefinesCompiledMethod ~> '@extensionMethod'
+	, '@classDescription' ~? #classDescriptionSubclassesClassDescription ~> '@x' <~ #rPackageDefinesClassDescription ~ '@package2'
+	, '@classDescription' ~? #classDescriptionDefinesCompiledMethod ~> '@method'"
 	) compileForImage execute explode
 ]

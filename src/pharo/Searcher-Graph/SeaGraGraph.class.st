@@ -22,7 +22,7 @@ SeaGraGraph >> edges [
 
 { #category : #'as yet unclassified' }
 SeaGraGraph >> gtInspectorGraphFor: aComposite [
-	<gtInspectorPresentationOrder: 1>
+	"<gtInspectorPresentationOrder: 1>"
 	^ aComposite roassal2
 		title: [ 'Graph' ];
 		initializeView: [ | b |
