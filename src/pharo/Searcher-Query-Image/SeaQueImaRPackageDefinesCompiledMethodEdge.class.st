@@ -11,14 +11,19 @@ SeaQueImaRPackageDefinesCompiledMethodEdge class >> compileSourcePart: aNodePart
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection name = #rPackage ].
+			self assert: [ #(rPackage custom empty) includes: e collection name ].
+			e collection name = #empty
+				ifTrue: [ e collection: (aContext collectionAt: #rPackage) ].
 			e ]
 		ifAbsentPut: [ :e | e object seaQueImaAsRPackageNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection name = #compiledMethod ].
+					self
+						assert: [ #(compiledMethod custom empty) includes: e collection name ].
+					e collection name = #empty
+						ifTrue: [ e collection: (aContext collectionAt: #compiledMethod) ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueImaAsCompiledMethodNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;

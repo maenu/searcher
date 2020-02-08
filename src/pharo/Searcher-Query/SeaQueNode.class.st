@@ -21,6 +21,13 @@ SeaQueNode >> collection [
 	^ collection
 ]
 
+{ #category : #accessing }
+SeaQueNode >> collection: aCollection [
+	collection := aCollection.
+	results := IdentitySet new.
+	shouldExecute := true
+]
+
 { #category : #'as yet unclassified' }
 SeaQueNode >> cost_ [
 	^ collection size

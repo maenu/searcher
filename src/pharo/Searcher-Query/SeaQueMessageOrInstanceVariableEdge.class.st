@@ -41,9 +41,9 @@ SeaQueMessageOrInstanceVariableEdge >> initializeSelector: aSymbol [
 					(SeaQueEdgeSourceCollectStrategy
 						edge: self
 						block: [ :s | 
-							(s canUnderstand: selector)
+							(s class canPerform: selector)
 								ifTrue: [ (s perform: selector) asCollection ]
-								ifFalse: [ (s hasInstVarNamed: selector)
+								ifFalse: [ (s class hasInstVarNamed: selector)
 										ifTrue: [ (s instVarNamed: selector) asCollection ]
 										ifFalse: [ #() ] ] ]) ]
 		ifFalse: [ strategies

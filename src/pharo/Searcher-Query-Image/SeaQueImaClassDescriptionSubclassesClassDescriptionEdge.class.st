@@ -11,14 +11,20 @@ SeaQueImaClassDescriptionSubclassesClassDescriptionEdge class >> compileSourcePa
 		(aContext
 		at: aNodePart
 		ifPresent: [ :e | 
-			self assert: [ e collection name = #classDescription ].
+			self
+				assert: [ #(classDescription custom empty) includes: e collection name ].
+			e collection name = #empty
+				ifTrue: [ e collection: (aContext collectionAt: #classDescription) ].
 			e ]
 		ifAbsentPut: [ :e | e object seaQueImaAsClassDescriptionNodeIn: aContext ])
 		target:
 		(aContext
 				at: anotherNodePart
 				ifPresent: [ :e | 
-					self assert: [ e collection name = #classDescription ].
+					self
+						assert: [ #(classDescription custom empty) includes: e collection name ].
+					e collection name = #empty
+						ifTrue: [ e collection: (aContext collectionAt: #classDescription) ].
 					e ]
 				ifAbsentPut: [ :e | e object seaQueImaAsClassDescriptionNodeIn: aContext ]))
 		initializeSourceOptional: aBoolean targetOptional: anotherBoolean;

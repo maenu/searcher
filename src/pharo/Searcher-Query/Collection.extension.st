@@ -7,6 +7,10 @@ Collection >> seaQueIsIdentifier [
 
 { #category : #'*Searcher-Query' }
 Collection >> seaQueNodeIn: aContext [
-	^ SeaQueVariableNode
-		collection: (SeaQueCollection name: #custom initializer: [ self ])
+	^ self seaQueIsIdentifier
+		ifTrue: [ SeaQueVariableNode
+				collection: (SeaQueCollection name: #empty initializer: [ IdentitySet new ]) ]
+		ifFalse: [ SeaQueMatchNode
+				collection: (SeaQueCollection name: #custom initializer: [ self asIdentitySet ])
+				block: [ :e | self includes: e ] ]
 ]
