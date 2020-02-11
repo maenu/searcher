@@ -33,11 +33,11 @@ SeaQueMooExamples >> bigModel [
 	<gtExample>
 	| model |
 	model := MooseModel root first.
-	^ ((SeaQueGraphPart new
+	^ ((SeaQueGraphPart context: (SeaQueMooCompilationContext model: model))
 	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
 	, '@class' ~ #parentPackage ~> '@classPackage'
 	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
-	) compileForModel: model) execute explode
+	) compile execute explode
 ]
 
 { #category : #'as yet unclassified' }
@@ -45,11 +45,11 @@ SeaQueMooExamples >> smallModel [
 	<gtExample>
 	| model |
 	model := MooseModel root first.
-	^ ((SeaQueGraphPart new
+	^ ((SeaQueGraphPart context: (SeaQueMooCompilationContext model: model))
 	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
 	, '@class' ~ #parentPackage ~> 'Collections-Unordered' @ '@classPackage'
 	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
-	) compileForModel: model) execute explode
+	) compile execute explode
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,10 +57,10 @@ SeaQueMooExamples >> smallModelWithVariableAccesses [
 	<gtExample>
 	| model |
 	model := MooseModel root first.
-	^ ((SeaQueGraphPart new
+	^ ((SeaQueGraphPart context: (SeaQueMooCompilationContext model: model))
 	, '@method' <~ #methods ?~ '@class' ~ #superclass ~> '@superclass'
 	, '@class' ~ #parentPackage ~> 'Collections-Unordered' @ '@classPackage'
 	, '@superclass' ~ #parentPackage ~> '@superclassPackage'
 	, '@method' <~? #accessors ~ '@z' <~ #attributes ?~ '@class'
-	) compileForModel: model) execute explode
+	) compile execute explode
 ]

@@ -11,15 +11,6 @@ Class {
 	#category : #'Searcher-Query-Parts'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary [
-	^ self new
-		initializeNodes: aDictionary
-			edges: anotherDictionary
-			variables: yetAnotherDictionary;
-		yourself
-]
-
 { #category : #accessing }
 SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: anotherBlock [
 	self assert: [ nodes includesKey: aNodePart ].

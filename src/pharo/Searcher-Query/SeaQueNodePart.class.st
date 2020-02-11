@@ -38,6 +38,11 @@ SeaQueNodePart >> @ aString [
 ]
 
 { #category : #'as yet unclassified' }
+SeaQueNodePart >> compile [
+	^ graphPart compile
+]
+
+{ #category : #'as yet unclassified' }
 SeaQueNodePart >> ~ anObject [
 	^ graphPart
 		outgoingEdgePartFor: anObject

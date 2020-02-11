@@ -32,11 +32,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueMooCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary model: aModel [
-	^ (self
-		nodes: aDictionary
-		edges: anotherDictionary
-		variables: yetAnotherDictionary)
+SeaQueMooCompilationContext class >> model: aModel [
+	^ self new
 		initializeModel: aModel;
 		yourself
 ]

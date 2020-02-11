@@ -8,11 +8,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueImaRemoteCompilationContext class >> nodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary remotePeer: aRemotePeer [
-	^ (self
-		nodes: aDictionary
-		edges: anotherDictionary
-		variables: yetAnotherDictionary)
+SeaQueImaRemoteCompilationContext class >> remotePeer: aRemotePeer [
+	^ self new
 		initializeRemotePeer: aRemotePeer;
 		yourself
 ]

@@ -4,10 +4,18 @@ Class {
 	#instVars : [
 		'nodeParts',
 		'edgeParts',
-		'variables'
+		'variables',
+		'context'
 	],
 	#category : #'Searcher-Query-Parts'
 }
+
+{ #category : #accessing }
+SeaQueGraphPart class >> context: aContext [
+	^ self new
+		initializeContext: aContext;
+		yourself
+]
 
 { #category : #adding }
 SeaQueGraphPart >> , anObject [
@@ -20,6 +28,15 @@ SeaQueGraphPart >> at: aString put: aNodePart [
 		assert: [ aString seaQueIsIdentifier
 				and: [ (variables includesKey: aString) not ] ].
 	^ variables at: aString put: aNodePart
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueGraphPart >> compile [
+	^ context
+		initializeNodes: (nodeParts collect: [ :e | e -> nil ]) asDictionary
+			edges: (edgeParts collect: [ :e | e -> nil ]) asDictionary
+			variables: variables copy;
+		compile
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,6 +56,12 @@ SeaQueGraphPart >> initialize [
 	nodeParts := Set new.
 	edgeParts := Set new.
 	variables := Dictionary new
+]
+
+{ #category : #initialization }
+SeaQueGraphPart >> initializeContext: aContext [
+	self assert: [ context isNil ].
+	context := aContext
 ]
 
 { #category : #adding }
