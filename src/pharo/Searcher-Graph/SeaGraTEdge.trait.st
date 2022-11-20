@@ -10,7 +10,7 @@ Trait {
 { #category : #accessing }
 SeaGraTEdge classSide >> source: aNode target: anotherNode [
 	^ self new
-		initializeWithSource: aNode target: anotherNode;
+		initializeSource: aNode target: anotherNode;
 		yourself
 ]
 
@@ -25,7 +25,7 @@ SeaGraTEdge >> allNodes [
 ]
 
 { #category : #accessing }
-SeaGraTEdge >> initializeWithSource: aNode target: anotherNode [
+SeaGraTEdge >> initializeSource: aNode target: anotherNode [
 	self assert: [ source isNil and: [ target isNil ] ].
 	source := aNode.
 	target := anotherNode.

@@ -9,9 +9,9 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueEdgeStrategy class >> edge: anEdge block: aBlock [
+SeaQueEdgeStrategy class >> block: aBlock [
 	^ self new
-		initializeWithEdge: anEdge block: aBlock;
+		initializeBlock: aBlock;
 		yourself
 ]
 
@@ -26,21 +26,25 @@ SeaQueEdgeStrategy >> cost [
 ]
 
 { #category : #testing }
-SeaQueEdgeStrategy >> executeSourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueEdgeStrategy >> execute [
 	| results |
 	edge results: (results := self results).
-	aBoolean
+	edge sourceOptional
 		ifFalse: [ edge source results: (results collect: #key) ].
-	anotherBoolean
+	edge targetOptional
 		ifFalse: [ edge target results: (results collect: #value) ]
 ]
 
 { #category : #initialization }
-SeaQueEdgeStrategy >> initializeWithEdge: anEdge block: aBlock [
-	self assert: [ edge isNil ].
+SeaQueEdgeStrategy >> initializeBlock: aBlock [
 	self assert: [ block isNil ].
-	edge := anEdge.
 	block := aBlock
+]
+
+{ #category : #initialization }
+SeaQueEdgeStrategy >> initializeEdge: anEdge [
+	self assert: [ edge isNil ].
+	edge := anEdge
 ]
 
 { #category : #accessing }

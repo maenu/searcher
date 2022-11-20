@@ -30,7 +30,6 @@ SeaQueCompilationContext >> compile [
 		assert: [ (nodes values allSatisfy: #isNil)
 				and: [ edges values allSatisfy: #isNil ] ].
 	self initializeCollections.
-	self initializeEdgeFactories.
 	edges := (edges associations
 		collect: [ :e | e key -> (e key compileIn: self) ]) asDictionary.
 	self
@@ -43,27 +42,16 @@ SeaQueCompilationContext >> compile [
 		variables: variables
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueCompilationContext >> edgeFactoriesAt: aString [
-	^ edgeFactories
-		at: aString
-		ifAbsent: [ SeaQueMessageOrInstanceVariableEdgeFactory selector: aString ]
-]
-
 { #category : #initialization }
 SeaQueCompilationContext >> initialize [
 	super initialize.
 	collections := Dictionary new.
-	edgeFactories := Dictionary new
+	edgeFactories := Dictionary new.
+	self initializeCollections
 ]
 
 { #category : #initialization }
 SeaQueCompilationContext >> initializeCollections [
-	self subclassResponsibility
-]
-
-{ #category : #initialization }
-SeaQueCompilationContext >> initializeEdgeFactories [
 	self subclassResponsibility
 ]
 

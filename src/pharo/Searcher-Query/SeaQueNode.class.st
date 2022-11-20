@@ -1,19 +1,58 @@
 Class {
 	#name : #SeaQueNode,
-	#superclass : #SeaQueQuery,
-	#traits : 'SeaGraTNode',
-	#classTraits : 'SeaGraTNode classTrait',
+	#superclass : #Object,
+	#traits : 'SeaGraTNode + SeaQueTConstraint',
+	#classTraits : 'SeaGraTNode classTrait + SeaQueTConstraint classTrait',
 	#instVars : [
-		'collection'
+		'collection',
+		'filter',
+		'context'
 	],
 	#category : #'Searcher-Query'
 }
 
 { #category : #'as yet unclassified' }
-SeaQueNode class >> collection: aCollection [
+SeaQueNode class >> collection: aCollection context: aContext [
 	^ self new
-		initializeCollection: aCollection;
+		initializeCollection: aCollection context: aContext;
 		yourself
+]
+
+{ #category : #requirements }
+SeaQueNode class >> empty: aContext [
+	^ self
+		collection: (SeaQueCollection name: #empty initializer: [ IdentitySet new ])
+		context: aContext
+]
+
+{ #category : #'instance creation' }
+SeaQueNode class >> fromCollection: aCollection context: aContext [
+	^ (self
+		collection:
+		(SeaQueCollection
+		name: #custom
+		initializer: [ aCollection asIdentitySet ])
+		context: aContext)
+		initializeFilter: [ :c | c objects intersection: aCollection ];
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNode >> <~ anObject [
+	^ SeaQueIncomingEdgeBuilder
+		argument: anObject
+		target: self
+		optional: false
+		context: context
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNode >> <~? anObject [
+	^ SeaQueIncomingEdgeBuilder
+		argument: anObject
+		target: self
+		optional: true
+		context: context
 ]
 
 { #category : #accessing }
@@ -48,10 +87,25 @@ SeaQueNode >> includes: anObject [
 	^ wasExecuted not or: [ results includes: anObject ]
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueNode >> initialize [
+	super initialize.
+	self initializeTConstraint.
+	filter := #objects
+]
+
 { #category : #initialization }
-SeaQueNode >> initializeCollection: aCollection [
+SeaQueNode >> initializeCollection: aCollection context: aContext [
 	self assert: [ collection isNil ].
-	collection := aCollection
+	self assert: [ context isNil ].
+	collection := aCollection.
+	context := aContext
+]
+
+{ #category : #initialization }
+SeaQueNode >> initializeFilter: aBlock [
+	self assert: [ filter isNil ].
+	filter := aBlock
 ]
 
 { #category : #printing }
@@ -68,7 +122,7 @@ SeaQueNode >> printOn: aStream [
 SeaQueNode >> results [
 	^ wasExecuted
 		ifTrue: [ results ]
-		ifFalse: [ results := collection objects ]
+		ifFalse: [ results := filter value: collection ]
 ]
 
 { #category : #accessing }
@@ -79,4 +133,27 @@ SeaQueNode >> results: aCollection [
 			self incoming , self outgoing do: [ :e | e shouldExecute: true ] ].
 	wasExecuted := true.
 	shouldExecute := false
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNode >> | aString [
+	filter := [ :c | (c indexedBy: #name) at: aString ifAbsent: [ IdentitySet new ] ]
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNode >> ~ anObject [
+	^ SeaQueOutgoingEdgeBuilder
+		argument: anObject
+		source: self
+		optional: false
+		context: context
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueNode >> ~? anObject [
+	^ SeaQueOutgoingEdgeBuilder
+		argument: anObject
+		source: self
+		optional: true
+		context: context
 ]

@@ -1,13 +1,23 @@
 Class {
 	#name : #SeaQueGraph,
-	#superclass : #SeaQueQuery,
+	#superclass : #Object,
+	#traits : 'SeaQueTConstraint',
+	#classTraits : 'SeaQueTConstraint classTrait',
 	#instVars : [
 		'nodes',
 		'edges',
-		'variables'
+		'variables',
+		'context'
 	],
 	#category : #'Searcher-Query'
 }
+
+{ #category : #accessing }
+SeaQueGraph class >> context: aContext [
+	^ self new
+		initializeContext: aContext;
+		yourself
+]
 
 { #category : #'as yet unclassified' }
 SeaQueGraph class >> nodes: aSet edges: anotherSet variables: aDictionary [
@@ -30,6 +40,8 @@ SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 SeaQueGraph >> execute_ [
 	| entity |
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
+	nodes := nodes flatCollect: #allNodes.
+	edges := nodes flatCollect: #allEdges.
 	[ (entity := self cheapestShouldAndCanExecuteOrNil) isNil ]
 		whileFalse: [ entity traceCr.
 			entity execute.
@@ -50,10 +62,41 @@ SeaQueGraph >> explode [
 	^ SeaGraGraph nodes: map values
 ]
 
+{ #category : #'as yet unclassified' }
+SeaQueGraph >> initialize [
+	super initialize.
+	self initializeTConstraint.
+	nodes := Set new.
+	edges := Set new.
+	variables := Dictionary new
+]
+
+{ #category : #initialization }
+SeaQueGraph >> initializeContext: aContext [
+	self assert: [ context isNil ].
+	context := aContext
+]
+
 { #category : #initialization }
 SeaQueGraph >> initializeNodes: aSet edges: anotherSet variables: aDictionary [
 	self assert: [ nodes isNil and: [ edges isNil ] ].
 	nodes := aSet.
 	edges := anotherSet.
 	variables := aDictionary
+]
+
+{ #category : #'key matching' }
+SeaQueGraph >> match: aBlock [
+	| arguments |
+	arguments := aBlock argumentNames
+		collect: [ :nodeName | self variable: nodeName ].
+	aBlock valueWithArguments: arguments.
+	^ self
+]
+
+{ #category : #generated }
+SeaQueGraph >> variable: aSymbol [
+	^ variables
+		at: '@' , aSymbol
+		ifAbsentPut: [ nodes add: (SeaQueNode empty: context) ]
 ]

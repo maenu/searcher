@@ -1,6 +1,5 @@
-Class {
-	#name : #SeaQueQuery,
-	#superclass : #Object,
+Trait {
+	#name : #SeaQueTConstraint,
 	#instVars : [
 		'results',
 		'shouldExecute',
@@ -10,24 +9,24 @@ Class {
 }
 
 { #category : #testing }
-SeaQueQuery >> canExecute [
+SeaQueTConstraint >> canExecute [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueQuery >> cost [
+SeaQueTConstraint >> cost [
 	^ wasExecuted
 		ifTrue: [ results size ]
 		ifFalse: [ self cost_ ]
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueQuery >> cost_ [
+SeaQueTConstraint >> cost_ [
 	^ Float infinity
 ]
 
 { #category : #accessing }
-SeaQueQuery >> execute [
+SeaQueTConstraint >> execute [
 	self assert: [ self shouldExecute and: [ self canExecute ] ].
 	self execute_.
 	shouldExecute := false.
@@ -35,34 +34,33 @@ SeaQueQuery >> execute [
 ]
 
 { #category : #accessing }
-SeaQueQuery >> execute_ [
+SeaQueTConstraint >> execute_ [
 	self subclassResponsibility
 ]
 
 { #category : #initialization }
-SeaQueQuery >> initialize [
-	super initialize.
+SeaQueTConstraint >> initializeTConstraint [
 	results := IdentitySet new.
 	shouldExecute := true.
 	wasExecuted := false
 ]
 
 { #category : #testing }
-SeaQueQuery >> results [
+SeaQueTConstraint >> results [
 	^ results
 ]
 
 { #category : #testing }
-SeaQueQuery >> shouldExecute [
+SeaQueTConstraint >> shouldExecute [
 	^ shouldExecute
 ]
 
 { #category : #accessing }
-SeaQueQuery >> shouldExecute: aBoolean [
+SeaQueTConstraint >> shouldExecute: aBoolean [
 	shouldExecute := aBoolean
 ]
 
 { #category : #accessing }
-SeaQueQuery >> wasExecuted [
+SeaQueTConstraint >> wasExecuted [
 	^ wasExecuted
 ]

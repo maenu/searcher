@@ -1,8 +1,8 @@
 Class {
 	#name : #SeaQueEdge,
-	#superclass : #SeaQueQuery,
-	#traits : 'SeaGraTEdge',
-	#classTraits : 'SeaGraTEdge classTrait',
+	#superclass : #Object,
+	#traits : 'SeaGraTEdge + SeaQueTConstraint',
+	#classTraits : 'SeaGraTEdge classTrait + SeaQueTConstraint classTrait',
 	#instVars : [
 		'strategies',
 		'sourceOptional',
@@ -12,8 +12,25 @@ Class {
 }
 
 { #category : #compiling }
-SeaQueEdge class >> compileSourcePart: aNodePart targetPart: anotherNodePart in: aContext sourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueEdge class >> compileSource: aNodePart optional: aBoolean target: anotherNodePart optional: anotherBoolean in: aContext [
 	self subclassResponsibility
+]
+
+{ #category : #compiling }
+SeaQueEdge class >> source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean strategies: aCollection [
+	^ self new
+		initializeSource: aNode target: anotherNode;
+		initializeSourceOptional: aBoolean
+			targetOptional: anotherBoolean
+			strategies: aCollection;
+		yourself
+]
+
+{ #category : #accessing }
+SeaQueEdge class >> source: aNode target: anotherNode [
+	^ self new
+		initializeSource: aNode target: anotherNode;
+		yourself
 ]
 
 { #category : #testing }
@@ -34,9 +51,7 @@ SeaQueEdge >> cost_ [
 
 { #category : #accessing }
 SeaQueEdge >> execute_ [
-	self cheapestCanExecuteStrategy
-		executeSourceOptional: sourceOptional
-		targetOptional: targetOptional
+	self cheapestCanExecuteStrategy execute
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,15 +65,18 @@ SeaQueEdge >> explode: anObject with: aDictionary [
 { #category : #initialization }
 SeaQueEdge >> initialize [
 	super initialize.
-	strategies := OrderedCollection new
+	self initializeTConstraint
 ]
 
 { #category : #accessing }
-SeaQueEdge >> initializeSourceOptional: aBoolean targetOptional: anotherBoolean [
+SeaQueEdge >> initializeSourceOptional: aBoolean targetOptional: anotherBoolean strategies: aCollection [
 	self assert: [ sourceOptional isNil ].
 	self assert: [ targetOptional isNil ].
+	self assert: [ strategies isNil ].
 	sourceOptional := aBoolean.
-	targetOptional := anotherBoolean
+	targetOptional := anotherBoolean.
+	strategies := aCollection.
+	strategies do: [ :e | e initializeEdge: self ]
 ]
 
 { #category : #printing }
@@ -66,7 +84,11 @@ SeaQueEdge >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
 		nextPutAll: ' ';
-		nextPutAll: self cost asString;
+		nextPutAll:
+			(strategies
+				detect: #canExecute
+				ifFound: [ self cost asString ]
+				ifNone: '(cannot execute)');
 		nextPutAll: ' ';
 		nextPutAll: results size asString
 ]
@@ -74,4 +96,14 @@ SeaQueEdge >> printOn: aStream [
 { #category : #accessing }
 SeaQueEdge >> results: aCollection [
 	results := aCollection
+]
+
+{ #category : #accessing }
+SeaQueEdge >> sourceOptional [
+	^ sourceOptional
+]
+
+{ #category : #accessing }
+SeaQueEdge >> targetOptional [
+	^ targetOptional
 ]

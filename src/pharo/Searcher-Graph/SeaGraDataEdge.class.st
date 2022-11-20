@@ -10,6 +10,13 @@ Class {
 }
 
 { #category : #accessing }
+SeaGraDataEdge class >> source: aNode target: anotherNode [
+	^ self new
+		initializeSource: aNode target: anotherNode;
+		yourself
+]
+
+{ #category : #accessing }
 SeaGraDataEdge class >> source: aNode target: anotherNode data: anObject [
 	^ (self source: aNode target: anotherNode)
 		data: anObject;

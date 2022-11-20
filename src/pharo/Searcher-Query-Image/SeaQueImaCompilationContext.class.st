@@ -45,20 +45,3 @@ SeaQueImaCompilationContext >> initializeCollections [
 				name: #rPackage
 				initializer: [ RPackage organizer packages asIdentitySet ])
 ]
-
-{ #category : #initialization }
-SeaQueImaCompilationContext >> initializeEdgeFactories [
-	edgeFactories
-		at: #classDescriptionDefinesCompiledMethod
-			put: SeaQueImaClassDescriptionDefinesCompiledMethodEdge;
-		at: #classDescriptionImplementsCompiledMethod
-			put: SeaQueImaClassDescriptionImplementsCompiledMethodEdge;
-		at: #classDescriptionSubclassesClassDescription
-			put: SeaQueImaClassDescriptionSubclassesClassDescriptionEdge;
-		at: #metacelloProjectSpecIncludesRPackage
-			put: SeaQueImaMetacelloProjectSpecIncludesRPackageEdge;
-		at: #rPackageDefinesClassDescription
-			put: SeaQueImaRPackageDefinesClassDescriptionEdge;
-		at: #rPackageDefinesCompiledMethod
-			put: SeaQueImaRPackageDefinesCompiledMethodEdge
-]
