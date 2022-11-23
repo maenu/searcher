@@ -15,7 +15,8 @@ SeaQueImaRemoteCompilationContext class >> remotePeer: aRemotePeer [
 ]
 
 { #category : #initialization }
-SeaQueImaRemoteCompilationContext >> initializeCollections [
+SeaQueImaRemoteCompilationContext >> initialize [
+	super initialize.
 	collections
 		at: #classDescription
 			put:

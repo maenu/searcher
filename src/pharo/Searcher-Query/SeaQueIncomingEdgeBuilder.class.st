@@ -1,7 +1,7 @@
 Class {
 	#name : #SeaQueIncomingEdgeBuilder,
 	#superclass : #SeaQueEdgeBuilder,
-	#category : #'Searcher-Query-Parts'
+	#category : #'Searcher-Query'
 }
 
 { #category : #'as yet unclassified' }

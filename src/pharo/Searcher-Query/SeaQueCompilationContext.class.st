@@ -2,64 +2,38 @@ Class {
 	#name : #SeaQueCompilationContext,
 	#superclass : #Object,
 	#instVars : [
-		'nodes',
-		'edges',
-		'variables',
-		'collections',
-		'edgeFactories'
+		'collections'
 	],
-	#category : #'Searcher-Query-Parts'
+	#category : #'Searcher-Query'
 }
-
-{ #category : #accessing }
-SeaQueCompilationContext >> at: aNodePart ifPresent: aBlock ifAbsentPut: anotherBlock [
-	self assert: [ nodes includesKey: aNodePart ].
-	^ (nodes at: aNodePart)
-		ifNil: [ nodes at: aNodePart put: (anotherBlock value: aNodePart) ]
-		ifNotNil: aBlock
-]
 
 { #category : #'as yet unclassified' }
 SeaQueCompilationContext >> collectionAt: aString [
 	^ collections at: aString
 ]
 
-{ #category : #compiling }
-SeaQueCompilationContext >> compile [
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> edgeBlock: aBlock source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+	^ SeaQueEdge
+		source: aNode
+		optional: aBoolean
+		target: anotherNode
+		optional: anotherBoolean
+		strategies: {aBlock seaQueAsEdgeSourceCollectStrategy}
+]
+
+{ #category : #'as yet unclassified' }
+SeaQueCompilationContext >> ensureCollection: aSymbol in: aNode [
 	self
-		assert: [ (nodes values allSatisfy: #isNil)
-				and: [ edges values allSatisfy: #isNil ] ].
-	self initializeCollections.
-	edges := (edges associations
-		collect: [ :e | e key -> (e key compileIn: self) ]) asDictionary.
-	self
-		assert: [ (nodes values allSatisfy: #isNotNil)
-				and: [ edges values allSatisfy: #isNotNil ] ].
-	variables := variables collect: [ :e | nodes at: e ].
-	^ SeaQueGraph
-		nodes: nodes values
-		edges: edges values
-		variables: variables
+		assert: [ {aSymbol.
+			#custom.
+			#empty} includes: aNode collection name ].
+	aNode collection name = #empty
+		ifTrue: [ aNode collection: (self collectionAt: aSymbol) ]
 ]
 
 { #category : #initialization }
 SeaQueCompilationContext >> initialize [
 	super initialize.
-	collections := Dictionary new.
-	edgeFactories := Dictionary new.
-	self initializeCollections
-]
-
-{ #category : #initialization }
-SeaQueCompilationContext >> initializeCollections [
-	self subclassResponsibility
-]
-
-{ #category : #initialization }
-SeaQueCompilationContext >> initializeNodes: aDictionary edges: anotherDictionary variables: yetAnotherDictionary [
-	self
-		assert: [ nodes isNil and: [ edges isNil and: [ variables isNil ] ] ].
-	nodes := aDictionary.
-	edges := anotherDictionary.
-	variables := yetAnotherDictionary
+	collections := Dictionary new
 ]

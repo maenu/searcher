@@ -20,13 +20,6 @@ SeaQueGraph class >> context: aContext [
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueGraph class >> nodes: aSet edges: anotherSet variables: aDictionary [
-	^ self new
-		initializeNodes: aSet edges: anotherSet variables: aDictionary;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
 SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 	^ (((nodes , edges
 		select: [ :e | e shouldExecute and: [ e canExecute ] ])

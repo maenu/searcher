@@ -16,6 +16,11 @@ BlockClosure >> seaQueAsEdgeTargetCollectStrategy [
 ]
 
 { #category : #'*Searcher-Query' }
-BlockClosure >> seaQueBuildEdge: anEdgeBuilder [
-	anEdgeBuilder buildBlock
+BlockClosure >> seaQueEdgeContext: aContext source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+	^ aContext
+		edgeBlock: self
+		source: aNode
+		optional: aBoolean
+		target: anotherNode
+		optional: anotherBoolean
 ]

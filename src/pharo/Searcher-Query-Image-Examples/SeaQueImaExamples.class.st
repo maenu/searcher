@@ -38,5 +38,5 @@ SeaQueImaExamples >> neoJSONv2Small [
 			(project | #NeoJSON) ~ #metacelloProjectSpecIncludesRPackage
 				~> package.
 			package ~ #rPackageDefinesClassDescription ~> classDescription ])
-		execute
+		execute explode
 ]
