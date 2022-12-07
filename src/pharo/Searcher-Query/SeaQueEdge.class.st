@@ -82,14 +82,13 @@ SeaQueEdge >> initializeSourceOptional: aBoolean targetOptional: anotherBoolean 
 { #category : #printing }
 SeaQueEdge >> printOn: aStream [
 	aStream
-		nextPutAll: self class name;
-		nextPutAll: ' ';
+		nextPutAll: 'cost: ';
 		nextPutAll:
 			(strategies
 				detect: #canExecute
 				ifFound: [ self cost asString ]
-				ifNone: '(cannot execute)');
-		nextPutAll: ' ';
+				ifNone: 'cannot execute');
+		nextPutAll: ' results: ';
 		nextPutAll: results size asString
 ]
 

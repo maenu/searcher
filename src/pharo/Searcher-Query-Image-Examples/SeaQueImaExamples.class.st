@@ -33,10 +33,8 @@ SeaQueImaExamples >> neoJSONv2 [
 { #category : #'as yet unclassified' }
 SeaQueImaExamples >> neoJSONv2Small [
 	<gtExample>
-	^ ((SeaQueGraph context: SeaQueImaCompilationContext new)
-		match: [ :project :package :classDescription | 
-			(project | #NeoJSON) ~ #metacelloProjectSpecIncludesRPackage
-				~> package.
-			package ~ #rPackageDefinesClassDescription ~> classDescription ])
-		execute explode
+	^ [ :project :package :classDescription | 
+	(project | #NeoJSON) ~ #metacelloProjectSpecIncludesRPackage ~> package.
+	package ~ #rPackageDefinesClassDescription ~> classDescription ]
+		seaQueImaMatch
 ]

@@ -26,6 +26,8 @@ SeaGraEdiDistance >> bestFrom: aSet [
 
 { #category : #building }
 SeaGraEdiDistance >> compute [
+	"https://sci-hub.se/10.1016/j.imavis.2008.04.004"
+
 	| open u1 p |
 	open := Set new.
 	u1 := source nodes anyOne.

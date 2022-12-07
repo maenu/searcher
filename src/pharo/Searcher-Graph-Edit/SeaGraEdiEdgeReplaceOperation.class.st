@@ -1,6 +1,6 @@
 Class {
-	#name : #SeaGraEdiNodeReplaceOperation,
-	#superclass : #SeaGraEdiNodeOperation,
+	#name : #SeaGraEdiEdgeReplaceOperation,
+	#superclass : #SeaGraEdiEdgeOperation,
 	#instVars : [
 		'replacement'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaGraEdiNodeReplaceOperation class >> node: aNode replacement: anotherNode cost: aNumber [
+SeaGraEdiEdgeReplaceOperation class >> node: aNode replacement: anotherNode cost: aNumber [
 	^ self new
 		initializeNode: aNode cost: aNumber;
 		initializeReplacement: anotherNode;
@@ -16,14 +16,14 @@ SeaGraEdiNodeReplaceOperation class >> node: aNode replacement: anotherNode cost
 ]
 
 { #category : #initialization }
-SeaGraEdiNodeReplaceOperation >> initializeReplacement: anotherNode [
+SeaGraEdiEdgeReplaceOperation >> initializeReplacement: anotherNode [
 	self assert: [ replacement isNil ].
 	replacement := anotherNode
 ]
 
 { #category : #printing }
-SeaGraEdiNodeReplaceOperation >> printOn: aStream [
-	node printOn: aStream.
+SeaGraEdiEdgeReplaceOperation >> printOn: aStream [
+	edge printOn: aStream.
 	aStream nextPutAll: '->'.
 	replacement printOn: aStream.
 	aStream nextPutAll: ' '.
@@ -31,11 +31,11 @@ SeaGraEdiNodeReplaceOperation >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-SeaGraEdiNodeReplaceOperation >> sourceOrNil [
-	^ node
+SeaGraEdiEdgeReplaceOperation >> sourceOrNil [
+	^ edge
 ]
 
 { #category : #'as yet unclassified' }
-SeaGraEdiNodeReplaceOperation >> targetOrNil [
+SeaGraEdiEdgeReplaceOperation >> targetOrNil [
 	^ replacement
 ]

@@ -47,6 +47,11 @@ SeaQueEdgeStrategy >> initializeEdge: anEdge [
 	edge := anEdge
 ]
 
+{ #category : #printing }
+SeaQueEdgeStrategy >> printOn: aStream [
+	block printOn: aStream
+]
+
 { #category : #accessing }
 SeaQueEdgeStrategy >> results [
 	self subclassResponsibility

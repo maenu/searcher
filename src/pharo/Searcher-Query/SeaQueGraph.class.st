@@ -1,13 +1,13 @@
 Class {
 	#name : #SeaQueGraph,
-	#superclass : #Object,
+	#superclass : #SeaGraGraph,
 	#traits : 'SeaQueTConstraint',
 	#classTraits : 'SeaQueTConstraint classTrait',
 	#instVars : [
-		'nodes',
-		'edges',
-		'variables',
-		'context'
+		'context',
+		'results',
+		'shouldExecute',
+		'wasExecuted'
 	],
 	#category : #'Searcher-Query'
 }
@@ -32,9 +32,6 @@ SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 { #category : #accessing }
 SeaQueGraph >> execute_ [
 	| entity |
-	self assert: [ self shouldExecute and: [ self canExecute ] ].
-	nodes := nodes flatCollect: #allNodes.
-	edges := nodes flatCollect: #allEdges.
 	[ (entity := self cheapestShouldAndCanExecuteOrNil) isNil ]
 		whileFalse: [ entity traceCr.
 			entity execute.
@@ -55,13 +52,50 @@ SeaQueGraph >> explode [
 	^ SeaGraGraph nodes: map values
 ]
 
+{ #category : #accessing }
+SeaQueGraph >> gtActionExecuteFor: anAction [
+	<gtAction>
+	self canExecute
+		ifFalse: [ ^ anAction ].
+	self wasExecuted
+		ifTrue: [ ^ anAction ].
+	^ anAction explicit
+		stencil: [ BrButton new
+				look: BrGlamorousButtonWithIconLook;
+				icon: BrGlamorousIcons play asElement;
+				action: [ :button | button phlow spawnObject: self execute ] ]
+]
+
+{ #category : #accessing }
+SeaQueGraph >> gtActionExplodeFor: anAction [
+	<gtAction>
+	self wasExecuted
+		ifFalse: [ ^ anAction ].
+	^ anAction explicit
+		stencil: [ BrButton new
+				look: BrGlamorousButtonWithIconLook;
+				icon: BrGlamorousIcons search asElement;
+				action: [ :button | button phlow spawnObject: self explode ] ]
+]
+
+{ #category : #accessing }
+SeaQueGraph >> gtActionStepFor: anAction [
+	<gtAction>
+	self canExecute
+		ifFalse: [ ^ anAction ].
+	self wasExecuted
+		ifTrue: [ ^ anAction ].
+	^ anAction explicit
+		stencil: [ BrButton new
+				look: BrGlamorousButtonWithIconLook;
+				icon: BrGlamorousIcons over asElement;
+				action: [ :button | button phlow spawnObject: self step ] ]
+]
+
 { #category : #'as yet unclassified' }
 SeaQueGraph >> initialize [
 	super initialize.
-	self initializeTConstraint.
-	nodes := Set new.
-	edges := Set new.
-	variables := Dictionary new
+	self initializeTConstraint
 ]
 
 { #category : #initialization }
@@ -70,26 +104,19 @@ SeaQueGraph >> initializeContext: aContext [
 	context := aContext
 ]
 
-{ #category : #initialization }
-SeaQueGraph >> initializeNodes: aSet edges: anotherSet variables: aDictionary [
-	self assert: [ nodes isNil and: [ edges isNil ] ].
-	nodes := aSet.
-	edges := anotherSet.
-	variables := aDictionary
-]
-
 { #category : #'key matching' }
 SeaQueGraph >> match: aBlock [
 	| arguments |
-	arguments := aBlock argumentNames
-		collect: [ :nodeName | self variable: nodeName ].
+	arguments := aBlock numArgs
+		timesCollect: [ SeaQueNode empty: context ].
 	aBlock valueWithArguments: arguments.
-	^ self
+	self initializeNodes: arguments
 ]
 
-{ #category : #generated }
-SeaQueGraph >> variable: aSymbol [
-	^ variables
-		at: '@' , aSymbol
-		ifAbsentPut: [ nodes add: (SeaQueNode empty: context) ]
+{ #category : #accessing }
+SeaQueGraph >> step [
+	self cheapestShouldAndCanExecuteOrNil
+		ifNil: [ shouldExecute := false.
+			wasExecuted := true ]
+		ifNotNil: #execute
 ]

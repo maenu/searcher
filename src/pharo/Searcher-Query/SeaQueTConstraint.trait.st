@@ -27,7 +27,8 @@ SeaQueTConstraint >> cost_ [
 
 { #category : #accessing }
 SeaQueTConstraint >> execute [
-	self assert: [ self shouldExecute and: [ self canExecute ] ].
+	self assert: [ self shouldExecute ].
+	self assert: [ self canExecute ].
 	self execute_.
 	shouldExecute := false.
 	wasExecuted := true

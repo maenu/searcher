@@ -111,10 +111,10 @@ SeaQueNode >> initializeFilter: aBlock [
 { #category : #printing }
 SeaQueNode >> printOn: aStream [
 	aStream
-		nextPutAll: collection class name;
-		nextPutAll: ' ';
+		nextPutAll: collection name;
+		nextPutAll: ' cost: ';
 		nextPutAll: self cost asString;
-		nextPutAll: ' ';
+		nextPutAll: ' results: ';
 		nextPutAll: results size asString
 ]
 
@@ -133,6 +133,15 @@ SeaQueNode >> results: aCollection [
 			self incoming , self outgoing do: [ :e | e shouldExecute: true ] ].
 	wasExecuted := true.
 	shouldExecute := false
+]
+
+{ #category : #accessing }
+SeaQueNode >> seaGraColor [
+	self wasExecuted
+		ifTrue: [ ^ Color blue ].
+	self canExecute
+		ifTrue: [ ^ Color green ].
+	^ Color red
 ]
 
 { #category : #'as yet unclassified' }

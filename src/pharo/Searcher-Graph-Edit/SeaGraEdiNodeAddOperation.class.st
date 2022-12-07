@@ -1,6 +1,6 @@
 Class {
 	#name : #SeaGraEdiNodeAddOperation,
-	#superclass : #SeaGraEdiOperation,
+	#superclass : #SeaGraEdiNodeOperation,
 	#category : #'Searcher-Graph-Edit'
 }
 
