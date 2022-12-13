@@ -1,6 +1,6 @@
 Class {
-	#name : #SeaQueImaRemoteCompilationContext,
-	#superclass : #SeaQueImaCompilationContext,
+	#name : #SeaQueImaRemoteContext,
+	#superclass : #SeaQueImaContext,
 	#instVars : [
 		'remotePeer'
 	],
@@ -8,14 +8,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueImaRemoteCompilationContext class >> remotePeer: aRemotePeer [
+SeaQueImaRemoteContext class >> remotePeer: aRemotePeer [
 	^ self new
 		initializeRemotePeer: aRemotePeer;
 		yourself
 ]
 
 { #category : #initialization }
-SeaQueImaRemoteCompilationContext >> initialize [
+SeaQueImaRemoteContext >> initialize [
 	super initialize.
 	collections
 		at: #classDescription
@@ -67,7 +67,7 @@ SeaQueImaRemoteCompilationContext >> initialize [
 ]
 
 { #category : #initialization }
-SeaQueImaRemoteCompilationContext >> initializeRemotePeer: aRemotePeer [
+SeaQueImaRemoteContext >> initializeRemotePeer: aRemotePeer [
 	self assert: [ remotePeer isNil ].
 	remotePeer := aRemotePeer
 ]

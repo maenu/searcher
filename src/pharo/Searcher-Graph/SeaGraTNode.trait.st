@@ -43,3 +43,19 @@ SeaGraTNode >> outgoing [
 				whenAddedDo: [ :e | self assert: [ e source == self ] ];
 				yourself ]
 ]
+
+{ #category : #accessing }
+SeaGraTNode >> seaGraGtElement [
+	^ BrEditor new
+		fitContent;
+		beReadOnlyWithoutSelection;
+		aptitude: BrGlamorousEditorAptitude;
+		text: self asString;
+		border: self seaGraColor;
+		background: Color white;
+		when: BlClickEvent
+			do: [ :e | 
+				e consumed: true.
+				e target phlow spawnObject: self ];
+		yourself
+]

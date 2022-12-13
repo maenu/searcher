@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 SeaQueImaExamples >> neoJSON [
 	<gtExample>
-	^ ((SeaQueGraph context: SeaQueImaCompilationContext new)
+	^ ((SeaQueGraph context: SeaQueImaContext new)
 	, 'NeoJSON' @ '@project' ~ #metacelloProjectSpecIncludesRPackage ~> '@package'
 	, '@package' ~ #rPackageDefinesClassDescription ~> '@classDescription'
 	", '@package' ~? #rPackageDefinesCompiledMethod ~> '@extensionMethod'
@@ -19,7 +19,7 @@ SeaQueImaExamples >> neoJSON [
 { #category : #'as yet unclassified' }
 SeaQueImaExamples >> neoJSONv2 [
 	<gtExample>
-	^ ((SeaQueGraph context: SeaQueImaCompilationContext new)
+	^ ((SeaQueGraph context: SeaQueImaContext new)
 		match:
 			[ :project :package :classDescription :extensionMethod :superClassDescription :superClassDescriptionPackage :method | 
 			project | #NeoJSON ~ #metacelloProjectSpecIncludesRPackage ~> package.
@@ -37,4 +37,13 @@ SeaQueImaExamples >> neoJSONv2Small [
 	(project | #NeoJSON) ~ #metacelloProjectSpecIncludesRPackage ~> package.
 	package ~ #rPackageDefinesClassDescription ~> classDescription ]
 		seaQueImaMatch
+]
+
+{ #category : #accessing }
+SeaQueImaExamples >> remoteGtSmall [
+	<gtExample>
+	^ [ :project :package :classDescription | 
+	project ~ #metacelloProjectSpecIncludesRPackage
+		~> (package | 'GToolkit-RemoteGt').
+	package ~ #rPackageDefinesClassDescription ~> classDescription ] seaQueImaMatch
 ]

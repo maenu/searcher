@@ -30,12 +30,11 @@ SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 ]
 
 { #category : #accessing }
-SeaQueGraph >> execute_ [
-	| entity |
-	[ (entity := self cheapestShouldAndCanExecuteOrNil) isNil ]
-		whileFalse: [ entity traceCr.
-			entity execute.
-			entity traceCr ]
+SeaQueGraph >> execute [
+	self assert: [ self shouldExecute ].
+	self assert: [ self canExecute ].
+	[ wasExecuted ]
+		whileFalse: [ self step ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -61,7 +60,7 @@ SeaQueGraph >> gtActionExecuteFor: anAction [
 		ifTrue: [ ^ anAction ].
 	^ anAction explicit
 		stencil: [ BrButton new
-				look: BrGlamorousButtonWithIconLook;
+				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons play asElement;
 				action: [ :button | button phlow spawnObject: self execute ] ]
 ]
@@ -73,7 +72,7 @@ SeaQueGraph >> gtActionExplodeFor: anAction [
 		ifFalse: [ ^ anAction ].
 	^ anAction explicit
 		stencil: [ BrButton new
-				look: BrGlamorousButtonWithIconLook;
+				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons search asElement;
 				action: [ :button | button phlow spawnObject: self explode ] ]
 ]
@@ -81,15 +80,15 @@ SeaQueGraph >> gtActionExplodeFor: anAction [
 { #category : #accessing }
 SeaQueGraph >> gtActionStepFor: anAction [
 	<gtAction>
-	self canExecute
-		ifFalse: [ ^ anAction ].
-	self wasExecuted
-		ifTrue: [ ^ anAction ].
-	^ anAction explicit
-		stencil: [ BrButton new
-				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons over asElement;
-				action: [ :button | button phlow spawnObject: self step ] ]
+	self canExecute ifFalse: [ ^ anAction ].
+	self wasExecuted ifTrue: [ ^ anAction ].
+	^ anAction button
+		icon: BrGlamorousIcons over asElement;
+		tooltip: 'Step';
+		priority: 10;
+		action: [ :button :tab | 
+			self step.
+			tab viewContentElement phlow syncUpdate ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -107,8 +106,11 @@ SeaQueGraph >> initializeContext: aContext [
 { #category : #'key matching' }
 SeaQueGraph >> match: aBlock [
 	| arguments |
-	arguments := aBlock numArgs
-		timesCollect: [ SeaQueNode empty: context ].
+	arguments := aBlock argumentNames
+			collect: [ :name | 
+				(SeaQueNode empty: context)
+					data: name;
+					yourself ].
 	aBlock valueWithArguments: arguments.
 	self initializeNodes: arguments
 ]

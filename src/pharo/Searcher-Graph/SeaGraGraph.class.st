@@ -52,7 +52,7 @@ SeaGraGraph >> nodes [
 	^ nodes
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SeaGraGraph >> seaGraGtGraphFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -60,13 +60,15 @@ SeaGraGraph >> seaGraGtGraphFor: aView [
 		priority: 1;
 		painting: [ :m | 
 			m nodes
-				stencil: [ :e | e seaGraGtElement ];
+				stencil: #seaGraGtElement;
 				with: nodes.
 			m edges
-				fromNearestTightCircle;
-				toNearestTightCircle;
-				stencil: [ :e | e seaGraGtElement ];
-				connect: edges from: #source to: #target.
-			m layout force ];
+				stencil: #seaGraGtElement;
+				connect: edges
+					from: #source
+					to: #target.
+			m layout force
+				charge: -1000;
+				length: 300 ];
 		yourself
 ]

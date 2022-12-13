@@ -1,11 +1,11 @@
 Class {
-	#name : #SeaQueImaCompilationContext,
-	#superclass : #SeaQueCompilationContext,
+	#name : #SeaQueImaContext,
+	#superclass : #SeaQueContext,
 	#category : #'Searcher-Query-Image'
 }
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeClassDescriptionDefinesCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeClassDescriptionDefinesCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #classDescription in: aNode.
 	self ensureCollection: #compiledMethod in: anotherNode.
 	^ SeaQueEdge
@@ -13,6 +13,7 @@ SeaQueImaCompilationContext >> edgeClassDescriptionDefinesCompiledMethodSource: 
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #defines
 		strategies:
 			{[ :t | {t methodClass} ] seaQueAsEdgeTargetCollectStrategy.
 			[ :s | s methods ] seaQueAsEdgeSourceCollectStrategy.
@@ -20,8 +21,8 @@ SeaQueImaCompilationContext >> edgeClassDescriptionDefinesCompiledMethodSource: 
 				seaQueAsEdgeSourceTargetSelectStrategy}
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeClassDescriptionImplementsCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeClassDescriptionImplementsCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #classDescription in: aNode.
 	self ensureCollection: #compiledMethod in: anotherNode.
 	^ SeaQueEdge
@@ -29,6 +30,7 @@ SeaQueImaCompilationContext >> edgeClassDescriptionImplementsCompiledMethodSourc
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #implements
 		strategies:
 			{[ :t | t methodClass withAllSubclasses ]
 				seaQueAsEdgeTargetCollectStrategy.
@@ -37,8 +39,8 @@ SeaQueImaCompilationContext >> edgeClassDescriptionImplementsCompiledMethodSourc
 				seaQueAsEdgeSourceTargetSelectStrategy}
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeClassDescriptionSubclassesClassDescriptionSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeClassDescriptionSubclassesClassDescriptionSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #classDescription in: aNode.
 	self ensureCollection: #classDescription in: anotherNode.
 	^ SeaQueEdge
@@ -46,6 +48,7 @@ SeaQueImaCompilationContext >> edgeClassDescriptionSubclassesClassDescriptionSou
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #subclasses
 		strategies:
 			{[ :t | t subclasses ] seaQueAsEdgeTargetCollectStrategy.
 			[ :s | s superclass ifNil: [ {} ] ifNotNil: [ {s superclass} ] ]
@@ -55,7 +58,7 @@ SeaQueImaCompilationContext >> edgeClassDescriptionSubclassesClassDescriptionSou
 ]
 
 { #category : #accessing }
-SeaQueImaCompilationContext >> edgeMessageOrInstanceVariable: aSymbol source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+SeaQueImaContext >> edgeMessageOrInstanceVariable: aSymbol source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self assert: [ aSymbol numArgs <= 1 ].
 	self flag: 'should be added as default?'.
 	aSymbol numArgs = 0
@@ -64,25 +67,25 @@ SeaQueImaCompilationContext >> edgeMessageOrInstanceVariable: aSymbol source: aN
 				optional: aBoolean
 				target: anotherNode
 				optional: anotherBoolean
-				strategies:
-					{[ :s | 
-					(s class canPerform: aSymbol)
-						ifTrue: [ (s perform: aSymbol) asCollection ]
-						ifFalse: [ (s class hasInstVarNamed: aSymbol)
-								ifTrue: [ (s instVarNamed: aSymbol) asCollection ]
-								ifFalse: [ #() ] ] ] seaQueAsEdgeSourceCollectStrategy} ].
+				data: #messageOrInstanceVariable
+				strategies: {[ :s | 
+						(s class canPerform: aSymbol)
+							ifTrue: [ (s perform: aSymbol) asCollection ]
+							ifFalse: [ (s class hasInstVarNamed: aSymbol)
+									ifTrue: [ (s instVarNamed: aSymbol) asCollection ]
+									ifFalse: [ #() ] ] ] seaQueAsEdgeSourceCollectStrategy} ].
 	^ SeaQueEdge
 		source: aNode
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
-		strategies:
-			{[ :s :t | s perform: aSymbol with: t ]
-				seaQueAsEdgeSourceTargetSelectStrategy}
+		data: #messageOrInstanceVariable
+		strategies: {[ :s :t | s perform: aSymbol with: t ]
+					seaQueAsEdgeSourceTargetSelectStrategy}
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeMetacelloProjectSpecIncludesRPackageSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeMetacelloProjectSpecIncludesRPackageSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #metacelloProjectSpec in: aNode.
 	self ensureCollection: #rPackage in: anotherNode.
 	^ SeaQueEdge
@@ -90,13 +93,14 @@ SeaQueImaCompilationContext >> edgeMetacelloProjectSpecIncludesRPackageSource: a
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #includes
 		strategies:
 			{[ :s | s version spec seaQueImaCurrentlyLoadedPackages ]
 				seaQueAsEdgeSourceCollectStrategy}
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeRPackageDefinesClassDescriptionSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeRPackageDefinesClassDescriptionSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #rPackage in: aNode.
 	self ensureCollection: #classDescription in: anotherNode.
 	^ SeaQueEdge
@@ -104,6 +108,7 @@ SeaQueImaCompilationContext >> edgeRPackageDefinesClassDescriptionSource: aNode 
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #defines
 		strategies:
 			{[ :t | {t package} ] seaQueAsEdgeTargetCollectStrategy.
 			[ :s | s definedClasses ] seaQueAsEdgeSourceCollectStrategy.
@@ -111,8 +116,8 @@ SeaQueImaCompilationContext >> edgeRPackageDefinesClassDescriptionSource: aNode 
 				seaQueAsEdgeSourceTargetSelectStrategy}
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueImaCompilationContext >> edgeRPackageDefinesCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueImaContext >> edgeRPackageDefinesCompiledMethodSource: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	self ensureCollection: #rPackage in: aNode.
 	self ensureCollection: #compiledMethod in: anotherNode.
 	^ SeaQueEdge
@@ -120,6 +125,7 @@ SeaQueImaCompilationContext >> edgeRPackageDefinesCompiledMethodSource: aNode op
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: #defines
 		strategies:
 			{[ :t | {t package} ] seaQueAsEdgeTargetCollectStrategy.
 			[ :s | s methods ] seaQueAsEdgeSourceCollectStrategy.
@@ -128,7 +134,7 @@ SeaQueImaCompilationContext >> edgeRPackageDefinesCompiledMethodSource: aNode op
 ]
 
 { #category : #initialization }
-SeaQueImaCompilationContext >> initialize [
+SeaQueImaContext >> initialize [
 	super initialize.
 	collections
 		at: #classDescription

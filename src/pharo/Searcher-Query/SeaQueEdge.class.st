@@ -1,8 +1,11 @@
+"
+nil
+"
 Class {
 	#name : #SeaQueEdge,
-	#superclass : #Object,
-	#traits : 'SeaGraTEdge + SeaQueTConstraint',
-	#classTraits : 'SeaGraTEdge classTrait + SeaQueTConstraint classTrait',
+	#superclass : #SeaGraDataEdge,
+	#traits : 'SeaQueTConstraint',
+	#classTraits : 'SeaQueTConstraint classTrait',
 	#instVars : [
 		'strategies',
 		'sourceOptional',
@@ -11,25 +14,14 @@ Class {
 	#category : #'Searcher-Query'
 }
 
-{ #category : #compiling }
-SeaQueEdge class >> compileSource: aNodePart optional: aBoolean target: anotherNodePart optional: anotherBoolean in: aContext [
-	self subclassResponsibility
-]
-
-{ #category : #compiling }
-SeaQueEdge class >> source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean strategies: aCollection [
+{ #category : #accessing }
+SeaQueEdge class >> source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean data: anObject strategies: aCollection [
 	^ self new
 		initializeSource: aNode target: anotherNode;
 		initializeSourceOptional: aBoolean
 			targetOptional: anotherBoolean
 			strategies: aCollection;
-		yourself
-]
-
-{ #category : #accessing }
-SeaQueEdge class >> source: aNode target: anotherNode [
-	^ self new
-		initializeSource: aNode target: anotherNode;
+		data: anObject;
 		yourself
 ]
 
@@ -44,14 +36,20 @@ SeaQueEdge >> cheapestCanExecuteStrategy [
 		sorted: [ :a :b | a cost < b cost ]) first
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueEdge >> cost_ [
-	^ self cheapestCanExecuteStrategy cost
+{ #category : #accessing }
+SeaQueEdge >> cost [
+	^ wasExecuted
+		ifTrue: [ results size ]
+		ifFalse: [ self cheapestCanExecuteStrategy cost ]
 ]
 
 { #category : #accessing }
-SeaQueEdge >> execute_ [
-	self cheapestCanExecuteStrategy execute
+SeaQueEdge >> execute [
+	self assert: [ self shouldExecute ].
+	self assert: [ self canExecute ].
+	self cheapestCanExecuteStrategy execute.
+	shouldExecute := false.
+	wasExecuted := true
 ]
 
 { #category : #'as yet unclassified' }
@@ -81,14 +79,13 @@ SeaQueEdge >> initializeSourceOptional: aBoolean targetOptional: anotherBoolean 
 
 { #category : #printing }
 SeaQueEdge >> printOn: aStream [
+	super printOn: aStream.
 	aStream
+		lf;
 		nextPutAll: 'cost: ';
-		nextPutAll:
-			(strategies
-				detect: #canExecute
-				ifFound: [ self cost asString ]
-				ifNone: 'cannot execute');
-		nextPutAll: ' results: ';
+		nextPutAll: (self canExecute ifTrue: [ self cost asString ] ifFalse: 'cannot execute');
+		lf;
+		nextPutAll: 'results: ';
 		nextPutAll: results size asString
 ]
 

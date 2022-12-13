@@ -1,8 +1,11 @@
+"
+nil
+"
 Class {
 	#name : #SeaQueNode,
-	#superclass : #Object,
-	#traits : 'SeaGraTNode + SeaQueTConstraint',
-	#classTraits : 'SeaGraTNode classTrait + SeaQueTConstraint classTrait',
+	#superclass : #SeaGraDataNode,
+	#traits : 'SeaQueTConstraint',
+	#classTraits : 'SeaQueTConstraint classTrait',
 	#instVars : [
 		'collection',
 		'filter',
@@ -67,14 +70,18 @@ SeaQueNode >> collection: aCollection [
 	shouldExecute := true
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueNode >> cost_ [
-	^ collection size
+{ #category : #accessing }
+SeaQueNode >> cost [
+	^ wasExecuted ifTrue: [ results size ] ifFalse: [ collection size ]
 ]
 
 { #category : #accessing }
-SeaQueNode >> execute_ [
-	self results: (self results select: [ :e | self includes: e ])
+SeaQueNode >> execute [
+	self assert: [ self shouldExecute ].
+	self assert: [ self canExecute ].
+	self results: (self results select: [ :e | self includes: e ]).
+	shouldExecute := false.
+	wasExecuted := true
 ]
 
 { #category : #'as yet unclassified' }
@@ -110,11 +117,15 @@ SeaQueNode >> initializeFilter: aBlock [
 
 { #category : #printing }
 SeaQueNode >> printOn: aStream [
+	super printOn: aStream.
 	aStream
+		lf;
 		nextPutAll: collection name;
-		nextPutAll: ' cost: ';
+		lf;
+		nextPutAll: 'cost: ';
 		nextPutAll: self cost asString;
-		nextPutAll: ' results: ';
+		lf;
+		nextPutAll: 'results: ';
 		nextPutAll: results size asString
 ]
 
@@ -133,15 +144,6 @@ SeaQueNode >> results: aCollection [
 			self incoming , self outgoing do: [ :e | e shouldExecute: true ] ].
 	wasExecuted := true.
 	shouldExecute := false
-]
-
-{ #category : #accessing }
-SeaQueNode >> seaGraColor [
-	self wasExecuted
-		ifTrue: [ ^ Color blue ].
-	self canExecute
-		ifTrue: [ ^ Color green ].
-	^ Color red
 ]
 
 { #category : #'as yet unclassified' }

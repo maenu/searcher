@@ -1,5 +1,5 @@
 Class {
-	#name : #SeaQueCompilationContext,
+	#name : #SeaQueContext,
 	#superclass : #Object,
 	#instVars : [
 		'collections'
@@ -8,22 +8,23 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SeaQueCompilationContext >> collectionAt: aString [
+SeaQueContext >> collectionAt: aString [
 	^ collections at: aString
 ]
 
-{ #category : #'as yet unclassified' }
-SeaQueCompilationContext >> edgeBlock: aBlock source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
+{ #category : #accessing }
+SeaQueContext >> edgeBlock: aBlock source: aNode optional: aBoolean target: anotherNode optional: anotherBoolean [
 	^ SeaQueEdge
 		source: aNode
 		optional: aBoolean
 		target: anotherNode
 		optional: anotherBoolean
+		data: aBlock
 		strategies: {aBlock seaQueAsEdgeSourceCollectStrategy}
 ]
 
 { #category : #'as yet unclassified' }
-SeaQueCompilationContext >> ensureCollection: aSymbol in: aNode [
+SeaQueContext >> ensureCollection: aSymbol in: aNode [
 	self
 		assert: [ {aSymbol.
 			#custom.
@@ -33,7 +34,7 @@ SeaQueCompilationContext >> ensureCollection: aSymbol in: aNode [
 ]
 
 { #category : #initialization }
-SeaQueCompilationContext >> initialize [
+SeaQueContext >> initialize [
 	super initialize.
 	collections := Dictionary new
 ]

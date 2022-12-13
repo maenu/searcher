@@ -2,5 +2,5 @@ Extension { #name : #BlockClosure }
 
 { #category : #'*Searcher-Query-Image' }
 BlockClosure >> seaQueImaMatch [
-	^ (SeaQueGraph context: SeaQueImaCompilationContext new) match: self
+	^ (SeaQueGraph context: SeaQueImaContext new) match: self
 ]

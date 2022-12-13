@@ -13,29 +13,13 @@ SeaQueTConstraint >> canExecute [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SeaQueTConstraint >> cost [
-	^ wasExecuted
-		ifTrue: [ results size ]
-		ifFalse: [ self cost_ ]
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueTConstraint >> cost_ [
-	^ Float infinity
+	^ wasExecuted ifTrue: [ results size ] ifFalse: [ Float infinity ]
 ]
 
 { #category : #accessing }
 SeaQueTConstraint >> execute [
-	self assert: [ self shouldExecute ].
-	self assert: [ self canExecute ].
-	self execute_.
-	shouldExecute := false.
-	wasExecuted := true
-]
-
-{ #category : #accessing }
-SeaQueTConstraint >> execute_ [
 	self subclassResponsibility
 ]
 
@@ -49,6 +33,15 @@ SeaQueTConstraint >> initializeTConstraint [
 { #category : #testing }
 SeaQueTConstraint >> results [
 	^ results
+]
+
+{ #category : #accessing }
+SeaQueTConstraint >> seaGraColor [
+	self wasExecuted
+		ifTrue: [ ^ Color blue ].
+	self canExecute
+		ifTrue: [ ^ Color green ].
+	^ Color red
 ]
 
 { #category : #testing }
