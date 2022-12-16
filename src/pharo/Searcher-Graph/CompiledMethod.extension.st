@@ -1,6 +1,6 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*Searcher-Graph' }
-CompiledMethod >> seaGraColor [
+CompiledMethod >> seaGraAsColor [
 	^ Color red
 ]

@@ -1,15 +1,20 @@
 Extension { #name : #Object }
 
 { #category : #'*Searcher-Graph' }
-Object >> seaGraColor [
+Object >> seaGraAsColor [
 	^ Color black
 ]
 
 { #category : #'*Searcher-Graph' }
-Object >> seaGraGtElement [
+Object >> seaGraAsElement [
 	^ BlElement new
-		geometry: BlCircle new;
+		geometry: BlCircleGeometry new;
 		size: 5 @ 5;
-		background: self seaGraColor;
+		background: self seaGraAsColor;
 		yourself
+]
+
+{ #category : #'*Searcher-Graph' }
+Object >> seaGraAsString [
+	^ self asString
 ]

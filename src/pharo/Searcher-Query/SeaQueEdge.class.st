@@ -1,6 +1,3 @@
-"
-nil
-"
 Class {
 	#name : #SeaQueEdge,
 	#superclass : #SeaGraDataEdge,
@@ -43,23 +40,6 @@ SeaQueEdge >> cost [
 		ifFalse: [ self cheapestCanExecuteStrategy cost ]
 ]
 
-{ #category : #accessing }
-SeaQueEdge >> execute [
-	self assert: [ self shouldExecute ].
-	self assert: [ self canExecute ].
-	self cheapestCanExecuteStrategy execute.
-	shouldExecute := false.
-	wasExecuted := true
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueEdge >> explode: anObject with: aDictionary [
-	^ SeaGraDataEdge
-		source: (aDictionary at: anObject key)
-		target: (aDictionary at: anObject value)
-		data: anObject
-]
-
 { #category : #initialization }
 SeaQueEdge >> initialize [
 	super initialize.
@@ -90,8 +70,14 @@ SeaQueEdge >> printOn: aStream [
 ]
 
 { #category : #accessing }
+SeaQueEdge >> privateExecute [
+	self cheapestCanExecuteStrategy execute
+]
+
+{ #category : #accessing }
 SeaQueEdge >> results: aCollection [
-	results := aCollection
+	results := aCollection.
+	announcer announce: SeaGraChanged new
 ]
 
 { #category : #accessing }

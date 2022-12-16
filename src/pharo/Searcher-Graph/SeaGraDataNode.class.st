@@ -37,12 +37,23 @@ SeaGraDataNode >> hash [
 	^ data hash
 ]
 
+{ #category : #initialization }
+SeaGraDataNode >> initialize [
+	super initialize.
+	self initializeTNode
+]
+
 { #category : #printing }
 SeaGraDataNode >> printOn: aStream [
-	data printOn: aStream
+	aStream nextPutAll: data asString
 ]
 
 { #category : #'as yet unclassified' }
-SeaGraDataNode >> seaGraColor [
-	^ data seaGraColor
+SeaGraDataNode >> seaGraAsColor [
+	^ data seaGraAsColor
+]
+
+{ #category : #accessing }
+SeaGraDataNode >> seaGraAsString [
+	^ data seaGraAsString
 ]

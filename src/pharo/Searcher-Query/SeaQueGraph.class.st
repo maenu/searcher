@@ -30,70 +30,81 @@ SeaQueGraph >> cheapestShouldAndCanExecuteOrNil [
 ]
 
 { #category : #accessing }
-SeaQueGraph >> execute [
-	self assert: [ self shouldExecute ].
-	self assert: [ self canExecute ].
-	[ wasExecuted ]
-		whileFalse: [ self step ].
-]
-
-{ #category : #'as yet unclassified' }
 SeaQueGraph >> explode [
 	| map |
 	map := IdentityDictionary new.
 	nodes
-		do:
-			[ :e | e results do: [ :f | map at: f ifAbsentPut: [ e explode: f ] ] ].
+		do: [ :e | e results do: [ :f | map at: f ifAbsentPut: [ SeaGraDataNode data: f ] ] ].
 	edges
 		do: [ :e | 
 			e results
-				do: [ :f | e explode: f with: map ] ].
+				do: [ :f | 
+					SeaGraDataEdge
+						source: (map at: f key)
+						target: (map at: f value)
+						data: e data ] ].
 	^ SeaGraGraph nodes: map values
 ]
 
 { #category : #accessing }
 SeaQueGraph >> gtActionExecuteFor: anAction [
 	<gtAction>
-	self canExecute
-		ifFalse: [ ^ anAction ].
-	self wasExecuted
-		ifTrue: [ ^ anAction ].
 	^ anAction explicit
-		stencil: [ BrButton new
-				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons play asElement;
-				action: [ :button | button phlow spawnObject: self execute ] ]
+		priority: 11;
+		stencil: [ | element |
+			element := BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude new
+							+ (GtPhlowLabelTooltipAptitude new text: 'Execute');
+					icon: BrGlamorousIcons play asElement;
+					action: [ self execute ];
+					enabled: self canExecute & wasExecuted not;
+					yourself.
+			announcer
+				when: SeaGraChanged
+				do: [ element enabled: self canExecute & wasExecuted not ].
+			element ]
 ]
 
 { #category : #accessing }
 SeaQueGraph >> gtActionExplodeFor: anAction [
 	<gtAction>
-	self wasExecuted
-		ifFalse: [ ^ anAction ].
 	^ anAction explicit
-		stencil: [ BrButton new
-				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons search asElement;
-				action: [ :button | button phlow spawnObject: self explode ] ]
+		priority: 12;
+		stencil: [ | element |
+			element := BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude new
+							+ (GtPhlowLabelTooltipAptitude new text: 'Explode');
+					icon: BrGlamorousIcons search asElement;
+					action: [ :button | button phlow spawnObject: self explode ];
+					enabled: wasExecuted;
+					yourself.
+			announcer when: SeaGraChanged do: [ element enabled: wasExecuted ].
+			element ]
 ]
 
 { #category : #accessing }
 SeaQueGraph >> gtActionStepFor: anAction [
 	<gtAction>
-	self canExecute ifFalse: [ ^ anAction ].
-	self wasExecuted ifTrue: [ ^ anAction ].
-	^ anAction button
-		icon: BrGlamorousIcons over asElement;
-		tooltip: 'Step';
+	^ anAction explicit
 		priority: 10;
-		action: [ :button :tab | 
-			self step.
-			tab viewContentElement phlow syncUpdate ]
+		stencil: [ | element |
+			element := BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude new
+							+ (GtPhlowLabelTooltipAptitude new text: 'Execute');
+					icon: BrGlamorousIcons over asElement;
+					action: [ self step ];
+					enabled: self canExecute & wasExecuted not;
+					yourself.
+			announcer
+				when: SeaGraChanged
+				do: [ element enabled: self canExecute & wasExecuted not ].
+			element ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SeaQueGraph >> initialize [
 	super initialize.
+	self initializeTEntity.
 	self initializeTConstraint
 ]
 
@@ -116,9 +127,15 @@ SeaQueGraph >> match: aBlock [
 ]
 
 { #category : #accessing }
+SeaQueGraph >> privateExecute [
+	[ wasExecuted ] whileFalse: [ self step ]
+]
+
+{ #category : #accessing }
 SeaQueGraph >> step [
 	self cheapestShouldAndCanExecuteOrNil
 		ifNil: [ shouldExecute := false.
 			wasExecuted := true ]
-		ifNotNil: #execute
+		ifNotNil: #execute.
+	announcer announce: SeaGraChanged new
 ]

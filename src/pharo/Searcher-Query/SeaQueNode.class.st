@@ -1,6 +1,3 @@
-"
-nil
-"
 Class {
 	#name : #SeaQueNode,
 	#superclass : #SeaGraDataNode,
@@ -75,20 +72,6 @@ SeaQueNode >> cost [
 	^ wasExecuted ifTrue: [ results size ] ifFalse: [ collection size ]
 ]
 
-{ #category : #accessing }
-SeaQueNode >> execute [
-	self assert: [ self shouldExecute ].
-	self assert: [ self canExecute ].
-	self results: (self results select: [ :e | self includes: e ]).
-	shouldExecute := false.
-	wasExecuted := true
-]
-
-{ #category : #'as yet unclassified' }
-SeaQueNode >> explode: anObject [
-	^ SeaGraDataNode data: anObject
-]
-
 { #category : #testing }
 SeaQueNode >> includes: anObject [
 	^ wasExecuted not or: [ results includes: anObject ]
@@ -129,6 +112,13 @@ SeaQueNode >> printOn: aStream [
 		nextPutAll: results size asString
 ]
 
+{ #category : #accessing }
+SeaQueNode >> privateExecute [
+	self results: (self results select: [ :e | self includes: e ]).
+	shouldExecute := false.
+	wasExecuted := true
+]
+
 { #category : #testing }
 SeaQueNode >> results [
 	^ wasExecuted
@@ -143,7 +133,13 @@ SeaQueNode >> results: aCollection [
 			results := aCollection.
 			self incoming , self outgoing do: [ :e | e shouldExecute: true ] ].
 	wasExecuted := true.
-	shouldExecute := false
+	shouldExecute := false.
+	announcer announce: SeaGraChanged new
+]
+
+{ #category : #accessing }
+SeaQueNode >> seaGraAsString [
+	^ self asString
 ]
 
 { #category : #'as yet unclassified' }

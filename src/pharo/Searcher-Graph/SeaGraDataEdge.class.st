@@ -48,5 +48,5 @@ SeaGraDataEdge >> hash [
 
 { #category : #printing }
 SeaGraDataEdge >> printOn: aStream [
-	data printOn: aStream
+	aStream nextPutAll: data asString
 ]

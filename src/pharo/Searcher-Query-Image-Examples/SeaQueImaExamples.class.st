@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #accessing }
+SeaQueImaExamples >> fixBrokenMetacello [
+	<gtExample>
+	BaselineOfTaskIt
+		compile: ((BaselineOfTaskIt >> #baselineForCommon:) sourceCode
+				copyReplaceAll: 'minimal'
+				with: 'default').
+	MetacelloProjectRegistration primeRegistryFromImage.
+	^ (SeaQueImaContext new collectionAt: #metacelloProjectSpec) objects
+]
+
+{ #category : #accessing }
 SeaQueImaExamples >> neoJSON [
 	<gtExample>
 	^ ((SeaQueGraph context: SeaQueImaContext new)
@@ -44,6 +55,6 @@ SeaQueImaExamples >> remoteGtSmall [
 	<gtExample>
 	^ [ :project :package :classDescription | 
 	project ~ #metacelloProjectSpecIncludesRPackage
-		~> (package | 'GToolkit-RemoteGt').
+		~> (package | 'GToolkit-Gleam').
 	package ~ #rPackageDefinesClassDescription ~> classDescription ] seaQueImaMatch
 ]

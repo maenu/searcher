@@ -1,6 +1,6 @@
 Extension { #name : #ClassDescription }
 
 { #category : #'*Searcher-Graph' }
-ClassDescription >> seaGraColor [
+ClassDescription >> seaGraAsColor [
 	^ Color green
 ]

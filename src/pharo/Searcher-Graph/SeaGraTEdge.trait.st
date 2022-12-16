@@ -4,6 +4,8 @@ Trait {
 		'source',
 		'target'
 	],
+	#traits : 'SeaGraTEntity',
+	#classTraits : 'SeaGraTEntity classTrait',
 	#category : #'Searcher-Graph'
 }
 
@@ -15,18 +17,15 @@ SeaGraTEdge classSide >> source: aNode target: anotherNode [
 ]
 
 { #category : #enumerating }
-SeaGraTEdge >> allEdges [
-	^ source allEdges
-]
-
-{ #category : #enumerating }
 SeaGraTEdge >> allNodes [
 	^ source allNodes
 ]
 
 { #category : #accessing }
 SeaGraTEdge >> initializeSource: aNode target: anotherNode [
-	self assert: [ source isNil and: [ target isNil ] ].
+	self assert: [ source isNil ].
+	self assert: [ target isNil ].
+	self initializeTEntity.
 	source := aNode.
 	target := anotherNode.
 	aNode outgoing add: self.
@@ -34,38 +33,44 @@ SeaGraTEdge >> initializeSource: aNode target: anotherNode [
 ]
 
 { #category : #accessing }
-SeaGraTEdge >> seaGraGtElement [
-	^ BlParabollaArcElement new
-		layout: BlFrameLayout new;
-		zIndex: -1;
-		clipChildren: false;
-		curvatureFraction: 0.33;
-		border: (BlBorder builder
-				paint: self seaGraColor;
-				width: 1;
-				build);
-		toHead: (BlArrowheadTriangle new
-				scale: 2;
-				border: (BlBorder builder
-						paint: self seaGraColor;
-						width: 1;
-						build);
-				background: self seaGraColor;
-				yourself);
-		addChild: (BrEditor new
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ];
-				beReadOnlyWithoutSelection;
-				fitContent;
-				aptitude: BrGlamorousEditorAptitude;
-				text: self asString;
-				when: BlClickEvent
-					do: [ :e | 
-						e consumed: true.
-						e target phlow spawnObject: self ];
-				yourself);
-		yourself
+SeaGraTEdge >> seaGraAsElement [
+	| element |
+	element := BlParabollaArcElement new
+			layout: BlFrameLayout new;
+			zIndex: -1;
+			clipChildren: false;
+			curvatureFraction: 0.25;
+			border: self seaGraAsColor;
+			toHead: (BlArrowheadTriangle new
+					scale: 4;
+					border: self seaGraAsColor;
+					background: self seaGraAsColor;
+					yourself);
+			addChild: (BrEditor new
+					constraintsDo: [ :c | 
+						c maxWidth: 200.
+						c maxHeight: 200.
+						c horizontal fitContent.
+						c vertical fitContent.
+						c frame horizontal alignCenter.
+						c frame vertical alignCenter ];
+					beReadOnlyWithoutSelection;
+					aptitude: BrGlamorousEditorAptitude;
+					text: self seaGraAsString;
+					when: BlClickEvent
+						do: [ :e | 
+							e consumed: true.
+							e target phlow spawnObject: self ];
+					yourself);
+			yourself.
+	announcer
+		when: SeaGraChanged
+		do: [ element border: self seaGraAsColor.
+			element children last text: self seaGraAsString.
+			element toHead
+				border: self seaGraAsColor;
+				background: self seaGraAsColor ].
+	^ element
 ]
 
 { #category : #accessing }

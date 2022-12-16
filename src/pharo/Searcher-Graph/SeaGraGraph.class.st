@@ -29,7 +29,7 @@ SeaGraGraph >> gtInspectorGraphFor: aComposite [
 			b := RTMondrian new.
 			b shape circle
 				size: 30;
-				color: #seaGraColor.
+				color: #seaGraAsColor.
 			b nodes: nodes.
 			b shape arrowedBezier
 				color: (Color gray alpha: 0.5);
@@ -60,10 +60,10 @@ SeaGraGraph >> seaGraGtGraphFor: aView [
 		priority: 1;
 		painting: [ :m | 
 			m nodes
-				stencil: #seaGraGtElement;
+				stencil: #seaGraAsElement;
 				with: nodes.
 			m edges
-				stencil: #seaGraGtElement;
+				stencil: #seaGraAsElement;
 				connect: edges
 					from: #source
 					to: #target.

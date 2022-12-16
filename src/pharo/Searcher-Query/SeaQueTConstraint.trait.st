@@ -5,6 +5,8 @@ Trait {
 		'shouldExecute',
 		'wasExecuted'
 	],
+	#traits : 'SeaGraTEntity',
+	#classTraits : 'SeaGraTEntity classTrait',
 	#category : #'Searcher-Query'
 }
 
@@ -20,7 +22,12 @@ SeaQueTConstraint >> cost [
 
 { #category : #accessing }
 SeaQueTConstraint >> execute [
-	self subclassResponsibility
+	self assert: [ self shouldExecute ].
+	self assert: [ self canExecute ].
+	self privateExecute.
+	shouldExecute := false.
+	wasExecuted := true.
+	announcer announce: SeaGraChanged new
 ]
 
 { #category : #initialization }
@@ -30,13 +37,18 @@ SeaQueTConstraint >> initializeTConstraint [
 	wasExecuted := false
 ]
 
+{ #category : #accessing }
+SeaQueTConstraint >> privateExecute [
+	self explicitRequirement
+]
+
 { #category : #testing }
 SeaQueTConstraint >> results [
 	^ results
 ]
 
 { #category : #accessing }
-SeaQueTConstraint >> seaGraColor [
+SeaQueTConstraint >> seaGraAsColor [
 	self wasExecuted
 		ifTrue: [ ^ Color blue ].
 	self canExecute
@@ -51,7 +63,8 @@ SeaQueTConstraint >> shouldExecute [
 
 { #category : #accessing }
 SeaQueTConstraint >> shouldExecute: aBoolean [
-	shouldExecute := aBoolean
+	shouldExecute := aBoolean.
+	announcer announce: SeaGraChanged new
 ]
 
 { #category : #accessing }
